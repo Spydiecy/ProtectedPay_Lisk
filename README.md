@@ -167,14 +167,14 @@ ProtectedPay prioritizes security at every level:
     <tr>
       <td>Native Transfers</td>
       <td><img src="/public/chains/xrpl.png" width="20"> XRPL EVM Sidechain Testnet</td>
-      <td><code>To be provided</code></td>
-      <td>⏳ Pending</td>
+      <td><code>0xCa36dD890F987EDcE1D6D7C74Fb9df627c216BF6</code></td>
+      <td>✅ Active</td>
     </tr>
     <tr>
       <td>Token Transfers</td>
       <td><img src="/public/chains/xrpl.png" width="20"> XRPL EVM Sidechain Testnet</td>
-      <td><code>To be provided</code></td>
-      <td>⏳ Pending</td>
+      <td><code>0x5bA4CB3929C75DF47B8b5E6ca6c7414a5E1a3DB0</code></td>
+      <td>✅ Active</td>
     </tr>
   </table>
 </div>
