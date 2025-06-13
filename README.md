@@ -23,7 +23,7 @@
 
 ### 🛡️ Protected Transfers on XRPL EVM Sidechain
 
-<img align="right" src="https://github.com/user-attachments/assets/c5c1630d-0ace-4a95-a0ab-075d00605311" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/a59d35bc-e1f0-4b5f-86d5-d2acded44b95" width="350px">
 
 - **Escrow-Like Protection**: Funds remain secure until claimed by recipient
 - **Refundable Transfers**: Easily recover funds if sent to the wrong address
@@ -37,7 +37,7 @@
 
 ### 👥 Group Payments
 
-<img align="right" src="https://github.com/user-attachments/assets/26daca67-e41d-49ea-8203-369f8afc9249" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/e5939f0e-4b84-483a-b981-81a24459053b" width="350px">
 
 - **Split Expenses Easily**: Divide costs among friends or colleagues
 - **Simple Contributors**: Accept payments from any XRPL user
@@ -50,7 +50,7 @@
 
 ### 💰 Savings Pots
 
-<img align="right" src="https://github.com/user-attachments/assets/ec386240-4093-4c25-bb63-21d6ede14e5c" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/644e5621-61c2-4e9c-b999-4d2d81ccde1e" width="350px">
 
 - **Goal-Based Savings**: Set targets and track progress visually
 - **XRPL-Optimized**: Create dedicated savings on the XRPL EVM Sidechain
@@ -74,7 +74,7 @@
 - **Instant Recognition**: Fast processing of payment information
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/f09258a5-936c-4162-bf56-9a89835fdfe2" width="400px">
+  <img src="https://github.com/user-attachments/assets/d6999d69-4b19-45c2-8b96-64ae1f0e0371" width="400px">
 </div>
 
 <br clear="right"/>
@@ -92,7 +92,7 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 </div>
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/67edf085-97a7-443b-8f9b-48eb8351890f" width="700px">
+  <img src="https://github.com/user-attachments/assets/6d5703bf-85b4-40d5-9fe8-535e15c74974" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
@@ -120,7 +120,7 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 ## 💻 User Interface
 
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/9dc7d205-f19f-4893-8e97-ff2918cd9708" width="700px">
+  <img src="https://github.com/user-attachments/assets/f6482374-01d1-460f-a1f1-9c757106fead" width="700px">
   <p><i>Modern, intuitive interface with glassmorphism design</i></p>
 </div>
 
@@ -134,7 +134,7 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 ### Dashboard Experience
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/7fbe5d00-b6e7-479d-9949-a4e9ef90e962" width="700px">
+  <img src="https://github.com/user-attachments/assets/56f1ea29-9304-44d7-b8cf-463bdb90c25b" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
