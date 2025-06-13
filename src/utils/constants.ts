@@ -55,7 +55,7 @@ export const SUPPORTED_TOKENS = [
   {
     address: '0x61F16049EBdC3BB505b0dBeeb31DE09C3AEf53f7',
     symbol: 'RLUSD',
-    name: 'Reliable USD',
+    name: 'Ripple  USD',
     decimals: 6,
     logo: '/chains/rlusd.png',
     isNative: false
