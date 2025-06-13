@@ -3,9 +3,9 @@
 <div align="center">
   <img src="https://github.com/user-attachments/assets/eb3dbd55-6522-4d3b-b6f9-6ec63157e565" alt="ProtectedPay Logo" width="650px">
   
-  <h3>Smart. Secure Crypto Transfers on The Root Network</h3>
+  <h3>Smart. Secure Crypto Transfers on XRPL EVM Sidechain</h3>
   
-  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built exclusively for The Root Network (TRN) blockchain.</p>
+  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built exclusively for the XRPL EVM Sidechain.</p>
 </div>
 
 ## 📋 Contents
@@ -21,7 +21,7 @@
 
 ## ✨ Features
 
-### 🛡️ Protected Transfers on The Root Network
+### 🛡️ Protected Transfers on XRPL EVM Sidechain
 
 <img align="right" src="https://github.com/user-attachments/assets/c5c1630d-0ace-4a95-a0ab-075d00605311" width="350px">
 
@@ -31,7 +31,7 @@
 - **Customizable Remarks**: Add notes to help identify your transfers
 - **QR Integration**: Scan to pay functionality for quick transfers
 - **Transaction Privacy**: Keep your transfer details confidential
-- **TRN-Native Speed**: Benefit from The Root Network's ultra-fast transaction finality
+- **XRPL-Native Speed**: Benefit from the XRPL EVM Sidechain's ultra-fast transaction finality
 
 <br clear="right"/>
 
@@ -40,7 +40,7 @@
 <img align="right" src="https://github.com/user-attachments/assets/26daca67-e41d-49ea-8203-369f8afc9249" width="350px">
 
 - **Split Expenses Easily**: Divide costs among friends or colleagues
-- **Simple Contributors**: Accept payments from any TRN user
+- **Simple Contributors**: Accept payments from any XRPL user
 - **Automatic Distribution**: Funds released when target amount is reached
 - **Real-Time Tracking**: Monitor contributions as they happen
 - **Transparent History**: View all group payment activity
@@ -53,11 +53,11 @@
 <img align="right" src="https://github.com/user-attachments/assets/ec386240-4093-4c25-bb63-21d6ede14e5c" width="350px">
 
 - **Goal-Based Savings**: Set targets and track progress visually
-- **TRN-Optimized**: Create dedicated savings on The Root Network
+- **XRPL-Optimized**: Create dedicated savings on the XRPL EVM Sidechain
 - **Flexible Contributions**: Add funds on your own schedule
 - **Emergency Access**: Withdraw when needed without penalties
 - **Purpose Tracking**: Organize savings by specific goals or needs
-- **Yield Earning**: Option to earn yield on your savings, increasing TRN TVL
+- **Yield Earning**: Option to earn yield on your savings, increasing XRPL TVL
 - **Progress Visualization**: Watch your savings grow in real-time
 
 <br clear="right"/>
@@ -81,12 +81,12 @@
 
 ## 🔗 Supported Networks
 
-ProtectedPay is built exclusively for The Root Network (TRN) blockchain ecosystem, delivering optimized functionality on the Porcini testnet environment.
+ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosystem, delivering optimized functionality on the testnet environment.
 
 <div align="left">
   <table>
     <tr>
-      <td align="center"><img src="/public/chains/trn.png" width="70px"><br><b>Root Network Porcini (Testnet)</b></td>
+      <td align="center"><img src="/public/chains/xrpl.png" width="70px"><br><b>XRPL EVM Sidechain Testnet</b></td>
     </tr>
   </table>
 </div>
@@ -100,7 +100,7 @@ ProtectedPay is built exclusively for The Root Network (TRN) blockchain ecosyste
 
 ### Protected Transfers in 3 Simple Steps
 
-1. **Connect Your Wallet**: Connect your TRN-compatible wallet to ProtectedPay
+1. **Connect Your Wallet**: Connect your XRPL-compatible wallet to ProtectedPay
 2. **Enter Details**: Specify recipient (username, address, or QR scan) and amount
 3. **Confirm & Send**: The recipient securely claims funds when ready, or you can refund if needed
 
@@ -112,9 +112,9 @@ ProtectedPay is built exclusively for The Root Network (TRN) blockchain ecosyste
 
 ### Smart Savings Pots
 
-1. **Set Goals**: Set your savings target on The Root Network
+1. **Set Goals**: Set your savings target on the XRPL EVM Sidechain
 2. **Contribute**: Add funds at your own pace with real-time progress tracking
-3. **Yield Option**: Opt to earn yield on your savings, helping grow both your funds and TRN's TVL
+3. **Yield Option**: Opt to earn yield on your savings, helping grow both your funds and XRPL's TVL
 4. **Flexible Access**: Withdraw partially or completely whenever needed
 
 ## 💻 User Interface
@@ -126,7 +126,7 @@ ProtectedPay is built exclusively for The Root Network (TRN) blockchain ecosyste
 
 ### Design Philosophy
 
-- **TRN-Inspired**: UI themes designed to match The Root Network's branding
+- **XRPL-Inspired**: UI themes designed to match the XRPL EVM Sidechain's branding
 - **Glassmorphism**: Modern, clean aesthetics with depth and transparency
 - **Responsive Layout**: Perfect experience on any device
 - **Intuitive Navigation**: Easily access all features with minimal learning curve
@@ -147,7 +147,7 @@ ProtectedPay is built exclusively for The Root Network (TRN) blockchain ecosyste
 
 ProtectedPay prioritizes security at every level:
 
-- **Smart Contract Safety**: TRN-optimized contracts with rigorous security measures
+- **Smart Contract Safety**: XRPL-optimized contracts with rigorous security measures
 - **Non-Custodial Architecture**: Users always maintain control of their funds
 - **Protected Transfers**: Built-in escrow functionality keeps funds secure
 - **QR Verification**: Thorough validation of all scanned payment codes
@@ -166,15 +166,15 @@ ProtectedPay prioritizes security at every level:
     </tr>
     <tr>
       <td>Native Transfers</td>
-      <td><img src="/public/chains/trn.png" width="20"> Root Network Porcini (Testnet)</td>
-      <td><code>0xCa36dD890F987EDcE1D6D7C74Fb9df627c216BF6</code></td>
-      <td>✅ Active</td>
+      <td><img src="/public/chains/xrpl.png" width="20"> XRPL EVM Sidechain Testnet</td>
+      <td><code>To be provided</code></td>
+      <td>⏳ Pending</td>
     </tr>
     <tr>
       <td>Token Transfers</td>
-      <td><img src="/public/chains/trn.png" width="20"> Root Network Porcini (Testnet)</td>
-      <td><code>0x16f16b1742ECA434faf9442a9f9d933A766acfCA</code></td>
-      <td>✅ Active</td>
+      <td><img src="/public/chains/xrpl.png" width="20"> XRPL EVM Sidechain Testnet</td>
+      <td><code>To be provided</code></td>
+      <td>⏳ Pending</td>
     </tr>
   </table>
 </div>
@@ -201,5 +201,5 @@ Need assistance or have questions? We're here to help:
 
 <div align="center">
   <p>© 2025 ProtectedPay</p>
-  <h3>Revolutionizing secure payments on The Root Network</h3>
+  <h3>Revolutionizing secure payments on XRPL EVM Sidechain</h3>
 </div>

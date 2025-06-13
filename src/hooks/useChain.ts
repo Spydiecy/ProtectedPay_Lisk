@@ -9,12 +9,12 @@ export interface ChainInfo {
 
 // Map of chain IDs to their native tokens
 const TOKEN_MAP: Record<number, string> = {
-  7672: "XRP", // Root Network Porcini (Testnet)
+  1449000: "XRP", // XRPL EVM Sidechain Testnet
 };
 
 // Map of chain IDs to their names
 const CHAIN_NAME_MAP: Record<number, string> = {
-  7672: "Root Network Porcini (Testnet)",
+  1449000: "XRPL EVM Sidechain Testnet",
 };
 
 /**
@@ -25,7 +25,7 @@ export function useChain(): ChainInfo {
   const wallet = useWallet();  const [chainInfo, setChainInfo] = useState<ChainInfo>({
     chainId: undefined,
     nativeToken: "XRP",
-    chainName: "Root Network Porcini (Testnet)"
+    chainName: "XRPL EVM Sidechain Testnet"
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function useChain(): ChainInfo {
             const chainId = parseInt(ethereum.chainId, 16);            setChainInfo({
               chainId,
               nativeToken: TOKEN_MAP[chainId] || "XRP",
-              chainName: CHAIN_NAME_MAP[chainId] || "Root Network Porcini (Testnet)"
+              chainName: CHAIN_NAME_MAP[chainId] || "XRPL EVM Sidechain Testnet"
             });
           }
         } catch (error) {
@@ -58,7 +58,7 @@ export function useChain(): ChainInfo {
         const id = parseInt(chainId, 16);        setChainInfo({
           chainId: id,
           nativeToken: TOKEN_MAP[id] || "XRP",
-          chainName: CHAIN_NAME_MAP[id] || "Root Network Porcini (Testnet)"
+          chainName: CHAIN_NAME_MAP[id] || "XRPL EVM Sidechain Testnet"
         });
       };
 

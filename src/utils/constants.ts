@@ -1,9 +1,4 @@
-// utils./constants.ts
-import { assetIdToERC20Address } from "@therootnetwork/evm";
-
-const ROOT_ASSET_ID = 1;
-// Use the specific ROOT contract address
-const ROOT_CONTRACT_ADDRESS = '0xcCcCCccC00000001000000000000000000000000';
+// utils/constants.ts
 
 export const STATUS_LABELS = {
     0: 'Pending',
@@ -38,47 +33,31 @@ export const SUPPORTED_TOKENS = [
     symbol: 'XRP',
     name: 'XRP (Native)',
     decimals: 18,
-    logo: '/chains/xrp.png', // Using TRN logo for native token
+    logo: '/chains/xrp.png',
     isNative: true
   },
   {
-    address: ROOT_CONTRACT_ADDRESS,
-    symbol: 'ROOT',
-    name: 'Root Token',
-    decimals: 6,
-    logo: '/chains/trn.png', // Will be updated with ROOT logo
-    isNative: false
-  },
-  {
-    address: '0xCCcCCcCC00000C64000000000000000000000000',
-    symbol: 'SYLO',
-    name: 'Sylo Token',
+    address: '0x81Be083099c2C65b062378E74Fa8469644347BB7',
+    symbol: 'WXRP',
+    name: 'Wrapped XRP',
     decimals: 18,
-    logo: '/chains/sylo.png', // Placeholder, will be updated
+    logo: '/chains/xrp.png',
     isNative: false
   },
   {
-    address: '0xcCcCCccC00004464000000000000000000000000',
-    symbol: 'ASTO',
-    name: 'Asto Token',
-    decimals: 18,
-    logo: '/chains/asto.png', // Placeholder, will be updated
-    isNative: false
-  },
-  {
-    address: '0xCCCccccc00001864000000000000000000000000',
-    symbol: 'USDT',
-    name: 'Tether USD',
-    decimals: 18,
-    logo: '/chains/usdt.png', // Placeholder, will be updated
-    isNative: false
-  },
-  {
-    address: '0xcCcCCCCc00000864000000000000000000000000',
+    address: '0x925965a6FCe11D0589dAD8972e7e5B8879bCb9ef',
     symbol: 'USDC',
     name: 'USD Coin',
-    decimals: 18,
-    logo: '/chains/usdc.png', // Placeholder, will be updated
+    decimals: 6,
+    logo: '/chains/usdc.png',
+    isNative: false
+  },
+  {
+    address: '0x61F16049EBdC3BB505b0dBeeb31DE09C3AEf53f7',
+    symbol: 'RLUSD',
+    name: 'Reliable USD',
+    decimals: 6,
+    logo: '/chains/rlusd.png',
     isNative: false
   }
 ] as const;

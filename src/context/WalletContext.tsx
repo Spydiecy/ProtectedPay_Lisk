@@ -22,10 +22,10 @@ type ExtendedProvider = ethers.providers.ExternalProvider & {
 };
 
 // Define chains
-const rootNetworkPorcini = {
-  id: 7672,
-  name: 'Root Network Porcini (Testnet)',
-  network: 'rootnetworkporcini',
+const xrplEvmSidechain = {
+  id: 1449000,
+  name: 'XRPL EVM Sidechain Testnet',
+  network: 'xrplevmsidechain',
   nativeCurrency: {
     decimals: 18,
     name: 'XRP',
@@ -33,22 +33,22 @@ const rootNetworkPorcini = {
   },
   rpcUrls: {
     default: {
-      http: ['https://porcini.rootnet.app/archive']
+      http: ['https://rpc.testnet.xrplevm.org']
     },
     public: {
-      http: ['https://porcini.rootnet.app/archive']
+      http: ['https://rpc.testnet.xrplevm.org']
     }
   },
   blockExplorers: {
     default: {
-      name: 'Rootscan Explorer',
-      url: 'https://porcini.rootscan.io'
+      name: 'XRPL EVM Sidechain Explorer',
+      url: 'https://explorer.testnet.xrplevm.org'
     }
   },
   testnet: true,
 } as const;
 
-const chains = [rootNetworkPorcini] as const; 
+const chains = [xrplEvmSidechain] as const; 
 
 const projectId = 'b8ad206ba9492e6096fa0aa0f868586c';
 
@@ -68,7 +68,7 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    [rootNetworkPorcini.id]: http(),
+    [xrplEvmSidechain.id]: http(),
   },
 });
 

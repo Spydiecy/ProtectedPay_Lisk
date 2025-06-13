@@ -284,7 +284,7 @@ const Navbar = () => {
   );
 };
 
-const TRNShowcase = () => {
+const XRPLShowcase = () => {
   return (
     <section id="network" className="py-16 relative overflow-hidden">
       <div className="container mx-auto px-4 mb-10">
@@ -295,8 +295,8 @@ const TRNShowcase = () => {
           whileInView="animate"
           viewport={{ once: true }}
         >
-          <span className="bg-gradient-to-r from-green-500 to-emerald-500 dark:from-green-400 dark:to-emerald-500 text-transparent bg-clip-text">
-            Built for The Root Network
+          <span className="bg-gradient-to-r from-blue-500 to-indigo-500 dark:from-blue-400 dark:to-indigo-500 text-transparent bg-clip-text">
+            Built for XRPL EVM Sidechain
           </span>
         </motion.h2>
         
@@ -307,12 +307,12 @@ const TRNShowcase = () => {
           whileInView="animate"
           viewport={{ once: true }}
         >
-          Experience ultra-fast transactions and low fees on The Root Network's advanced blockchain infrastructure
+          Experience ultra-fast transactions and low fees on the XRPL EVM Sidechain's advanced blockchain infrastructure
         </motion.p>
 
         <div className="flex justify-center">
           <motion.div 
-            className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-2xl p-8 max-w-md"
+            className="bg-gradient-to-br from-blue-500/10 to-indigo-500/10 border border-blue-500/20 rounded-2xl p-8 max-w-md"
             variants={fadeIn}
             initial="initial"
             whileInView="animate"
@@ -321,22 +321,22 @@ const TRNShowcase = () => {
             <div className="flex flex-col items-center text-center space-y-4">
               <div className="w-20 h-20 relative">
                 <Image
-                  src="/chains/trn.png"
-                  alt="The Root Network"
+                  src="/chains/xrpl.png"
+                  alt="XRPL EVM Sidechain"
                   width={80}
                   height={80}
                   className="transition-all duration-300 hover:scale-110"
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">The Root Network</h3>
+                <h3 className="text-xl font-bold mb-2">XRPL EVM Sidechain</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                  Porcini Testnet
+                  Testnet
                 </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-500">Chain ID:</span>
-                    <span className="font-mono">7672</span>
+                    <span className="font-mono">1449000</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-500">Currency:</span>
@@ -587,7 +587,7 @@ const LandingPage = () => {
       <main className="flex-grow">
         <Hero />
         <TransferHighlight />
-        <TRNShowcase />
+        <XRPLShowcase />
       </main>
       
       {/* Footer - explicitly attached to the bottom */}

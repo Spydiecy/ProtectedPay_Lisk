@@ -1,11 +1,11 @@
 import { ethers } from 'ethers';
 
 const CONTRACT_ADDRESSES = {
-	7672: '0xCa36dD890F987EDcE1D6D7C74Fb9df627c216BF6', // Root Network Porcini (Testnet)
+	1449000: '0xCa36dD890F987EDcE1D6D7C74Fb9df627c216BF6', // XRPL EVM Sidechain Testnet
 } as const;
 
 const TOKEN_CONTRACT_ADDRESSES = {
-	7672: '0x16f16b1742ECA434faf9442a9f9d933A766acfCA', // Root Network Porcini (Testnet)
+	1449000: '0x5bA4CB3929C75DF47B8b5E6ca6c7414a5E1a3DB0', // XRPL EVM Sidechain Testnet
 } as const;
 
 const TOKEN_CONTRACT_ABI =  [
@@ -1850,7 +1850,7 @@ interface TransferEvent {
   const getContractAddress = async (signer: ethers.Signer) => {
 	const chainId = await signer.getChainId();
 	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] 
-	  || CONTRACT_ADDRESSES[7672]; // Default to Root Network if chain not found
+	  || CONTRACT_ADDRESSES[1449000]; // Default to XRPL EVM Sidechain if chain not found
   };
   
   // Contract instance getter with chain awareness
@@ -2235,7 +2235,7 @@ interface TransferEvent {
   
   export const getChainNativeCurrency = (chainId: number) => {
 	switch (chainId) {
-	  case 7672:
+	  case 1449000:
 		return {
 		  name: 'XRP',
 		  symbol: 'XRP',
@@ -2252,10 +2252,10 @@ interface TransferEvent {
   
   export const getExplorerUrl = (chainId: number) => {
 	switch (chainId) {
-	  case 7672:
-		return 'https://porcini.rootscan.io';
+	  case 1449000:
+		return 'https://explorer.testnet.xrplevm.org';
 	  default:
-		return 'https://porcini.rootscan.io';
+		return 'https://explorer.testnet.xrplevm.org';
 	}
   };
   
@@ -2307,7 +2307,7 @@ interface TransferEvent {
 const getTokenContractAddress = async (signer: ethers.Signer) => {
   const chainId = await signer.getChainId();
   return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] 
-    || TOKEN_CONTRACT_ADDRESSES[7672]; // Default to Root Network if chain not found
+    || TOKEN_CONTRACT_ADDRESSES[1449000]; // Default to XRPL EVM Sidechain if chain not found
 };
 
 // Token contract instance getter with chain awareness

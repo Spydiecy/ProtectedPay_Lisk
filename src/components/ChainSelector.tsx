@@ -16,13 +16,13 @@ export interface ChainInfo {
 
 export const supportedChains: ChainInfo[] = [
   {
-    id: 7672,
-    hexId: '0x1DF8',
-    name: 'Root Network Porcini (Testnet)',
-    icon: '/chains/trn.png',
+    id: 1449000,
+    hexId: '0x161C28',
+    name: 'XRPL EVM Sidechain Testnet',
+    icon: '/chains/xrpl.png',
     symbol: 'XRP',
-    rpcUrl: 'https://porcini.rootnet.app/archive',
-    blockExplorerUrl: 'https://porcini.rootscan.io'
+    rpcUrl: 'https://rpc.testnet.xrplevm.org',
+    blockExplorerUrl: 'https://explorer.testnet.xrplevm.org'
   }
 ] as const
 
