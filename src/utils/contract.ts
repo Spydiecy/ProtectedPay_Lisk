@@ -1,11 +1,11 @@
 import { ethers } from 'ethers';
 
 const CONTRACT_ADDRESSES = {
-	1449000: '0xCa36dD890F987EDcE1D6D7C74Fb9df627c216BF6', // XRPL EVM Sidechain Testnet
+	1449000: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '', // XRPL EVM Sidechain Testnet
 } as const;
 
 const TOKEN_CONTRACT_ADDRESSES = {
-	1449000: '0x5bA4CB3929C75DF47B8b5E6ca6c7414a5E1a3DB0', // XRPL EVM Sidechain Testnet
+	1449000: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '', // XRPL EVM Sidechain Testnet
 } as const;
 
 const TOKEN_CONTRACT_ABI =  [
