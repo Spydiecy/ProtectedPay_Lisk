@@ -372,7 +372,7 @@ const XRPLShowcase = () => {
 
           {/* Features Card */}
           <motion.div 
-            className="bg-gradient-to-br from-gray-900/90 to-black/90 dark:from-gray-800/90 dark:to-gray-900/90 border border-gray-700/50 rounded-3xl p-8 backdrop-blur-sm shadow-xl text-white"
+            className="bg-gradient-to-br from-white to-gray-50 dark:from-gray-900/90 dark:to-black/90 border border-gray-200 dark:border-gray-700/50 rounded-3xl p-8 backdrop-blur-sm shadow-xl text-gray-900 dark:text-white"
             variants={fadeIn}
             initial="initial"
             whileInView="animate"
@@ -386,43 +386,43 @@ const XRPLShowcase = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-400 mb-1">Lightning Fast</h4>
-                    <p className="text-gray-300 text-sm">Sub-second transaction finality</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Lightning Fast</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Sub-second transaction finality</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-400 mb-1">Ultra Low Fees</h4>
-                    <p className="text-gray-300 text-sm">Minimal transaction costs</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Ultra Low Fees</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Minimal transaction costs</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-400 mb-1">EVM Compatible</h4>
-                    <p className="text-gray-300 text-sm">Full Ethereum ecosystem support</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">EVM Compatible</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Full Ethereum ecosystem support</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-400 mb-1">XRPL Integration</h4>
-                    <p className="text-gray-300 text-sm">Seamless XRPL ledger connectivity</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">XRPL Integration</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Seamless XRPL ledger connectivity</p>
                   </div>
                 </div>
               </div>
-              <div className="pt-4 border-t border-gray-700/50">
+              <div className="pt-4 border-t border-gray-200 dark:border-gray-700/50">
                 <div className="text-center">
-                  <div className="text-sm text-gray-400 mb-2">Network Statistics</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Network Statistics</div>
                   <div className="grid grid-cols-2 gap-4 text-xs">
                     <div>
-                      <div className="text-green-400 font-semibold">~1s</div>
-                      <div className="text-gray-400">Block Time</div>
+                      <div className="text-green-600 dark:text-green-400 font-semibold">~1s</div>
+                      <div className="text-gray-600 dark:text-gray-400">Block Time</div>
                     </div>
                     <div>
-                      <div className="text-green-400 font-semibold">~$0.001</div>
-                      <div className="text-gray-400">Avg. Fee</div>
+                      <div className="text-green-600 dark:text-green-400 font-semibold">~$0.001</div>
+                      <div className="text-gray-600 dark:text-gray-400">Avg. Fee</div>
                     </div>
                   </div>
                 </div>
