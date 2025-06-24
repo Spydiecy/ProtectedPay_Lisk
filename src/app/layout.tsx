@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'ProtectedPay | Secure Crypto Transfers on The Root Network',
-  description: 'Secure crypto transfers, group payments, and smart savings on The Root Network (TRN) blockchain',
-  keywords: 'crypto, payments, blockchain, The Root Network, TRN, XRP, DeFi, secure transfers, group payments, Porcini testnet',
+  title: 'ProtectedPay | Secure Crypto Transfers on Umi Network',
+  description: 'Secure crypto transfers, group payments, and smart savings on Umi Devnet blockchain',
+  keywords: 'crypto, payments, blockchain, Umi, UMI, ETH, DeFi, secure transfers, group payments, Umi Devnet',
   authors: [{ name: 'ProtectedPay' }],
 };
 

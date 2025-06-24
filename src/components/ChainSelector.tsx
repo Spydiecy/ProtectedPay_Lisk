@@ -16,13 +16,13 @@ export interface ChainInfo {
 
 export const supportedChains: ChainInfo[] = [
   {
-    id: 1449000,
-    hexId: '0x161C28',
-    name: 'XRPL EVM Sidechain Testnet',
-    icon: '/chains/xrpl.png',
-    symbol: 'XRP',
-    rpcUrl: 'https://rpc.testnet.xrplevm.org',
-    blockExplorerUrl: 'https://explorer.testnet.xrplevm.org'
+    id: 42069,
+    hexId: '0xA455',
+    name: 'Umi Devnet',
+    icon: '/chains/umi.png',
+    symbol: 'ETH',
+    rpcUrl: 'https://devnet.moved.network',
+    blockExplorerUrl: 'https://devnet.explorer.moved.network'
   }
 ] as const
 

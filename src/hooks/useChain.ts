@@ -9,12 +9,12 @@ export interface ChainInfo {
 
 // Map of chain IDs to their native tokens
 const TOKEN_MAP: Record<number, string> = {
-  1449000: "XRP", // XRPL EVM Sidechain Testnet
+  42069: "ETH", // Umi Devnet
 };
 
 // Map of chain IDs to their names
 const CHAIN_NAME_MAP: Record<number, string> = {
-  1449000: "XRPL EVM Sidechain Testnet",
+  42069: "Umi Devnet",
 };
 
 /**
@@ -24,8 +24,8 @@ export function useChain(): ChainInfo {
   // Use the wallet context directly
   const wallet = useWallet();  const [chainInfo, setChainInfo] = useState<ChainInfo>({
     chainId: undefined,
-    nativeToken: "XRP",
-    chainName: "XRPL EVM Sidechain Testnet"
+    nativeToken: "ETH",
+    chainName: "Umi Devnet"
   });
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export function useChain(): ChainInfo {
           if (ethereum && ethereum.chainId) {
             const chainId = parseInt(ethereum.chainId, 16);            setChainInfo({
               chainId,
-              nativeToken: TOKEN_MAP[chainId] || "XRP",
-              chainName: CHAIN_NAME_MAP[chainId] || "XRPL EVM Sidechain Testnet"
+              nativeToken: TOKEN_MAP[chainId] || "ETH",
+              chainName: CHAIN_NAME_MAP[chainId] || "Umi Devnet"
             });
           }
         } catch (error) {
@@ -57,8 +57,8 @@ export function useChain(): ChainInfo {
       const handleChainChanged = (chainId: string) => {
         const id = parseInt(chainId, 16);        setChainInfo({
           chainId: id,
-          nativeToken: TOKEN_MAP[id] || "XRP",
-          chainName: CHAIN_NAME_MAP[id] || "XRPL EVM Sidechain Testnet"
+          nativeToken: TOKEN_MAP[id] || "ETH",
+          chainName: CHAIN_NAME_MAP[id] || "Umi Devnet"
         });
       };
 

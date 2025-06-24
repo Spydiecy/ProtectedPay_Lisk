@@ -22,33 +22,33 @@ type ExtendedProvider = ethers.providers.ExternalProvider & {
 };
 
 // Define chains
-const xrplEvmSidechain = {
-  id: 1449000,
-  name: 'XRPL EVM Sidechain Testnet',
-  network: 'xrplevmsidechain',
+const umiDevnet = {
+  id: 42069,
+  name: 'Umi Devnet',
+  network: 'umidevnet',
   nativeCurrency: {
     decimals: 18,
-    name: 'XRP',
-    symbol: 'XRP',
+    name: 'ETH',
+    symbol: 'ETH',
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.testnet.xrplevm.org']
+      http: ['https://devnet.moved.network']
     },
     public: {
-      http: ['https://rpc.testnet.xrplevm.org']
+      http: ['https://devnet.moved.network']
     }
   },
   blockExplorers: {
     default: {
-      name: 'XRPL EVM Sidechain Explorer',
-      url: 'https://explorer.testnet.xrplevm.org'
+      name: 'Umi Devnet Explorer',
+      url: 'https://devnet.explorer.moved.network'
     }
   },
   testnet: true,
 } as const;
 
-const chains = [xrplEvmSidechain] as const; 
+const chains = [umiDevnet] as const; 
 
 const projectId = 'b8ad206ba9492e6096fa0aa0f868586c';
 
@@ -68,7 +68,7 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    [xrplEvmSidechain.id]: http(),
+    [umiDevnet.id]: http(),
   },
 });
 

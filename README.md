@@ -3,9 +3,9 @@
 <div align="center">
   <img src="https://github.com/user-attachments/assets/eb3dbd55-6522-4d3b-b6f9-6ec63157e565" alt="ProtectedPay Logo" width="650px">
   
-  <h3>Smart. Secure Crypto Transfers on XRPL EVM Sidechain</h3>
+  <h3>Smart. Secure Crypto Transfers on Umi Devnet</h3>
   
-  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built exclusively for the XRPL EVM Sidechain.</p>
+  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built exclusively for the Umi Devnet.</p>
 </div>
 
 ## 📋 Contents
@@ -21,7 +21,7 @@
 
 ## ✨ Features
 
-### 🛡️ Protected Transfers on XRPL EVM Sidechain
+### 🛡️ Protected Transfers on Umi Devnet
 
 <img align="right" src="https://github.com/user-attachments/assets/a59d35bc-e1f0-4b5f-86d5-d2acded44b95" width="350px">
 
@@ -31,7 +31,7 @@
 - **Customizable Remarks**: Add notes to help identify your transfers
 - **QR Integration**: Scan to pay functionality for quick transfers
 - **Transaction Privacy**: Keep your transfer details confidential
-- **XRPL-Native Speed**: Benefit from the XRPL EVM Sidechain's ultra-fast transaction finality
+- **Umi-Native Speed**: Benefit from the Umi Devnet's ultra-fast transaction finality
 
 <br clear="right"/>
 
@@ -40,7 +40,7 @@
 <img align="right" src="https://github.com/user-attachments/assets/e5939f0e-4b84-483a-b981-81a24459053b" width="350px">
 
 - **Split Expenses Easily**: Divide costs among friends or colleagues
-- **Simple Contributors**: Accept payments from any XRPL user
+- **Simple Contributors**: Accept payments from any Umi user
 - **Automatic Distribution**: Funds released when target amount is reached
 - **Real-Time Tracking**: Monitor contributions as they happen
 - **Transparent History**: View all group payment activity
@@ -53,11 +53,11 @@
 <img align="right" src="https://github.com/user-attachments/assets/644e5621-61c2-4e9c-b999-4d2d81ccde1e" width="350px">
 
 - **Goal-Based Savings**: Set targets and track progress visually
-- **XRPL-Optimized**: Create dedicated savings on the XRPL EVM Sidechain
+- **Umi-Optimized**: Create dedicated savings on the Umi Devnet
 - **Flexible Contributions**: Add funds on your own schedule
 - **Emergency Access**: Withdraw when needed without penalties
 - **Purpose Tracking**: Organize savings by specific goals or needs
-- **Yield Earning**: Option to earn yield on your savings, increasing XRPL TVL
+- **Yield Earning**: Option to earn yield on your savings, increasing Umi TVL
 - **Progress Visualization**: Watch your savings grow in real-time
 
 <br clear="right"/>
@@ -81,12 +81,12 @@
 
 ## 🔗 Supported Networks
 
-ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosystem, delivering optimized functionality on the testnet environment.
+ProtectedPay is built exclusively for the Umi Devnet blockchain ecosystem, delivering optimized functionality on the devnet environment.
 
 <div align="left">
   <table>
     <tr>
-      <td align="center"><img src="/public/chains/xrpl.png" width="70px"><br><b>XRPL EVM Sidechain Testnet</b></td>
+      <td align="center"><img src="/public/chains/umi.png" width="70px"><br><b>Umi Devnet</b></td>
     </tr>
   </table>
 </div>
@@ -100,7 +100,7 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 
 ### Protected Transfers in 3 Simple Steps
 
-1. **Connect Your Wallet**: Connect your XRPL-compatible wallet to ProtectedPay
+1. **Connect Your Wallet**: Connect your Umi-compatible wallet to ProtectedPay
 2. **Enter Details**: Specify recipient (username, address, or QR scan) and amount
 3. **Confirm & Send**: The recipient securely claims funds when ready, or you can refund if needed
 
@@ -112,9 +112,9 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 
 ### Smart Savings Pots
 
-1. **Set Goals**: Set your savings target on the XRPL EVM Sidechain
+1. **Set Goals**: Set your savings target on the Umi Devnet
 2. **Contribute**: Add funds at your own pace with real-time progress tracking
-3. **Yield Option**: Opt to earn yield on your savings, helping grow both your funds and XRPL's TVL
+3. **Yield Option**: Opt to earn yield on your savings, helping grow both your funds and Umi's TVL
 4. **Flexible Access**: Withdraw partially or completely whenever needed
 
 ## 💻 User Interface
@@ -126,7 +126,7 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 
 ### Design Philosophy
 
-- **XRPL-Inspired**: UI themes designed to match the XRPL EVM Sidechain's branding
+- **Umi-Inspired**: UI themes designed to match the Umi Devnet's branding
 - **Glassmorphism**: Modern, clean aesthetics with depth and transparency
 - **Responsive Layout**: Perfect experience on any device
 - **Intuitive Navigation**: Easily access all features with minimal learning curve
@@ -139,7 +139,7 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 </div>
 
 - **Activity Feed**: Real-time updates of your transactions
-- **Asset Overview**: Quick view of your XRP balance
+- **Asset Overview**: Quick view of your ETH balance
 - **Status Indicators**: Clear visual cues for transaction states
 - **Network Selection**: Seamlessly switch between different network environments
 
@@ -147,7 +147,7 @@ ProtectedPay is built exclusively for the XRPL EVM Sidechain blockchain ecosyste
 
 ProtectedPay prioritizes security at every level:
 
-- **Smart Contract Safety**: XRPL-optimized contracts with rigorous security measures
+- **Smart Contract Safety**: Umi-optimized contracts with rigorous security measures
 - **Non-Custodial Architecture**: Users always maintain control of their funds
 - **Protected Transfers**: Built-in escrow functionality keeps funds secure
 - **QR Verification**: Thorough validation of all scanned payment codes
@@ -166,15 +166,15 @@ ProtectedPay prioritizes security at every level:
     </tr>
     <tr>
       <td>Native Transfers</td>
-      <td><img src="/public/chains/xrpl.png" width="20"> XRPL EVM Sidechain Testnet</td>
-      <td><code>0xCa36dD890F987EDcE1D6D7C74Fb9df627c216BF6</code></td>
-      <td>✅ Active</td>
+      <td><img src="/public/chains/umi.png" width="20"> Umi Devnet</td>
+      <td><code>TBD</code></td>
+      <td>🔄 Pending</td>
     </tr>
     <tr>
       <td>Token Transfers</td>
-      <td><img src="/public/chains/xrpl.png" width="20"> XRPL EVM Sidechain Testnet</td>
-      <td><code>0x5bA4CB3929C75DF47B8b5E6ca6c7414a5E1a3DB0</code></td>
-      <td>✅ Active</td>
+      <td><img src="/public/chains/umi.png" width="20"> Umi Devnet</td>
+      <td><code>TBD</code></td>
+      <td>🔄 Pending</td>
     </tr>
   </table>
 </div>
@@ -201,5 +201,5 @@ Need assistance or have questions? We're here to help:
 
 <div align="center">
   <p>© 2025 ProtectedPay</p>
-  <h3>Revolutionizing secure payments on XRPL EVM Sidechain</h3>
+  <h3>Revolutionizing secure payments on Umi Devnet</h3>
 </div>

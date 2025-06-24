@@ -1,11 +1,11 @@
 import { ethers } from 'ethers';
 
 const CONTRACT_ADDRESSES = {
-	1449000: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '', // XRPL EVM Sidechain Testnet
+	42069: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '', // Umi Devnet
 } as const;
 
 const TOKEN_CONTRACT_ADDRESSES = {
-	1449000: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '', // XRPL EVM Sidechain Testnet
+	42069: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '', // Umi Devnet
 } as const;
 
 const TOKEN_CONTRACT_ABI =  [
@@ -1850,7 +1850,7 @@ interface TransferEvent {
   const getContractAddress = async (signer: ethers.Signer) => {
 	const chainId = await signer.getChainId();
 	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] 
-	  || CONTRACT_ADDRESSES[1449000]; // Default to XRPL EVM Sidechain if chain not found
+	  || CONTRACT_ADDRESSES[42069]; // Default to Umi Devnet if chain not found
   };
   
   // Contract instance getter with chain awareness
@@ -2235,16 +2235,16 @@ interface TransferEvent {
   
   export const getChainNativeCurrency = (chainId: number) => {
 	switch (chainId) {
-	  case 1449000:
+	  case 42069:
 		return {
-		  name: 'XRP',
-		  symbol: 'XRP',
+		  name: 'ETH',
+		  symbol: 'ETH',
 		  decimals: 18
 		};
 	  default:
 		return {
-		  name: 'XRP',
-		  symbol: 'XRP',
+		  name: 'ETH',
+		  symbol: 'ETH',
 		  decimals: 18
 		};
 	}
@@ -2252,10 +2252,10 @@ interface TransferEvent {
   
   export const getExplorerUrl = (chainId: number) => {
 	switch (chainId) {
-	  case 1449000:
-		return 'https://explorer.testnet.xrplevm.org';
+	  case 42069:
+		return 'https://devnet.explorer.moved.network';
 	  default:
-		return 'https://explorer.testnet.xrplevm.org';
+		return 'https://devnet.explorer.moved.network';
 	}
   };
   
@@ -2307,7 +2307,7 @@ interface TransferEvent {
 const getTokenContractAddress = async (signer: ethers.Signer) => {
   const chainId = await signer.getChainId();
   return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] 
-    || TOKEN_CONTRACT_ADDRESSES[1449000]; // Default to XRPL EVM Sidechain if chain not found
+    || TOKEN_CONTRACT_ADDRESSES[42069]; // Default to Umi Devnet if chain not found
 };
 
 // Token contract instance getter with chain awareness
@@ -2318,11 +2318,11 @@ export const getTokenContract = async (signer: ethers.Signer) => {
 
 // Helper function to parse token amount with correct decimals
 const parseTokenAmount = (amount: string, tokenAddress: string): ethers.BigNumber => {
-  // Check if it's ROOT token (uses 6 decimals)
-  if (tokenAddress.toLowerCase() === '0xcCcCCccC00000001000000000000000000000000'.toLowerCase()) {
-    return ethers.utils.parseUnits(amount, 6);
-  }
-  // For other tokens, use 18 decimals
+  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
+  //   return ethers.utils.parseUnits(amount, 6);
+  // }
+  // For most tokens, use 18 decimals (this may need adjustment based on actual token decimals)
   return ethers.utils.parseEther(amount);
 };
 
@@ -2392,11 +2392,11 @@ export const getPendingTokenTransfers = async (signer: ethers.Signer, userAddres
 
 // Helper function to format token amount with correct decimals
 const formatTokenAmount = (amount: ethers.BigNumber, tokenAddress: string): string => {
-  // Check if it's ROOT token (uses 6 decimals)
-  if (tokenAddress.toLowerCase() === '0xcCcCCccC00000001000000000000000000000000'.toLowerCase()) {
-    return ethers.utils.formatUnits(amount, 6);
-  }
-  // For other tokens, use 18 decimals
+  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
+  //   return ethers.utils.formatUnits(amount, 6);
+  // }
+  // For most tokens, use 18 decimals (this may need adjustment based on actual token decimals)
   return ethers.utils.formatEther(amount);
 };
 
@@ -2430,21 +2430,19 @@ export const getTokenBalance = async (signer: ethers.Signer, tokenAddress: strin
   // For ERC20 tokens, use the contract's balance function
   const contract = await getTokenContract(signer);
   
-  // Check if it's ROOT token (has specific balance function and uses 6 decimals)
-  if (tokenAddress.toLowerCase() === '0xcCcCCccC00000001000000000000000000000000'.toLowerCase()) {
-    try {
-      console.log('Fetching ROOT token balance using getRootTokenBalance...');
-      const balance = await contract.getRootTokenBalance(userAddress);
-      // ROOT token uses 6 decimals, not 18
-      const formattedBalance = ethers.utils.formatUnits(balance, 6);
-      console.log(`ROOT token balance from contract: ${formattedBalance}`);
-      return formattedBalance;
-    } catch (error) {
-      console.error('Error fetching ROOT token balance:', error);
-      // Fallback to standard ERC20 balanceOf
-      console.log('Falling back to standard ERC20 balanceOf for ROOT token...');
-    }
-  }
+  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
+  //   try {
+  //     console.log('Fetching specific token balance...');
+  //     const balance = await contract.getSpecificTokenBalance(userAddress);
+  //     const formattedBalance = ethers.utils.formatUnits(balance, 6);
+  //     console.log(`Specific token balance from contract: ${formattedBalance}`);
+  //     return formattedBalance;
+  //   } catch (error) {
+  //     console.error('Error fetching specific token balance:', error);
+  //     console.log('Falling back to standard ERC20 balanceOf...');
+  //   }
+  // }
   
   // For other ERC20 tokens, use standard ERC20 interface
   try {
@@ -2491,13 +2489,12 @@ export const getTokenAllowance = async (
     return ethers.constants.MaxUint256.toString();
   }
   
-  // Check if it's ROOT token (has specific allowance function and uses 6 decimals)
-  if (tokenAddress.toLowerCase() === '0xcCcCCccC00000001000000000000000000000000'.toLowerCase()) {
-    const contract = await getTokenContract(signer);
-    const allowance = await contract.getRootTokenAllowance(ownerAddress);
-    // ROOT token uses 6 decimals, not 18
-    return ethers.utils.formatUnits(allowance, 6);
-  }
+  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
+  //   const contract = await getTokenContract(signer);
+  //   const allowance = await contract.getSpecificTokenAllowance(ownerAddress);
+  //   return ethers.utils.formatUnits(allowance, 6);
+  // }
   
   // For other ERC20 tokens, use standard ERC20 interface
   const erc20Contract = new ethers.Contract(tokenAddress, [

@@ -87,7 +87,7 @@ export default function TransferPage() {
   const [amount, setAmount] = useState('')
   const [remarks, setRemarks] = useState('')
   const [claimInput, setClaimInput] = useState('')
-  const [selectedToken, setSelectedToken] = useState<Token>(SUPPORTED_TOKENS[0]) // Default to native XRP
+  const [selectedToken, setSelectedToken] = useState<Token>(SUPPORTED_TOKENS[0]) // Default to native ETH
   const [tokenBalances, setTokenBalances] = useState<Record<string, string>>({})
   const [activeTransferType, setActiveTransferType] = useState<'native' | 'token'>('native')
   const [isLoading, setIsLoading] = useState(false)
@@ -181,11 +181,10 @@ export default function TransferPage() {
             console.log(`Token transfer details for ${id}:`, details)
             
             // Determine if this is actually a native token transfer
-            // The contract might incorrectly mark ROOT token as native
+            // Check for native ETH transfers on Umi network
             const isActuallyNative = (details.token === 'NATIVE' || 
                                    details.token === '0x0000000000000000000000000000000000000000' ||
-                                   !details.token) && 
-                                   details.token !== '0xcCcCCccC00000001000000000000000000000000'
+                                   !details.token)
             
             console.log(`Transfer ${id} - Token: ${details.token}, IsNative from contract: ${details.isNativeToken}, IsActuallyNative: ${isActuallyNative}`)
             
@@ -758,7 +757,7 @@ export default function TransferPage() {
                           // Get token info for display
                           const getTokenInfo = () => {
                             if (transfer.isNativeToken || transfer.token === 'NATIVE' || !transfer.token) {
-                              return SUPPORTED_TOKENS[0] // Native XRP
+                              return SUPPORTED_TOKENS[0] // Native ETH
                             }
                             
                             // Find token by address (case-insensitive)
@@ -777,7 +776,7 @@ export default function TransferPage() {
                               symbol: 'UNKNOWN',
                               name: 'Unknown Token',
                               decimals: 18,
-                              logo: '/chains/trn.png',
+                              logo: '/chains/umi.png',
                               isNative: false
                             } as unknown as Token
                           }

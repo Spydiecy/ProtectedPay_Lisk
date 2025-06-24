@@ -30,22 +30,14 @@ export const STATUS_LABELS = {
 export const SUPPORTED_TOKENS = [
   {
     address: 'NATIVE',
-    symbol: 'XRP',
-    name: 'XRP (Native)',
+    symbol: 'ETH',
+    name: 'ETH (Native)',
     decimals: 18,
-    logo: '/chains/xrp.png',
+    logo: '/chains/eth.png',
     isNative: true
   },
   {
-    address: '0x81Be083099c2C65b062378E74Fa8469644347BB7',
-    symbol: 'WXRP',
-    name: 'Wrapped XRP',
-    decimals: 18,
-    logo: '/chains/xrp.png',
-    isNative: false
-  },
-  {
-    address: '0x925965a6FCe11D0589dAD8972e7e5B8879bCb9ef',
+    address: '',
     symbol: 'USDC',
     name: 'USD Coin',
     decimals: 6,
@@ -53,11 +45,11 @@ export const SUPPORTED_TOKENS = [
     isNative: false
   },
   {
-    address: '0x61F16049EBdC3BB505b0dBeeb31DE09C3AEf53f7',
-    symbol: 'RLUSD',
-    name: 'Ripple  USD',
+    address: '',
+    symbol: 'USDT',
+    name: 'Tether USD',
     decimals: 6,
-    logo: '/chains/rlusd.png',
+    logo: '/chains/usdt.png',
     isNative: false
   }
 ] as const;

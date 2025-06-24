@@ -284,7 +284,7 @@ const Navbar = () => {
   );
 };
 
-const XRPLShowcase = () => {
+const UmiShowcase = () => {
   return (
     <section id="network" className="py-20 relative overflow-hidden bg-gradient-to-b from-transparent via-green-50/30 to-transparent dark:via-green-900/10">
       {/* Background decorative elements */}
@@ -309,7 +309,7 @@ const XRPLShowcase = () => {
             viewport={{ once: true }}
           >
             <span className="bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 text-transparent bg-clip-text">
-              Built for XRPL EVM Sidechain
+              Built for Umi Devnet
             </span>
           </motion.h2>
           
@@ -320,7 +320,7 @@ const XRPLShowcase = () => {
             whileInView="animate"
             viewport={{ once: true }}
           >
-            Experience the future of DeFi with lightning-fast transactions, minimal fees, and EVM compatibility on the revolutionary XRPL EVM Sidechain
+            Experience the future of DeFi with lightning-fast transactions, minimal fees, and EVM compatibility on the revolutionary Umi Devnet
           </motion.p>
         </motion.div>
 
@@ -339,27 +339,27 @@ const XRPLShowcase = () => {
               <div className="w-24 h-24 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-xl"></div>
                 <Image
-                  src="/chains/xrpl.png"
-                  alt="XRPL EVM Sidechain"
+                  src="/chains/umi.png"
+                  alt="Umi Devnet"
                   width={96}
                   height={96}
                   className="relative z-10 transition-all duration-300 hover:scale-110 drop-shadow-lg"
                 />
               </div>
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">XRPL EVM Sidechain</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Umi Devnet</h3>
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                  Testnet Environment
+                  Devnet Environment
                 </div>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="bg-black/5 dark:bg-white/5 rounded-lg p-3">
                     <div className="text-gray-500 dark:text-gray-400 mb-1">Chain ID</div>
-                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">1449000</div>
+                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">42069</div>
                   </div>
                   <div className="bg-black/5 dark:bg-white/5 rounded-lg p-3">
                     <div className="text-gray-500 dark:text-gray-400 mb-1">Currency</div>
-                    <div className="font-semibold text-green-600 dark:text-green-400">XRP</div>
+                    <div className="font-semibold text-green-600 dark:text-green-400">ETH</div>
                   </div>
                 </div>
                 <div className="flex items-center justify-center space-x-2 text-green-600 dark:text-green-400">
@@ -381,7 +381,7 @@ const XRPLShowcase = () => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-center mb-6">Why XRPL EVM Sidechain?</h3>
+              <h3 className="text-2xl font-bold text-center mb-6">Why Umi Devnet?</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
@@ -407,8 +407,8 @@ const XRPLShowcase = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">XRPL Integration</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Seamless XRPL ledger connectivity</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Umi Network</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Advanced blockchain infrastructure</p>
                   </div>
                 </div>
               </div>
@@ -442,12 +442,12 @@ const XRPLShowcase = () => {
           <div className="inline-flex items-center space-x-6 bg-white/50 dark:bg-gray-900/50 rounded-full px-8 py-4 backdrop-blur-sm border border-green-500/20">
             <div className="text-sm">
               <span className="text-gray-600 dark:text-gray-400">RPC:</span>
-              <span className="ml-2 font-mono text-green-600 dark:text-green-400">rpc.testnet.xrplevm.org</span>
+              <span className="ml-2 font-mono text-green-600 dark:text-green-400">devnet.moved.network</span>
             </div>
             <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
             <div className="text-sm">
               <span className="text-gray-600 dark:text-gray-400">Explorer:</span>
-              <span className="ml-2 font-mono text-green-600 dark:text-green-400">explorer.testnet.xrplevm.org</span>
+              <span className="ml-2 font-mono text-green-600 dark:text-green-400">devnet.explorer.moved.network</span>
             </div>
           </div>
         </motion.div>
@@ -687,7 +687,7 @@ const LandingPage = () => {
       <main className="flex-grow">
         <Hero />
         <TransferHighlight />
-        <XRPLShowcase />
+        <UmiShowcase />
       </main>
       
       {/* Footer - explicitly attached to the bottom */}

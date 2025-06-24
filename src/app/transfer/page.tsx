@@ -195,7 +195,7 @@ export default function TransferPage() {
                   (typeof details.status === 'number' ? details.status : 
                    details.status.toNumber ? details.status.toNumber() : 0) : 0,
                 isNativeToken: true,
-                token: SUPPORTED_TOKENS[0] // Native XRP
+                token: SUPPORTED_TOKENS[0] // Native ETH
               }
             } catch (err) {
               console.error(`Error fetching transfer details for ${id}:`, err)
