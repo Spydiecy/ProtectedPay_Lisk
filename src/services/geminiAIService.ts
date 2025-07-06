@@ -34,6 +34,8 @@ export class GeminiProtectedPayService {
   private model: any
   private aiService: ProtectedPayAIService
   private conversationContext: ConversationContext
+  private lastRequestTime: number = 0
+  private minRequestInterval: number = 1000 // 1 second between requests
   
   constructor() {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_API_KEY || process.env.GOOGLE_API_KEY
@@ -42,8 +44,10 @@ export class GeminiProtectedPayService {
     }
     
     this.genAI = new GoogleGenerativeAI(apiKey)
-    // Use Gemini 1.5 Flash model as requested
-    this.model = this.genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
+    // Use Gemini 2.5 Flash model
+    this.model = this.genAI.getGenerativeModel({ 
+      model: "gemini-2.5-flash"
+    })
     this.aiService = new ProtectedPayAIService()
     this.conversationContext = {
       messageHistory: []
@@ -59,6 +63,14 @@ export class GeminiProtectedPayService {
     }
   ): Promise<GeminiAIResponse> {
     try {
+      // Rate limiting to prevent quota issues
+      const now = Date.now()
+      const timeSinceLastRequest = now - this.lastRequestTime
+      if (timeSinceLastRequest < this.minRequestInterval) {
+        await new Promise(resolve => setTimeout(resolve, this.minRequestInterval - timeSinceLastRequest))
+      }
+      this.lastRequestTime = Date.now()
+
       // Add user message to conversation history
       this.conversationContext.messageHistory.push({
         role: 'user',
@@ -165,8 +177,9 @@ INSTRUCTIONS:
 3. Always be helpful and explain what you're doing
 4. If the user's request is unclear, ask for clarification
 5. For transactions (send, claim, refund, register username), ask for confirmation before proceeding
-6. For balance checks and information queries, execute immediately (no confirmation needed)
+6. For balance checks, information queries, execute immediately (no confirmation needed)
 7. Use friendly, conversational language and maintain context from previous messages
+8. If users ask about token prices or market data, explain that you don't have access to real-time data but can help with wallet operations
 
 RESPONSE FORMAT:
 Provide a helpful response and if action is needed, specify the action type and required data.
@@ -233,6 +246,20 @@ Examples:
       
     } catch (error) {
       console.error('Gemini AI Error:', error)
+      
+      // Handle specific API errors
+      if (error instanceof Error) {
+        if (error.message.includes('429') || error.message.includes('quota')) {
+          return {
+            message: `⚠️ **API Quota Exceeded**\n\nThe Gemini AI service has reached its usage limit. This can happen due to:\n\n• **Free tier limits**: You may have exceeded the free quota\n• **Rate limiting**: Too many requests in a short time\n\n**Solutions:**\n1. Wait a few minutes and try again\n2. Check your [Google AI Studio](https://aistudio.google.com/) quota\n3. Consider upgrading to a paid plan for higher limits\n\n*For now, you can still use the basic wallet functions without AI assistance.*`
+          }
+        } else if (error.message.includes('API key')) {
+          return {
+            message: `🔑 **API Key Error**\n\nThere's an issue with the Google API key. Please check that your GOOGLE_API_KEY is set correctly in the .env file.\n\nGet a new API key at: https://aistudio.google.com/`
+          }
+        }
+      }
+      
       return {
         message: `❌ **AI Service Error**: ${error instanceof Error ? error.message : 'Failed to process your request. Please try again.'}`
       }
