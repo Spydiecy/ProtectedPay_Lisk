@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import DashboardSidebar from '@/components/DashboardSidebar'
+import AIMode from '@/components/ai/AIMode'
 import { Inter } from 'next/font/google'
 
 // Import Inter font directly in the dashboard layout so it doesn't inherit from parent
@@ -18,6 +19,7 @@ export default function DashboardLayout({
 }) {
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [mounted, setMounted] = useState(false)
+  const [isAIModeOpen, setIsAIModeOpen] = useState(false)
   
   // Handle theme toggle
   const toggleDarkMode = () => {
@@ -69,6 +71,12 @@ export default function DashboardLayout({
       {/* Background Elements - Light mode and dark mode backgrounds */}
       <div className="fixed inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-950 dark:via-black dark:to-green-950" />
       <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none opacity-5 dark:opacity-20" />
+      
+      {/* AI Mode */}
+      <AIMode 
+        isOpen={isAIModeOpen} 
+        onToggle={() => setIsAIModeOpen(!isAIModeOpen)} 
+      />
       
       {/* Content */}
       <div className="relative flex flex-grow z-10">
