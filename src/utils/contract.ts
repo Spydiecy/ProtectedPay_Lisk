@@ -1,11 +1,15 @@
 import { ethers } from 'ethers';
 
 const CONTRACT_ADDRESSES = {
-	42069: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '', // Umi Devnet
+	747: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Mainnet
+	545: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Testnet
+	314159: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Filecoin Calibration testnet
 } as const;
 
 const TOKEN_CONTRACT_ADDRESSES = {
-	42069: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '', // Umi Devnet
+	747: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Mainnet
+	545: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Testnet
+	314159: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Filecoin Calibration testnet
 } as const;
 
 const TOKEN_CONTRACT_ABI =  [
@@ -1850,7 +1854,7 @@ interface TransferEvent {
   const getContractAddress = async (signer: ethers.Signer) => {
 	const chainId = await signer.getChainId();
 	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] 
-	  || CONTRACT_ADDRESSES[42069]; // Default to Umi Devnet if chain not found
+	  || CONTRACT_ADDRESSES[747]; // Default to Flow EVM Mainnet if chain not found
   };
   
   // Contract instance getter with chain awareness
@@ -2307,7 +2311,7 @@ interface TransferEvent {
 const getTokenContractAddress = async (signer: ethers.Signer) => {
   const chainId = await signer.getChainId();
   return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] 
-    || TOKEN_CONTRACT_ADDRESSES[42069]; // Default to Umi Devnet if chain not found
+    || TOKEN_CONTRACT_ADDRESSES[747]; // Default to Flow EVM Mainnet if chain not found
 };
 
 // Token contract instance getter with chain awareness
@@ -2318,7 +2322,7 @@ export const getTokenContract = async (signer: ethers.Signer) => {
 
 // Helper function to parse token amount with correct decimals
 const parseTokenAmount = (amount: string, tokenAddress: string): ethers.BigNumber => {
-  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // Check if it's a specific token (removed ROOT token specific logic for Flow network)
   // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
   //   return ethers.utils.parseUnits(amount, 6);
   // }
@@ -2392,7 +2396,7 @@ export const getPendingTokenTransfers = async (signer: ethers.Signer, userAddres
 
 // Helper function to format token amount with correct decimals
 const formatTokenAmount = (amount: ethers.BigNumber, tokenAddress: string): string => {
-  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // Check if it's a specific token (removed ROOT token specific logic for Flow network)
   // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
   //   return ethers.utils.formatUnits(amount, 6);
   // }
@@ -2430,7 +2434,7 @@ export const getTokenBalance = async (signer: ethers.Signer, tokenAddress: strin
   // For ERC20 tokens, use the contract's balance function
   const contract = await getTokenContract(signer);
   
-  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // Check if it's a specific token (removed ROOT token specific logic for Flow network)
   // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
   //   try {
   //     console.log('Fetching specific token balance...');
@@ -2489,7 +2493,7 @@ export const getTokenAllowance = async (
     return ethers.constants.MaxUint256.toString();
   }
   
-  // Check if it's a specific token (removed ROOT token specific logic for Umi network)
+  // Check if it's a specific token (removed ROOT token specific logic for Flow network)
   // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
   //   const contract = await getTokenContract(signer);
   //   const allowance = await contract.getSpecificTokenAllowance(ownerAddress);

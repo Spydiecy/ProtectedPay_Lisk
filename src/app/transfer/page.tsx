@@ -41,13 +41,14 @@ import {
   getTokenBalance,
   canTransferToken
 } from '@/utils/contract'
-import { SUPPORTED_TOKENS, type Token } from '@/utils/constants'
+import { getSupportedTokensForChain, type Token } from '@/utils/constants'
 import { 
   formatAmount,
   truncateAddress,
   handleError
 } from '@/utils/helpers'
 import { useChainInfo } from '@/utils/useChainInfo';
+import { useChain } from '@/hooks/useChain'
 import QRScanner from '@/components/qr/QRScanner';
 
 enum TransferTabs {
@@ -122,7 +123,11 @@ export default function TransferPage() {
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
   const [showQrScanner, setShowQrScanner] = useState<boolean>(false)
   const [scannerMessage, setScannerMessage] = useState<{type: 'success' | 'error', text: string} | null>(null)
-  const [selectedToken, setSelectedToken] = useState<Token>(SUPPORTED_TOKENS[0])
+  
+  // Get chain information
+  const { chainId } = useChain();
+  const supportedTokens = getSupportedTokensForChain(chainId || 747);
+  const [selectedToken, setSelectedToken] = useState<Token>(supportedTokens[0])
   const [tokenBalances, setTokenBalances] = useState<Record<string, string>>({})
   const [activeTransferType, setActiveTransferType] = useState<'native' | 'token'>('native')
   const { signer, address } = useWallet()
@@ -144,7 +149,7 @@ export default function TransferPage() {
     try {
       const balances: Record<string, string> = {}
       
-      for (const token of SUPPORTED_TOKENS) {
+      for (const token of supportedTokens) {
         try {
           const balance = await getTokenBalance(signer, token.address, address)
           balances[token.address] = balance
@@ -195,7 +200,7 @@ export default function TransferPage() {
                   (typeof details.status === 'number' ? details.status : 
                    details.status.toNumber ? details.status.toNumber() : 0) : 0,
                 isNativeToken: true,
-                token: SUPPORTED_TOKENS[0] // Native ETH
+                token: supportedTokens[0] // Native token
               }
             } catch (err) {
               console.error(`Error fetching transfer details for ${id}:`, err)
@@ -216,9 +221,9 @@ export default function TransferPage() {
               const details = await getTokenTransferDetails(signer, id)
               
               // Find token by address
-              const token = SUPPORTED_TOKENS.find(t => 
+              const token = supportedTokens.find(t => 
                 t.address.toLowerCase() === details.token?.toLowerCase()
-              ) || SUPPORTED_TOKENS[0]
+              ) || supportedTokens[0]
               
               return {
                 id,
@@ -291,7 +296,11 @@ export default function TransferPage() {
     }
   }, [signer, address, fetchTokenBalances, fetchPendingTransfers])
 
-
+  // Update selected token when chain changes
+  useEffect(() => {
+    const chainTokens = getSupportedTokensForChain(chainId || 747);
+    setSelectedToken(chainTokens[0]); // Reset to first token (native) of new chain
+  }, [chainId]);
 
   const handleTabChange = (tab: TransferTabs) => {
     setActiveTab(tab)
@@ -304,7 +313,7 @@ export default function TransferPage() {
     setAmount('')
     setRemarks('')
     setTransferId('')
-    setSelectedToken(SUPPORTED_TOKENS[0]) // Reset to native token
+    setSelectedToken(supportedTokens[0]) // Reset to native token
     setActiveTransferType('native')
     setError('')
     setSuccess('')
@@ -645,7 +654,7 @@ export default function TransferPage() {
                         <select
                           value={selectedToken.address}
                           onChange={(e) => {
-                            const token = SUPPORTED_TOKENS.find(t => t.address === e.target.value)
+                            const token = supportedTokens.find(t => t.address === e.target.value)
                             if (token) {
                               setSelectedToken(token)
                               setActiveTransferType(token.isNative ? 'native' : 'token')
@@ -653,7 +662,7 @@ export default function TransferPage() {
                           }}
                           className="w-full px-4 py-3 rounded-xl bg-[rgb(var(--card))] border border-[rgb(var(--border))] text-[rgb(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[rgb(var(--primary))]/40 appearance-none"
                         >
-                          {SUPPORTED_TOKENS.map((token) => (
+                          {supportedTokens.map((token) => (
                             <option key={token.address} value={token.address}>
                               {token.symbol} - {token.name} 
                               {tokenBalances[token.address] !== undefined 

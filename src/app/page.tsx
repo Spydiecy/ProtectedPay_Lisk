@@ -284,7 +284,7 @@ const Navbar = () => {
   );
 };
 
-const UmiShowcase = () => {
+const NetworkShowcase = () => {
   return (
     <section id="network" className="py-20 relative overflow-hidden bg-gradient-to-b from-transparent via-green-50/30 to-transparent dark:via-green-900/10">
       {/* Background decorative elements */}
@@ -309,7 +309,7 @@ const UmiShowcase = () => {
             viewport={{ once: true }}
           >
             <span className="bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 text-transparent bg-clip-text">
-              Built for Umi Devnet
+              Built for Multiple Networks
             </span>
           </motion.h2>
           
@@ -320,14 +320,14 @@ const UmiShowcase = () => {
             whileInView="animate"
             viewport={{ once: true }}
           >
-            Experience the future of DeFi with lightning-fast transactions, minimal fees, and EVM compatibility on the revolutionary Umi Devnet
+            Experience the future of DeFi with lightning-fast transactions, minimal fees, and EVM compatibility across Flow Network and Filecoin ecosystems
           </motion.p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Main Network Card */}
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
+          {/* Flow Network Card */}
           <motion.div 
-            className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 dark:from-green-400/10 dark:to-emerald-400/10 border border-green-500/20 dark:border-green-400/20 rounded-3xl p-8 backdrop-blur-sm shadow-xl"
+            className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 dark:from-green-400/10 dark:to-emerald-400/10 border border-green-500/20 dark:border-green-400/20 rounded-3xl p-6 backdrop-blur-sm shadow-xl"
             variants={fadeIn}
             initial="initial"
             whileInView="animate"
@@ -335,36 +335,79 @@ const UmiShowcase = () => {
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <div className="flex flex-col items-center text-center space-y-6">
-              <div className="w-24 h-24 relative">
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="w-20 h-20 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-xl"></div>
                 <Image
-                  src="/chains/umi.png"
-                  alt="Umi Devnet"
-                  width={96}
-                  height={96}
+                  src="/chains/flow.svg"
+                  alt="Flow Network"
+                  width={80}
+                  height={80}
                   className="relative z-10 transition-all duration-300 hover:scale-110 drop-shadow-lg"
                 />
               </div>
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Umi Devnet</h3>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Flow Network</h3>
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                  Devnet Environment
+                  EVM Compatible
                 </div>
-                <div className="grid grid-cols-2 gap-4 text-sm">
-                  <div className="bg-black/5 dark:bg-white/5 rounded-lg p-3">
-                    <div className="text-gray-500 dark:text-gray-400 mb-1">Chain ID</div>
-                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">42069</div>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
+                    <div className="text-gray-500 dark:text-gray-400 mb-1">Mainnet</div>
+                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">747</div>
                   </div>
-                  <div className="bg-black/5 dark:bg-white/5 rounded-lg p-3">
-                    <div className="text-gray-500 dark:text-gray-400 mb-1">Currency</div>
-                    <div className="font-semibold text-green-600 dark:text-green-400">ETH</div>
+                  <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
+                    <div className="text-gray-500 dark:text-gray-400 mb-1">Testnet</div>
+                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">545</div>
                   </div>
                 </div>
-                <div className="flex items-center justify-center space-x-2 text-green-600 dark:text-green-400">
-                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="font-semibold">Network Active</span>
+                <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
+                  <div className="text-gray-500 dark:text-gray-400 mb-1">Currency</div>
+                  <div className="font-semibold text-green-600 dark:text-green-400">FLOW</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Filecoin Network Card */}
+          <motion.div 
+            className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 dark:from-green-400/10 dark:to-emerald-400/10 border border-green-500/20 dark:border-green-400/20 rounded-3xl p-6 backdrop-blur-sm shadow-xl"
+            variants={fadeIn}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <div className="flex flex-col items-center text-center space-y-4">
+              <div className="w-20 h-20 relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-xl"></div>
+                <Image
+                  src="/chains/usdfc.png"
+                  alt="Filecoin Network"
+                  width={80}
+                  height={80}
+                  className="relative z-10 transition-all duration-300 hover:scale-110 drop-shadow-lg"
+                />
+              </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Filecoin Network</h3>
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
+                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                  Calibration Testnet
+                </div>
+                <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
+                  <div className="text-gray-500 dark:text-gray-400 mb-1">Chain ID</div>
+                  <div className="font-mono font-semibold text-green-600 dark:text-green-400">314159</div>
+                </div>
+                <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
+                  <div className="text-gray-500 dark:text-gray-400 mb-1">Native Currency</div>
+                  <div className="font-semibold text-green-600 dark:text-green-400">tFIL</div>
+                </div>
+                <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-lg p-2 border border-green-300 dark:border-green-700">
+                  <div className="text-green-700 dark:text-green-300 mb-1 font-medium">Featured Token</div>
+                  <div className="font-bold text-green-800 dark:text-green-200">tUSDFC</div>
                 </div>
               </div>
             </div>
@@ -381,20 +424,20 @@ const UmiShowcase = () => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-center mb-6">Why Umi Devnet?</h3>
+              <h3 className="text-2xl font-bold text-center mb-6">Why Multi-Chain?</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
                     <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Lightning Fast</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Sub-second transaction finality</p>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Sub-second transaction finality across networks</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Ultra Low Fees</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Minimal transaction costs</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">tUSDFC Support</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Native support for Filecoin's tUSDFC token</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -407,8 +450,8 @@ const UmiShowcase = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Umi Network</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Advanced blockchain infrastructure</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Multi-Network</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Seamlessly switch between Flow & Filecoin</p>
                   </div>
                 </div>
               </div>
@@ -687,7 +730,7 @@ const LandingPage = () => {
       <main className="flex-grow">
         <Hero />
         <TransferHighlight />
-        <UmiShowcase />
+        <NetworkShowcase />
       </main>
       
       {/* Footer - explicitly attached to the bottom */}

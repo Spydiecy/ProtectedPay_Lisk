@@ -16,13 +16,31 @@ export interface ChainInfo {
 
 export const supportedChains: ChainInfo[] = [
   {
-    id: 42069,
-    hexId: '0xA455',
-    name: 'Umi Devnet',
-    icon: '/chains/umi.png',
-    symbol: 'ETH',
-    rpcUrl: 'https://devnet.moved.network',
-    blockExplorerUrl: 'https://devnet.explorer.moved.network'
+    id: 747,
+    hexId: '0x2EB',
+    name: 'Flow EVM Mainnet',
+    icon: '/chains/flow.svg',
+    symbol: 'FLOW',
+    rpcUrl: 'https://mainnet.evm.nodes.onflow.org',
+    blockExplorerUrl: 'https://evm.flowscan.io'
+  },
+  {
+    id: 545,
+    hexId: '0x221',
+    name: 'Flow EVM Testnet',
+    icon: '/chains/flow.svg',
+    symbol: 'FLOW',
+    rpcUrl: 'https://testnet.evm.nodes.onflow.org',
+    blockExplorerUrl: 'https://evm-testnet.flowscan.io'
+  },
+  {
+    id: 314159,
+    hexId: '0x4CB2F',
+    name: 'Filecoin - Calibration testnet',
+    icon: '/chains/usdfc.png',
+    symbol: 'tFIL',
+    rpcUrl: 'https://api.calibration.node.glif.io/rpc/v1',
+    blockExplorerUrl: 'https://calibration.filscan.io'
   }
 ] as const
 

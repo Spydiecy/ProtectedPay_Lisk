@@ -9,12 +9,16 @@ export interface ChainInfo {
 
 // Map of chain IDs to their native tokens
 const TOKEN_MAP: Record<number, string> = {
-  42069: "ETH", // Umi Devnet
+  747: "FLOW", // Flow EVM Mainnet
+  545: "FLOW", // Flow EVM Testnet
+  314159: "tFIL", // Filecoin Calibration testnet
 };
 
 // Map of chain IDs to their names
 const CHAIN_NAME_MAP: Record<number, string> = {
-  42069: "Umi Devnet",
+  747: "Flow EVM Mainnet",
+  545: "Flow EVM Testnet",
+  314159: "Filecoin - Calibration testnet",
 };
 
 /**
@@ -24,8 +28,8 @@ export function useChain(): ChainInfo {
   // Use the wallet context directly
   const wallet = useWallet();  const [chainInfo, setChainInfo] = useState<ChainInfo>({
     chainId: undefined,
-    nativeToken: "ETH",
-    chainName: "Umi Devnet"
+    nativeToken: "FLOW",
+    chainName: "Flow EVM Mainnet"
   });
 
   useEffect(() => {
@@ -38,8 +42,8 @@ export function useChain(): ChainInfo {
           if (ethereum && ethereum.chainId) {
             const chainId = parseInt(ethereum.chainId, 16);            setChainInfo({
               chainId,
-              nativeToken: TOKEN_MAP[chainId] || "ETH",
-              chainName: CHAIN_NAME_MAP[chainId] || "Umi Devnet"
+              nativeToken: TOKEN_MAP[chainId] || "FLOW",
+              chainName: CHAIN_NAME_MAP[chainId] || "Flow EVM Mainnet"
             });
           }
         } catch (error) {
@@ -57,8 +61,8 @@ export function useChain(): ChainInfo {
       const handleChainChanged = (chainId: string) => {
         const id = parseInt(chainId, 16);        setChainInfo({
           chainId: id,
-          nativeToken: TOKEN_MAP[id] || "ETH",
-          chainName: CHAIN_NAME_MAP[id] || "Umi Devnet"
+          nativeToken: TOKEN_MAP[id] || "FLOW",
+          chainName: CHAIN_NAME_MAP[id] || "Flow EVM Mainnet"
         });
       };
 

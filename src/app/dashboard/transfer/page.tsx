@@ -43,7 +43,7 @@ import {
   getTokenBalance,
   getUserTokenTransfers
 } from '@/utils/contract'
-import { SUPPORTED_TOKENS, Token } from '@/utils/constants'
+import { getSupportedTokensForChain, Token } from '@/utils/constants'
 import { useChainInfo } from '@/utils/useChainInfo';
 import QRScanner from '@/components/qr/QRScanner'
 import { shortenAddress, isValidAddress } from '@/utils/address'
@@ -83,11 +83,14 @@ const staggerContainer = {
 
 export default function TransferPage() {
   const [recipient, setRecipient] = useState('')
-  const { nativeToken } = useChain();
+  const { nativeToken, chainId } = useChain();
   const [amount, setAmount] = useState('')
   const [remarks, setRemarks] = useState('')
   const [claimInput, setClaimInput] = useState('')
-  const [selectedToken, setSelectedToken] = useState<Token>(SUPPORTED_TOKENS[0]) // Default to native ETH
+  
+  // Get chain-specific supported tokens
+  const supportedTokens = getSupportedTokensForChain(chainId || 747);
+  const [selectedToken, setSelectedToken] = useState<Token>(supportedTokens[0]) // Default to native token
   const [tokenBalances, setTokenBalances] = useState<Record<string, string>>({})
   const [activeTransferType, setActiveTransferType] = useState<'native' | 'token'>('native')
   const [isLoading, setIsLoading] = useState(false)
@@ -117,7 +120,7 @@ export default function TransferPage() {
     try {
       const balances: Record<string, string> = {}
       
-      for (const token of SUPPORTED_TOKENS) {
+      for (const token of supportedTokens) {
         try {
           console.log(`Fetching balance for ${token.symbol} (${token.address})`)
           const balance = await getTokenBalance(signer, token.address, wagmiAddress)
@@ -181,7 +184,7 @@ export default function TransferPage() {
             console.log(`Token transfer details for ${id}:`, details)
             
             // Determine if this is actually a native token transfer
-            // Check for native ETH transfers on Umi network
+            // Check for native token transfers on Flow or Filecoin networks
             const isActuallyNative = (details.token === 'NATIVE' || 
                                    details.token === '0x0000000000000000000000000000000000000000' ||
                                    !details.token)
@@ -243,6 +246,12 @@ export default function TransferPage() {
     }
   }, [signer, wagmiAddress, fetchRecentActivity, fetchTokenBalances])
 
+  // Update selected token when chain changes
+  useEffect(() => {
+    const chainTokens = getSupportedTokensForChain(chainId || 747);
+    setSelectedToken(chainTokens[0]); // Reset to first token (native) of new chain
+  }, [chainId]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -262,7 +271,7 @@ export default function TransferPage() {
     setAmount('')
     setRemarks('')
     setClaimInput('')
-    setSelectedToken(SUPPORTED_TOKENS[0]) // Reset to native token
+    setSelectedToken(supportedTokens[0]) // Reset to native token
     setError('')
     setSuccess('')
   }
@@ -598,7 +607,7 @@ export default function TransferPage() {
                     {/* Token Dropdown */}
                     {showTokenDropdown && (
                       <div className="absolute top-full left-0 right-0 mt-1 bg-[rgb(var(--background))] border border-[rgb(var(--border))] rounded-xl shadow-lg z-50 max-h-64 overflow-y-auto">
-                        {SUPPORTED_TOKENS.map((token) => (
+                        {supportedTokens.map((token) => (
                           <button
                             key={token.address}
                             type="button"
@@ -757,11 +766,11 @@ export default function TransferPage() {
                           // Get token info for display
                           const getTokenInfo = () => {
                             if (transfer.isNativeToken || transfer.token === 'NATIVE' || !transfer.token) {
-                              return SUPPORTED_TOKENS[0] // Native ETH
+                              return supportedTokens[0] // Native token
                             }
                             
                             // Find token by address (case-insensitive)
-                            const foundToken = SUPPORTED_TOKENS.find(t => 
+                            const foundToken = supportedTokens.find(t => 
                               t.address.toLowerCase() === transfer.token?.toLowerCase()
                             )
                             
@@ -776,7 +785,7 @@ export default function TransferPage() {
                               symbol: 'UNKNOWN',
                               name: 'Unknown Token',
                               decimals: 18,
-                              logo: '/chains/umi.png',
+                              logo: '/chains/flow.svg',
                               isNative: false
                             } as unknown as Token
                           }

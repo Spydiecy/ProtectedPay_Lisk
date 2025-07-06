@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'ProtectedPay | Secure Crypto Transfers on Umi Network',
-  description: 'Secure crypto transfers, group payments, and smart savings on Umi Devnet blockchain',
-  keywords: 'crypto, payments, blockchain, Umi, UMI, ETH, DeFi, secure transfers, group payments, Umi Devnet',
+  title: 'ProtectedPay | Secure Crypto Transfers on Flow & Filecoin Networks',
+  description: 'Secure crypto transfers, group payments, and smart savings on Flow EVM and Filecoin networks with tUSDFC support',
+  keywords: 'crypto, payments, blockchain, Flow, FLOW, Filecoin, tFIL, tUSDFC, EVM, DeFi, secure transfers, group payments, multi-chain',
   authors: [{ name: 'ProtectedPay' }],
 };
 

@@ -22,33 +22,85 @@ type ExtendedProvider = ethers.providers.ExternalProvider & {
 };
 
 // Define chains
-const umiDevnet = {
-  id: 42069,
-  name: 'Umi Devnet',
-  network: 'umidevnet',
+const flowMainnet = {
+  id: 747,
+  name: 'Flow EVM Mainnet',
+  network: 'flowmainnet',
   nativeCurrency: {
     decimals: 18,
-    name: 'ETH',
-    symbol: 'ETH',
+    name: 'FLOW',
+    symbol: 'FLOW',
   },
   rpcUrls: {
     default: {
-      http: ['https://devnet.moved.network']
+      http: ['https://mainnet.evm.nodes.onflow.org']
     },
     public: {
-      http: ['https://devnet.moved.network']
+      http: ['https://mainnet.evm.nodes.onflow.org']
     }
   },
   blockExplorers: {
     default: {
-      name: 'Umi Devnet Explorer',
-      url: 'https://devnet.explorer.moved.network'
+      name: 'Flow EVM Mainnet Explorer',
+      url: 'https://evm.flowscan.io'
+    }
+  },
+  testnet: false,
+} as const;
+
+const flowTestnet = {
+  id: 545,
+  name: 'Flow EVM Testnet',
+  network: 'flowtestnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'FLOW',
+    symbol: 'FLOW',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://testnet.evm.nodes.onflow.org']
+    },
+    public: {
+      http: ['https://testnet.evm.nodes.onflow.org']
+    }
+  },
+  blockExplorers: {
+    default: {
+      name: 'Flow EVM Testnet Explorer',
+      url: 'https://evm-testnet.flowscan.io'
     }
   },
   testnet: true,
 } as const;
 
-const chains = [umiDevnet] as const; 
+const filecoinCalibration = {
+  id: 314159,
+  name: 'Filecoin - Calibration testnet',
+  network: 'filecalib',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'tFIL',
+    symbol: 'tFIL',
+  },
+  rpcUrls: {
+    default: {
+      http: ['https://api.calibration.node.glif.io/rpc/v1']
+    },
+    public: {
+      http: ['https://api.calibration.node.glif.io/rpc/v1']
+    }
+  },
+  blockExplorers: {
+    default: {
+      name: 'Filecoin Calibration Explorer',
+      url: 'https://calibration.filscan.io'
+    }
+  },
+  testnet: true,
+} as const;
+
+const chains = [flowMainnet, flowTestnet, filecoinCalibration] as const; 
 
 const projectId = 'b8ad206ba9492e6096fa0aa0f868586c';
 
@@ -68,7 +120,9 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    [umiDevnet.id]: http(),
+    [flowMainnet.id]: http(),
+    [flowTestnet.id]: http(),
+    [filecoinCalibration.id]: http(),
   },
 });
 

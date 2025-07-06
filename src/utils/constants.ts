@@ -26,32 +26,96 @@ export const STATUS_LABELS = {
   export const STAGGER_DELAY = 0.1;
   export const MIN_PARTICIPANTS = 2;
 
-// Supported ERC20 tokens for transfers
-export const SUPPORTED_TOKENS = [
-  {
-    address: 'NATIVE',
-    symbol: 'ETH',
-    name: 'ETH (Native)',
-    decimals: 18,
-    logo: '/chains/eth.png',
-    isNative: true
-  },
-  {
-    address: '',
-    symbol: 'USDC',
-    name: 'USD Coin',
-    decimals: 6,
-    logo: '/chains/usdc.png',
-    isNative: false
-  },
-  {
-    address: '',
-    symbol: 'USDT',
-    name: 'Tether USD',
-    decimals: 6,
-    logo: '/chains/usdt.png',
-    isNative: false
-  }
-] as const;
+// Chain-specific supported tokens for transfers
+export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
+  address: string;
+  symbol: string;
+  name: string;
+  decimals: number;
+  logo: string;
+  isNative: boolean;
+}>> = {
+  // Flow EVM Mainnet
+  747: [
+    {
+      address: 'NATIVE',
+      symbol: 'FLOW',
+      name: 'FLOW (Native)',
+      decimals: 18,
+      logo: '/chains/flow.svg',
+      isNative: true
+    },
+    {
+      address: '0x0000000000000000000000000000000000000000',
+      symbol: 'USDC',
+      name: 'USD Coin',
+      decimals: 6,
+      logo: '/chains/usdc.png',
+      isNative: false
+    },
+    {
+      address: '0x0000000000000000000000000000000000000000',
+      symbol: 'USDT',
+      name: 'Tether USD',
+      decimals: 6,
+      logo: '/chains/usdt.png',
+      isNative: false
+    }
+  ],
+  // Flow EVM Testnet
+  545: [
+    {
+      address: 'NATIVE',
+      symbol: 'FLOW',
+      name: 'FLOW (Native)',
+      decimals: 18,
+      logo: '/chains/flow.svg',
+      isNative: true
+    },
+    {
+      address: '0x0000000000000000000000000000000000000000',
+      symbol: 'USDC',
+      name: 'USD Coin',
+      decimals: 6,
+      logo: '/chains/usdc.png',
+      isNative: false
+    },
+    {
+      address: '0x0000000000000000000000000000000000000000',
+      symbol: 'USDT',
+      name: 'Tether USD',
+      decimals: 6,
+      logo: '/chains/usdt.png',
+      isNative: false
+    }
+  ],
+  // Filecoin Calibration Testnet
+  314159: [
+    {
+      address: 'NATIVE',
+      symbol: 'tFIL',
+      name: 'tFIL (Native)',
+      decimals: 18,
+      logo: '/chains/filecoin.png',
+      isNative: true
+    },
+    {
+      address: '0xb3042734b608a1B16e9e86B374A3f3e389B4cDf0',
+      symbol: 'tUSDFC',
+      name: 'tUSDFC (Filecoin)',
+      decimals: 6,
+      logo: '/chains/usdfc.png',
+      isNative: false
+    }
+  ]
+} as const;
+
+// Legacy support - defaults to Flow Mainnet tokens
+export const SUPPORTED_TOKENS = SUPPORTED_TOKENS_BY_CHAIN[747];
+
+// Helper function to get supported tokens for a specific chain
+export const getSupportedTokensForChain = (chainId: number) => {
+  return SUPPORTED_TOKENS_BY_CHAIN[chainId] || SUPPORTED_TOKENS_BY_CHAIN[747]; // Default to Flow Mainnet
+};
 
 export type Token = typeof SUPPORTED_TOKENS[number];

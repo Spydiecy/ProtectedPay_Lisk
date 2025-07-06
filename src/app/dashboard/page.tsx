@@ -21,7 +21,7 @@ import {
   getUserByAddress,
   registerUsername
 } from '@/utils/contract'
-import { SUPPORTED_TOKENS } from '@/utils/constants'
+import { getSupportedTokensForChain } from '@/utils/constants'
 import { ethers } from 'ethers';
 import { useChain } from '@/hooks/useChain';
 import ProfileQR from '@/components/qr/ProfileQR';
@@ -56,7 +56,7 @@ interface Activity {
 export default function DashboardPage() {
   const { address } = useAccount()
   const { signer } = useWallet()
-  const { nativeToken } = useChain();
+  const { nativeToken, chainId } = useChain();
   const [balance, setBalance] = useState<string>('0.00')
   const [isLoading, setIsLoading] = useState(true)
   const [recentActivity, setRecentActivity] = useState<Activity[]>([])
@@ -142,11 +142,12 @@ export default function DashboardPage() {
         
         // Process token transfers
         if (allTokenTransfers && allTokenTransfers.length > 0) {
+          const supportedTokens = getSupportedTokensForChain(chainId || 747);
           const tokenActivities = allTokenTransfers.map((transfer: any) => {
             const isSender = transfer.sender.toLowerCase() === address.toLowerCase()
             
-            // Find token info from SUPPORTED_TOKENS
-            const token = SUPPORTED_TOKENS.find(t => 
+            // Find token info from supported tokens for current chain
+            const token = supportedTokens.find(t => 
               t.address.toLowerCase() === transfer.token?.toLowerCase()
             ) || { symbol: 'UNKNOWN', name: 'Unknown Token' }
             
