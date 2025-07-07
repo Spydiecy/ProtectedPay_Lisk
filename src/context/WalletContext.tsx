@@ -22,32 +22,6 @@ type ExtendedProvider = ethers.providers.ExternalProvider & {
 };
 
 // Define chains
-const flowMainnet = {
-  id: 747,
-  name: 'Flow EVM Mainnet',
-  network: 'flowmainnet',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'FLOW',
-    symbol: 'FLOW',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://mainnet.evm.nodes.onflow.org']
-    },
-    public: {
-      http: ['https://mainnet.evm.nodes.onflow.org']
-    }
-  },
-  blockExplorers: {
-    default: {
-      name: 'Flow EVM Mainnet Explorer',
-      url: 'https://evm.flowscan.io'
-    }
-  },
-  testnet: false,
-} as const;
-
 const flowTestnet = {
   id: 545,
   name: 'Flow EVM Testnet',
@@ -100,7 +74,7 @@ const filecoinCalibration = {
   testnet: true,
 } as const;
 
-const chains = [flowMainnet, flowTestnet, filecoinCalibration] as const; 
+const chains = [flowTestnet, filecoinCalibration] as const; 
 
 const projectId = 'b8ad206ba9492e6096fa0aa0f868586c';
 
@@ -120,7 +94,6 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    [flowMainnet.id]: http(),
     [flowTestnet.id]: http(),
     [filecoinCalibration.id]: http(),
   },

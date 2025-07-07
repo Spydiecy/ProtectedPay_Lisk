@@ -4,7 +4,7 @@ This guide explains how to use the built-in AI chat interface powered by Google 
 
 ## 🤖 AI Chat Interface (Built-in)
 
-The ProtectedPay dashboard includes a built-in AI assistant powered by Google Gemini 1.5 Flash that provides natural language access to all smart contract functions.
+The ProtectedPay dashboard includes a built-in AI assistant powered by Google Gemini 2.5 Flash that provides natural language access to all smart contract functions.
 
 ### Features
 - 💬 **Natural Language Processing**: Understands commands like "Send 10 FLOW to alice"
@@ -30,7 +30,7 @@ User: "What's my USDC balance?"
 AI: 💰 Your Balance
     • USDC: 1,250.50
     • Address: 0x1234...
-    • Chain: Flow Mainnet
+    • Chain: Flow EVM Testnet
 ```
 
 #### Claiming Transfers
@@ -81,7 +81,6 @@ AI: ✅ Username "spy" registered successfully!
 
 ### Multi-Chain Support
 The AI automatically detects and works with multiple chains:
-- **Flow EVM Mainnet** (747): FLOW, USDC, USDT
 - **Flow EVM Testnet** (545): FLOW, USDC, USDT
 - **Filecoin Calibration** (314159): tFIL, tUSDFC
 
@@ -140,7 +139,7 @@ AI: 💰 Your Balance
 • USDC: 1,200.00
 • USDT: 500.00
 • Address: 0x1234...5678
-• Chain: Flow EVM Mainnet
+• Chain: Flow EVM Testnet
 
 User: "Send 20 FLOW to alice"
 

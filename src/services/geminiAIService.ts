@@ -154,7 +154,6 @@ AVAILABLE ACTIONS:
 
 SUPPORTED CHAINS:
 - Flow EVM Testnet (Chain ID: 545)
-- Flow EVM Mainnet (Chain ID: 747)
 - Filecoin Calibration Testnet (Chain ID: 314159)
 
 CURRENT CONTEXT:
@@ -458,7 +457,7 @@ Examples:
         const targetAddress = action.data.address || address
         if (!targetAddress) throw new Error('No address specified')
         
-        const supportedTokens = getSupportedTokensForChain(chainId || 747)
+        const supportedTokens = getSupportedTokensForChain(chainId || 545)
         
         // Handle specific token request
         if (action.data.token && !action.data.showAll) {
@@ -548,7 +547,7 @@ Examples:
         const transferAddress = action.data.address || address
         if (!transferAddress) throw new Error('No address specified')
         
-        const transfersResult = await this.aiService.getPendingTransfers(signer, transferAddress, chainId || 747)
+        const transfersResult = await this.aiService.getPendingTransfers(signer, transferAddress, chainId || 545)
         
         return {
           message: `📋 Found ${transfersResult.data?.transfers?.length || 0} pending transfers`,
@@ -557,11 +556,10 @@ Examples:
         
       case 'chain_info':
         return {
-          message: `⛓️ **Supported Chains:**\n• Flow EVM Testnet (ID: 545)\n• Flow EVM Mainnet (ID: 747)\n• Filecoin Calibration (ID: 314159)`,
+          message: `⛓️ **Supported Chains:**\n• Flow EVM Testnet (ID: 545)\n• Filecoin Calibration (ID: 314159)`,
           data: {
             chains: [
               { name: 'Flow EVM Testnet', id: 545 },
-              { name: 'Flow EVM Mainnet', id: 747 },
               { name: 'Filecoin Calibration', id: 314159 }
             ]
           }
@@ -645,7 +643,7 @@ Examples:
     switch (action) {
       case 'send':
         // Get proper token from supported tokens
-        const supportedTokens = getSupportedTokensForChain(chainId || 747)
+        const supportedTokens = getSupportedTokensForChain(chainId || 545)
         const token = supportedTokens.find(t => 
           t.symbol.toLowerCase() === (data.token || 'FLOW').toLowerCase()
         ) || supportedTokens.find(t => t.isNative) || supportedTokens[0]
@@ -694,7 +692,6 @@ Examples:
   private getChainName(chainId?: number): string {
     switch (chainId) {
       case 545: return 'Flow EVM Testnet'
-      case 747: return 'Flow EVM Mainnet'
       case 314159: return 'Filecoin Calibration Testnet'
       default: return `Chain ${chainId || 'Unknown'}`
     }

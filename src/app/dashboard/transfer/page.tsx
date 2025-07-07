@@ -89,7 +89,7 @@ export default function TransferPage() {
   const [claimInput, setClaimInput] = useState('')
   
   // Get chain-specific supported tokens
-  const supportedTokens = getSupportedTokensForChain(chainId || 747);
+  const supportedTokens = getSupportedTokensForChain(chainId || 545);
   const [selectedToken, setSelectedToken] = useState<Token>(supportedTokens[0]) // Default to native token
   const [tokenBalances, setTokenBalances] = useState<Record<string, string>>({})
   const [activeTransferType, setActiveTransferType] = useState<'native' | 'token'>('native')
@@ -248,7 +248,7 @@ export default function TransferPage() {
 
   // Update selected token when chain changes
   useEffect(() => {
-    const chainTokens = getSupportedTokensForChain(chainId || 747);
+    const chainTokens = getSupportedTokensForChain(chainId || 545);
     setSelectedToken(chainTokens[0]); // Reset to first token (native) of new chain
   }, [chainId]);
 

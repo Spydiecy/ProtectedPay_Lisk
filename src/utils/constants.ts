@@ -35,33 +35,6 @@ export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
   logo: string;
   isNative: boolean;
 }>> = {
-  // Flow EVM Mainnet
-  747: [
-    {
-      address: 'NATIVE',
-      symbol: 'FLOW',
-      name: 'FLOW (Native)',
-      decimals: 18,
-      logo: '/chains/flow.svg',
-      isNative: true
-    },
-    {
-      address: '0x0000000000000000000000000000000000000000',
-      symbol: 'USDC',
-      name: 'USD Coin',
-      decimals: 6,
-      logo: '/chains/usdc.png',
-      isNative: false
-    },
-    {
-      address: '0x0000000000000000000000000000000000000000',
-      symbol: 'USDT',
-      name: 'Tether USD',
-      decimals: 6,
-      logo: '/chains/usdt.png',
-      isNative: false
-    }
-  ],
   // Flow EVM Testnet
   545: [
     {
@@ -110,12 +83,12 @@ export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
   ]
 } as const;
 
-// Legacy support - defaults to Flow Mainnet tokens
-export const SUPPORTED_TOKENS = SUPPORTED_TOKENS_BY_CHAIN[747];
+// Legacy support - defaults to Flow Testnet tokens
+export const SUPPORTED_TOKENS = SUPPORTED_TOKENS_BY_CHAIN[545];
 
 // Helper function to get supported tokens for a specific chain
 export const getSupportedTokensForChain = (chainId: number) => {
-  return SUPPORTED_TOKENS_BY_CHAIN[chainId] || SUPPORTED_TOKENS_BY_CHAIN[747]; // Default to Flow Mainnet
+  return SUPPORTED_TOKENS_BY_CHAIN[chainId] || SUPPORTED_TOKENS_BY_CHAIN[545]; // Default to Flow Testnet
 };
 
 export type Token = typeof SUPPORTED_TOKENS[number];

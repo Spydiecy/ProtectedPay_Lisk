@@ -355,7 +355,7 @@ const NetworkShowcase = () => {
                 <div className="grid grid-cols-2 gap-3 text-sm">
                   <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
                     <div className="text-gray-500 dark:text-gray-400 mb-1">Mainnet</div>
-                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">747</div>
+                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">545</div>
                   </div>
                   <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
                     <div className="text-gray-500 dark:text-gray-400 mb-1">Testnet</div>

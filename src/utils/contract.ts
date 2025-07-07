@@ -1,13 +1,11 @@
 import { ethers } from 'ethers';
 
 const CONTRACT_ADDRESSES = {
-	747: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Mainnet
 	545: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Testnet
 	314159: process.env.NEXT_PUBLIC_MAIN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Filecoin Calibration testnet
 } as const;
 
 const TOKEN_CONTRACT_ADDRESSES = {
-	747: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Mainnet
 	545: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Flow EVM Testnet
 	314159: process.env.NEXT_PUBLIC_TOKEN_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000', // Filecoin Calibration testnet
 } as const;
@@ -1854,7 +1852,7 @@ interface TransferEvent {
   const getContractAddress = async (signer: ethers.Signer) => {
 	const chainId = await signer.getChainId();
 	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] 
-	  || CONTRACT_ADDRESSES[747]; // Default to Flow EVM Mainnet if chain not found
+	  || CONTRACT_ADDRESSES[545]; // Default to Flow EVM Testnet if chain not found
   };
   
   // Contract instance getter with chain awareness
@@ -2311,7 +2309,7 @@ interface TransferEvent {
 const getTokenContractAddress = async (signer: ethers.Signer) => {
   const chainId = await signer.getChainId();
   return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] 
-    || TOKEN_CONTRACT_ADDRESSES[747]; // Default to Flow EVM Mainnet if chain not found
+    || TOKEN_CONTRACT_ADDRESSES[545]; // Default to Flow EVM Testnet if chain not found
 };
 
 // Token contract instance getter with chain awareness

@@ -16,15 +16,6 @@ export interface ChainInfo {
 
 export const supportedChains: ChainInfo[] = [
   {
-    id: 747,
-    hexId: '0x2EB',
-    name: 'Flow EVM Mainnet',
-    icon: '/chains/flow.svg',
-    symbol: 'FLOW',
-    rpcUrl: 'https://mainnet.evm.nodes.onflow.org',
-    blockExplorerUrl: 'https://evm.flowscan.io'
-  },
-  {
     id: 545,
     hexId: '0x221',
     name: 'Flow EVM Testnet',

@@ -78,7 +78,7 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
   
   const { address, signer } = useWallet()
   const { chainId } = useChain()
-  const supportedTokens = getSupportedTokensForChain(chainId || 747)
+  const supportedTokens = getSupportedTokensForChain(chainId || 545)
   
   // Initialize AI services
   const aiService = new ProtectedPayAIService()
@@ -355,7 +355,7 @@ Make sure your wallet is connected!`
 
 • **${token.symbol}**: ${formatAmount(result.data.balance)}
 • **Address**: ${truncateAddress(address)}
-• **Chain**: ${chainId === 747 ? 'Flow Mainnet' : chainId === 545 ? 'Flow Testnet' : 'Filecoin Calibration'}
+• **Chain**: ${chainId === 545 ? 'Flow Testnet' : 'Filecoin Calibration'}
 
 Need to send or receive funds? Just ask me!`,
             status: 'sent',
@@ -365,7 +365,7 @@ Need to send or receive funds? Just ask me!`,
         }
       } else {
         // Check all balances
-        const result = await aiService.getAllBalances(signer, address, chainId || 747)
+        const result = await aiService.getAllBalances(signer, address, chainId || 545)
         
         if (result.success && result.data) {
           const balances = result.data.balances
@@ -376,7 +376,7 @@ Need to send or receive funds? Just ask me!`,
           }
           
           balanceText += `\n• **Address**: ${truncateAddress(address)}\n`
-          balanceText += `• **Chain**: ${chainId === 747 ? 'Flow Mainnet' : chainId === 545 ? 'Flow Testnet' : 'Filecoin Calibration'}\n\n`
+          balanceText += `• **Chain**: ${chainId === 545 ? 'Flow Testnet' : 'Filecoin Calibration'}\n\n`
           balanceText += `Need to send or receive funds? Just ask me!`
           
           updateMessage(messageId, {
@@ -405,7 +405,7 @@ Need to send or receive funds? Just ask me!`,
     }
     
     try {
-      const result = await aiService.getPendingTransfers(signer, address, chainId || 747)
+      const result = await aiService.getPendingTransfers(signer, address, chainId || 545)
       
       if (result.success && result.data) {
         const { received, sent } = result.data
