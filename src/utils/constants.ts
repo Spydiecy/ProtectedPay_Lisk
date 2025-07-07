@@ -80,6 +80,25 @@ export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
       logo: '/chains/usdfc.png',
       isNative: false
     }
+  ],
+  // Filecoin Mainnet
+  314: [
+    {
+      address: 'NATIVE',
+      symbol: 'FIL',
+      name: 'FIL (Native)',
+      decimals: 18,
+      logo: '/chains/filecoin.png',
+      isNative: true
+    },
+    {
+      address: '0x0000000000000000000000000000000000000000', // Placeholder address
+      symbol: 'USDFC',
+      name: 'USDFC (Filecoin)',
+      decimals: 6,
+      logo: '/chains/usdfc.png',
+      isNative: false
+    }
   ]
 } as const;
 

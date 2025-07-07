@@ -21,6 +21,20 @@
 
 ## ✨ Features
 
+### 🤖 AI-Powered Assistant
+
+<img align="right" src="https://github.com/user-attachments/assets/a59d35bc-e1f0-4b5f-86d5-d2acded44b95" width="350px">
+
+- **Natural Language Commands**: Send transfers using plain English - "Send 10 FLOW to alice"
+- **Voice Input Support**: Use your microphone for hands-free interaction
+- **Smart Balance Queries**: Check balances with simple commands like "What's my USDC balance?"
+- **Transaction Management**: Claim, refund, and view transfers through AI chat
+- **Real-time Assistance**: Get instant help with wallet operations and blockchain interactions
+- **Context-Aware**: AI remembers your conversation for better assistance
+- **Multi-Chain Support**: Works seamlessly across Flow Testnet and Filecoin Calibration networks
+
+<br clear="right"/>
+
 ### 🛡️ Protected Transfers on Multi-Chain Networks
 
 <img align="right" src="https://github.com/user-attachments/assets/a59d35bc-e1f0-4b5f-86d5-d2acded44b95" width="350px">
@@ -82,12 +96,11 @@
 
 ## 🔗 Supported Networks
 
-ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, delivering optimized functionality across both mainnet and testnet environments with special emphasis on tUSDFC token support.
+ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, with AI-powered assistance for seamless interactions. Currently optimized for testnet environments with plans for mainnet deployment.
 
 <div align="left">
   <table>
     <tr>
-      <td align="center"><img src="/public/chains/flow.svg" width="70px"><br><b>Flow EVM Mainnet</b></td>
       <td align="center"><img src="/public/chains/flow.svg" width="70px"><br><b>Flow EVM Testnet</b></td>
       <td align="center"><img src="/public/chains/usdfc.png" width="70px"><br><b>Filecoin Calibration</b></td>
     </tr>
@@ -101,11 +114,17 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, d
 
 ## 🚀 How It Works
 
-### Protected Transfers in 3 Simple Steps
+### AI-Powered Interactions
 
 1. **Connect Your Wallet**: Connect your Flow or Filecoin compatible wallet to ProtectedPay
-2. **Enter Details**: Specify recipient (username, address, or QR scan) and amount
-3. **Confirm & Send**: The recipient securely claims funds when ready, or you can refund if needed
+2. **Chat with AI**: Use natural language or voice commands to manage your crypto
+3. **Smart Execution**: AI understands your intent and executes blockchain transactions safely
+
+### Protected Transfers in 3 Simple Steps
+
+1. **Use AI or Manual Entry**: Say "Send 10 FLOW to alice" or use the traditional interface
+2. **Confirm Transaction**: Review details before the AI executes the transfer
+3. **Secure Delivery**: Recipient claims funds when ready, or you can refund if needed
 
 ### Group Payments Made Easy
 
@@ -129,6 +148,7 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, d
 
 ### Design Philosophy
 
+- **AI-First Approach**: Natural language and voice interactions for blockchain operations
 - **Multi-Chain Inspired**: UI themes designed to match Flow Network and Filecoin branding
 - **Glassmorphism**: Modern, clean aesthetics with depth and transparency
 - **Responsive Layout**: Perfect experience on any device
@@ -141,18 +161,21 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, d
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
-- **Activity Feed**: Real-time updates of your transactions
-- **Asset Overview**: Quick view of your ETH balance
+- **Activity Feed**: Real-time updates of your transactions and AI interactions
+- **Asset Overview**: Quick view of your token balances across supported networks
+- **AI Chat Interface**: Integrated assistant for voice and text-based blockchain operations
 - **Status Indicators**: Clear visual cues for transaction states
-- **Network Selection**: Seamlessly switch between different network environments
+- **Network Selection**: Seamlessly switch between Flow Testnet and Filecoin Calibration
 
 ## 🔒 Security
 
 ProtectedPay prioritizes security at every level:
 
+- **AI Safety**: Secure integration with Gemini AI that never accesses your private keys
 - **Smart Contract Safety**: Multi-chain optimized contracts with rigorous security measures
 - **Non-Custodial Architecture**: Users always maintain control of their funds
 - **Protected Transfers**: Built-in escrow functionality keeps funds secure
+- **Voice Privacy**: Speech recognition happens locally in your browser
 - **QR Verification**: Thorough validation of all scanned payment codes
 - **Refundable Transactions**: Safety net for accidental transfers
 - **Transparent Operations**: Clear visibility of all transaction stages
@@ -169,39 +192,27 @@ ProtectedPay prioritizes security at every level:
     </tr>
     <tr>
       <td>Native Transfers</td>
-      <td><img src="/public/chains/flow.svg" width="20"> Flow EVM Mainnet</td>
-      <td><code>TBD</code></td>
-      <td>🔄 Pending</td>
-    </tr>
-    <tr>
-      <td>Token Transfers</td>
-      <td><img src="/public/chains/flow.svg" width="20"> Flow EVM Mainnet</td>
-      <td><code>TBD</code></td>
-      <td>🔄 Pending</td>
-    </tr>
-    <tr>
-      <td>Native Transfers</td>
       <td><img src="/public/chains/flow.svg" width="20"> Flow EVM Testnet</td>
-      <td><code>TBD</code></td>
-      <td>🔄 Pending</td>
+      <td><code>0xa1eF679Ab1a6C41B4Ec7d9aB8Fc3293CE02592FA</code></td>
+      <td>✅ Active</td>
     </tr>
     <tr>
       <td>Token Transfers</td>
       <td><img src="/public/chains/flow.svg" width="20"> Flow EVM Testnet</td>
-      <td><code>TBD</code></td>
-      <td>🔄 Pending</td>
+      <td><code>0x16f16b1742ECA434faf9442a9f9d933A766acfCA</code></td>
+      <td>✅ Active</td>
     </tr>
     <tr>
       <td>Native Transfers</td>
       <td><img src="/public/chains/usdfc.png" width="20"> Filecoin Calibration</td>
-      <td><code>TBD</code></td>
-      <td>🔄 Pending</td>
+      <td><code>0x74689f77e03D8213DF5037b681F05b80bAAe3504</code></td>
+      <td>✅ Active</td>
     </tr>
     <tr>
       <td>Token Transfers</td>
       <td><img src="/public/chains/usdfc.png" width="20"> Filecoin Calibration</td>
-      <td><code>TBD</code></td>
-      <td>🔄 Pending</td>
+      <td><code>0x151D3c8E531d9726148FF64D5e8426C03D0e91eF</code></td>
+      <td>✅ Active</td>
     </tr>
     <tr>
       <td>tUSDFC Token</td>
@@ -234,5 +245,5 @@ Need assistance or have questions? We're here to help:
 
 <div align="center">
   <p>© 2025 ProtectedPay</p>
-  <h3>Revolutionizing secure payments on Flow Network & Filecoin</h3>
+  <h3>Revolutionizing secure payments with AI on Flow Network & Filecoin</h3>
 </div>

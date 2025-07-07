@@ -1,5 +1,13 @@
 'use client'
 
+// Extend Window interface for speech recognition
+declare global {
+  interface Window {
+    webkitSpeechRecognition: any
+    SpeechRecognition: any
+  }
+}
+
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -13,6 +21,7 @@ import {
   ClipboardDocumentIcon,
   InformationCircleIcon,
   ExclamationTriangleIcon,
+  MicrophoneIcon,
 } from '@heroicons/react/24/outline'
 import { useWallet } from '@/context/WalletContext'
 import { useChain } from '@/hooks/useChain'
@@ -56,13 +65,13 @@ const AIChatInterface: React.FC = () => {
       content: `👋 **Welcome to ProtectedPay AI Assistant!**
 
 I can help you with:
-• 💸 **Send protected transfers** - "Send 10 FLOW to 0x1234..."
-• 📥 **Claim transfers** - "Claim transfer from Alice"
-• 🔄 **Refund transfers** - "Refund transfer ID 0xabc..."
-• 💰 **Check balances** - "What's my USDC balance?"
-• 📋 **View transfers** - "Show my pending transfers"
-• 👤 **Register username** - "Register username alice"
-• ⛓️ **Chain info** - "What tokens are supported on Flow?"
+• 💸 Send protected transfers - "Send 10 FLOW to 0x1234..."
+• 📥 Claim transfers - "Claim transfer from Alice"
+• 🔄 Refund transfers - "Refund transfer ID 0xabc..."
+• 💰 Check balances - "What's my USDC balance?"
+• 📋 View transfers - "Show my pending transfers"
+• 👤 Register username - "Register username alice"
+• ⛓️ Chain info** - "What tokens are supported on Flow?"
 
 Just tell me what you'd like to do! Make sure your wallet is connected and you're on the right network.`,
       timestamp: new Date(),
@@ -72,9 +81,12 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [pendingConfirmation, setPendingConfirmation] = useState<any>(null)
+  const [isListening, setIsListening] = useState(false)
+  const [speechSupported, setSpeechSupported] = useState(false)
   
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const recognitionRef = useRef<any>(null)
   
   const { address, signer } = useWallet()
   const { chainId } = useChain()
@@ -94,6 +106,63 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
     inputRef.current?.focus()
   }, [])
 
+  // Initialize speech recognition
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition
+      if (SpeechRecognition) {
+        setSpeechSupported(true)
+        const recognition = new SpeechRecognition()
+        recognition.continuous = false
+        recognition.interimResults = false
+        recognition.lang = 'en-US'
+
+        recognition.onstart = () => {
+          console.log('Speech recognition started')
+          setIsListening(true)
+        }
+
+        recognition.onresult = (event: any) => {
+          const transcript = event.results[0][0].transcript
+          console.log('Speech result:', transcript)
+          setInput(transcript)
+          setIsListening(false)
+        }
+
+        recognition.onend = () => {
+          console.log('Speech recognition ended')
+          setIsListening(false)
+        }
+
+        recognition.onerror = (event: any) => {
+          console.error('Speech recognition error:', event.error)
+          setIsListening(false)
+          
+          // Handle specific errors
+          if (event.error === 'not-allowed') {
+            console.warn('Microphone permission denied')
+          } else if (event.error === 'no-speech') {
+            console.warn('No speech detected')
+          }
+        }
+
+        recognitionRef.current = recognition
+      } else {
+        console.log('Speech recognition not supported')
+      }
+    }
+
+    return () => {
+      if (recognitionRef.current) {
+        try {
+          recognitionRef.current.stop()
+        } catch (error) {
+          // Ignore errors during cleanup
+        }
+      }
+    }
+  }, [])
+
   const addMessage = (message: Omit<Message, 'id' | 'timestamp'>) => {
     const newMessage: Message = {
       ...message,
@@ -107,6 +176,48 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
     setMessages(prev => prev.map(msg => 
       msg.id === id ? { ...msg, ...updates } : msg
     ))
+  }
+
+  const startSpeechRecognition = () => {
+    if (recognitionRef.current && speechSupported && !isListening) {
+      try {
+        console.log('Attempting to start speech recognition...')
+        recognitionRef.current.start()
+      } catch (error: any) {
+        console.error('Error starting speech recognition:', error)
+        setIsListening(false)
+        // If recognition is already running, stop it first then start
+        if (error.name === 'InvalidStateError') {
+          recognitionRef.current.stop()
+          setTimeout(() => {
+            try {
+              recognitionRef.current.start()
+            } catch (retryError) {
+              console.error('Retry failed:', retryError)
+              setIsListening(false)
+            }
+          }, 100)
+        }
+      }
+    } else {
+      console.warn('Cannot start speech recognition:', {
+        hasRecognition: !!recognitionRef.current,
+        speechSupported,
+        isListening
+      })
+    }
+  }
+
+  const stopSpeechRecognition = () => {
+    if (recognitionRef.current) {
+      try {
+        console.log('Stopping speech recognition...')
+        recognitionRef.current.stop()
+      } catch (error) {
+        console.error('Error stopping speech recognition:', error)
+      }
+      setIsListening(false)
+    }
   }
 
   const parseUserInput = (input: string): AIResponse => {
@@ -226,10 +337,10 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       return {
         message: `**Here's what I can help you with:**
 
-🔗 **Sending**: "Send 10 FLOW to 0x1234..." or "Send 100 USDC to alice"
-📥 **Claiming**: "Claim from alice" or "Claim transfer 0x1234..."
-🔄 **Refunding**: "Refund transfer 0x1234..."
-💰 **Balances**: "What's my USDC balance?" or "Show my balance"
+🔗 Sending: "Send 10 FLOW to 0x1234..." or "Send 100 USDC to alice"
+📥 Claiming: "Claim from alice" or "Claim transfer 0x1234..."
+🔄 **Refunding: "Refund transfer 0x1234..."
+💰 **Balances: "What's my USDC balance?" or "Show my balance"
 📋 **Transfers**: "Show my pending transfers"
 ⛓️ **Tokens**: "What tokens are supported?"
 
@@ -753,8 +864,22 @@ Need to send or receive funds? Just ask me!`,
                   : "Ask me to send funds, check balance, or anything else..."
               }
               disabled={!address || isLoading}
-              className="w-full bg-black/50 border border-green-500/30 text-green-100 placeholder-gray-500 rounded-xl px-4 py-3 pr-12 focus:outline-none focus:border-green-500/50 disabled:opacity-50"
+              className="w-full bg-black/50 border border-green-500/30 text-green-100 placeholder-gray-500 rounded-xl px-4 py-3 pr-20 focus:outline-none focus:border-green-500/50 disabled:opacity-50"
             />
+            {speechSupported && (
+              <button
+                onClick={isListening ? stopSpeechRecognition : startSpeechRecognition}
+                disabled={!address || isLoading}
+                className={`absolute right-12 top-1/2 transform -translate-y-1/2 p-1 rounded-full transition-colors ${
+                  isListening 
+                    ? 'text-red-400 bg-red-400/20 hover:text-red-300' 
+                    : 'text-gray-400 hover:text-green-400 hover:bg-green-400/20'
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+                title={isListening ? "Stop listening" : "Start voice input"}
+              >
+                <MicrophoneIcon className={`w-4 h-4 ${isListening ? 'animate-pulse' : ''}`} />
+              </button>
+            )}
             {input && (
               <button
                 onClick={() => setInput('')}
