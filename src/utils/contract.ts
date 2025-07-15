@@ -1901,37 +1901,43 @@ interface TransferEvent {
   export const sendToAddress = async (signer: ethers.Signer, recipient: string, amount: string, remarks: string) => {
 	const contract = await getContract(signer);
 	const tx = await contract.sendToAddress(recipient, remarks, { value: ethers.utils.parseEther(amount) });
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const sendToUsername = async (signer: ethers.Signer, username: string, amount: string, remarks: string) => {
 	const contract = await getContract(signer);
 	const tx = await contract.sendToUsername(username, remarks, { value: ethers.utils.parseEther(amount) });
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const claimTransferByAddress = async (signer: ethers.Signer, senderAddress: string) => {
 	const contract = await getContract(signer);
 	const tx = await contract.claimTransferByAddress(senderAddress);
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const claimTransferByUsername = async (signer: ethers.Signer, senderUsername: string) => {
 	const contract = await getContract(signer);
 	const tx = await contract.claimTransferByUsername(senderUsername);
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const claimTransferById = async (signer: ethers.Signer, transferId: string) => {
 	const contract = await getContract(signer);
 	const tx = await contract.claimTransferById(transferId);
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const refundTransfer = async (signer: ethers.Signer, transferId: string) => {
 	const contract = await getContract(signer);
 	const tx = await contract.refundTransfer(transferId);
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   // Group Payment Functions
@@ -1949,7 +1955,8 @@ interface TransferEvent {
 	  remarks,
 	  { value: ethers.utils.parseEther(amount) }
 	);
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const contributeToGroupPayment = async (
@@ -1961,7 +1968,8 @@ interface TransferEvent {
 	const tx = await contract.contributeToGroupPayment(paymentId, {
 	  value: ethers.utils.parseEther(amount)
 	});
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const getGroupPaymentDetails = async (signer: ethers.Signer, paymentId: string) => {
@@ -2016,7 +2024,8 @@ interface TransferEvent {
 	  ethers.utils.parseEther(targetAmount),
 	  remarks
 	);
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const contributeToSavingsPot = async (
@@ -2028,13 +2037,15 @@ interface TransferEvent {
 	const tx = await contract.contributeToSavingsPot(potId, {
 	  value: ethers.utils.parseEther(amount)
 	});
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const breakPot = async (signer: ethers.Signer, potId: string) => {
 	const contract = await getContract(signer);
 	const tx = await contract.breakPot(potId);
-	await tx.wait();
+	const receipt = await tx.wait();
+	return { hash: tx.hash, receipt };
   };
   
   export const getSavingsPotDetails = async (signer: ethers.Signer, potId: string) => {
@@ -2345,7 +2356,8 @@ export const sendTokenToAddress = async (
     parseTokenAmount(amount, tokenAddress), 
     remarks
   );
-  await tx.wait();
+  const receipt = await tx.wait();
+  return { hash: tx.hash, receipt };
 };
 
 export const sendTokenToUsername = async (
@@ -2362,31 +2374,36 @@ export const sendTokenToUsername = async (
     parseTokenAmount(amount, tokenAddress), 
     remarks
   );
-  await tx.wait();
+  const receipt = await tx.wait();
+  return { hash: tx.hash, receipt };
 };
 
 export const claimTokenTransfer = async (signer: ethers.Signer, transferId: string) => {
   const contract = await getTokenContract(signer);
   const tx = await contract.claimTokenTransfer(transferId);
-  await tx.wait();
+  const receipt = await tx.wait();
+  return { hash: tx.hash, receipt };
 };
 
 export const claimTokenTransferByAddress = async (signer: ethers.Signer, senderAddress: string) => {
   const contract = await getTokenContract(signer);
   const tx = await contract.claimTokenTransferByAddress(senderAddress);
-  await tx.wait();
+  const receipt = await tx.wait();
+  return { hash: tx.hash, receipt };
 };
 
 export const claimTokenTransferByUsername = async (signer: ethers.Signer, senderUsername: string) => {
   const contract = await getTokenContract(signer);
   const tx = await contract.claimTokenTransferByUsername(senderUsername);
-  await tx.wait();
+  const receipt = await tx.wait();
+  return { hash: tx.hash, receipt };
 };
 
 export const refundTokenTransfer = async (signer: ethers.Signer, transferId: string) => {
   const contract = await getTokenContract(signer);
   const tx = await contract.refundTokenTransfer(transferId);
-  await tx.wait();
+  const receipt = await tx.wait();
+  return { hash: tx.hash, receipt };
 };
 
 export const getPendingTokenTransfers = async (signer: ethers.Signer, userAddress: string) => {

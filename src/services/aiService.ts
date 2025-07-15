@@ -17,7 +17,10 @@ import {
   getPendingTokenTransfers,
   getTokenTransferDetails,
   getTokenBalance,
-  canTransferToken
+  canTransferToken,
+  getUserProfile,
+  getUserTransfers,
+  getUserTokenTransfers
 } from '@/utils/contract'
 import { getSupportedTokensForChain, type Token } from '@/utils/constants'
 
@@ -167,7 +170,7 @@ export class ProtectedPayAIService {
     }
   }
 
-  async getPendingTransfers(
+  async getCompleteTransferHistory(
     signer: ethers.Signer,
     address: string,
     chainId: number
@@ -175,85 +178,54 @@ export class ProtectedPayAIService {
     try {
       const supportedTokens = getSupportedTokensForChain(chainId)
       
-      // Get both native and token transfer IDs
-      const [nativeTransferIds, tokenTransferIds] = await Promise.all([
-        getPendingTransfers(signer, address),
-        getPendingTokenTransfers(signer, address)
+      // Get complete transfer history using getUserTransfers and getUserProfile
+      const [userProfile, allNativeTransfers, allTokenTransfers] = await Promise.all([
+        getUserProfile(signer, address),
+        getUserTransfers(signer, address),
+        getUserTokenTransfers(signer, address)
       ])
 
       let allTransfers: any[] = []
 
       // Process native transfers
-      if (nativeTransferIds && nativeTransferIds.length > 0) {
-        const nativeTransfers = await Promise.all(
-          nativeTransferIds.map(async (id: string) => {
-            try {
-              const details = await getTransferDetails(signer, id)
-              
-              return {
-                id,
-                sender: details.sender || '',
-                recipient: details.recipient || '',
-                amount: details.amount ? details.amount.toString() : '0',
-                timestamp: details.timestamp ? 
-                  (typeof details.timestamp === 'number' ? details.timestamp : 
-                   details.timestamp.toNumber ? details.timestamp.toNumber() : 
-                   details.timestamp.getTime ? details.timestamp.getTime() : 0) : 0,
-                remarks: details.remarks || '',
-                status: details.status !== undefined ? 
-                  (typeof details.status === 'number' ? details.status : 
-                   details.status.toNumber ? details.status.toNumber() : 0) : 0,
-                isNativeToken: true,
-                token: supportedTokens[0] // Native token
-              }
-            } catch (err) {
-              console.error(`Error fetching transfer details for ${id}:`, err)
-              return null
-            }
-          })
-        )
+      if (allNativeTransfers && allNativeTransfers.length > 0) {
+        const nativeTransfersFormatted = allNativeTransfers.map(transfer => ({
+          id: `${transfer.sender}-${transfer.recipient}-${transfer.timestamp}`, // Generate ID
+          sender: transfer.sender || '',
+          recipient: transfer.recipient || '',
+          amount: transfer.amount ? transfer.amount.toString() : '0',
+          timestamp: transfer.timestamp || 0,
+          remarks: transfer.remarks || '',
+          status: transfer.status !== undefined ? transfer.status : 0,
+          isNativeToken: true,
+          token: supportedTokens[0] // Native token
+        }))
         
-        const validNativeTransfers = nativeTransfers.filter(transfer => transfer !== null)
-        allTransfers = [...allTransfers, ...validNativeTransfers]
+        allTransfers = [...allTransfers, ...nativeTransfersFormatted]
       }
 
-      // Process token transfers
-      if (tokenTransferIds && tokenTransferIds.length > 0) {
-        const tokenTransfers = await Promise.all(
-          tokenTransferIds.map(async (id: string) => {
-            try {
-              const details = await getTokenTransferDetails(signer, id)
-              
-              // Find token by address
-              const token = supportedTokens.find(t => 
-                t.address.toLowerCase() === details.token?.toLowerCase()
-              ) || supportedTokens[0]
-              
-              return {
-                id,
-                sender: details.sender || '',
-                recipient: details.recipient || '',
-                amount: details.amount ? details.amount.toString() : '0',
-                timestamp: details.timestamp ? 
-                  (typeof details.timestamp === 'number' ? details.timestamp : 
-                   details.timestamp.toNumber ? details.timestamp.toNumber() : 
-                   details.timestamp.getTime ? details.timestamp.getTime() : 0) : 0,
-                remarks: details.remarks || '',
-                status: details.status !== undefined ? 
-                  (typeof details.status === 'number' ? details.status : 
-                   details.status.toNumber ? details.status.toNumber() : 0) : 0,
-                isNativeToken: false,
-                token: token
-              }
-            } catch (err) {
-              console.error(`Error fetching token transfer details for ${id}:`, err)
-              return null
-            }
-          })
-        )
+      // Process token transfers (get all token transfers, not just pending ones)
+      if (allTokenTransfers && allTokenTransfers.length > 0) {
+        const tokenTransfersFormatted = allTokenTransfers.map((transfer: any) => {
+          // Find token by address
+          const token = supportedTokens.find(t => 
+            t.address.toLowerCase() === transfer.token?.toLowerCase()
+          ) || supportedTokens[0]
+          
+          return {
+            id: `${transfer.sender}-${transfer.recipient}-${transfer.timestamp}-token`, // Generate ID
+            sender: transfer.sender || '',
+            recipient: transfer.recipient || '',
+            amount: transfer.amount ? transfer.amount.toString() : '0',
+            timestamp: transfer.timestamp || 0,
+            remarks: transfer.remarks || '',
+            status: transfer.status !== undefined ? transfer.status : 0,
+            isNativeToken: false,
+            token: token
+          }
+        })
         
-        const validTokenTransfers = tokenTransfers.filter(transfer => transfer !== null)
-        allTransfers = [...allTransfers, ...validTokenTransfers]
+        allTransfers = [...allTransfers, ...tokenTransfersFormatted]
       }
 
       // Separate by sender/recipient status
@@ -315,5 +287,380 @@ export class ProtectedPayAIService {
         error: error instanceof Error ? error.message : 'Failed to fetch balances'
       }
     }
+  }
+
+  // Group Payment Methods
+  async createGroupPayment(
+    signer: ethers.Signer,
+    recipient: string,
+    numParticipants: number,
+    amount: string,
+    remarks: string
+  ): Promise<AIServiceResponse> {
+    try {
+      const { createGroupPayment } = await import('@/utils/contract')
+      const result = await createGroupPayment(signer, recipient, numParticipants, amount, remarks)
+      
+      return {
+        success: true,
+        txHash: result.hash,
+        data: { recipient, numParticipants, amount, remarks }
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to create group payment'
+      }
+    }
+  }
+
+  async contributeToGroupPayment(
+    signer: ethers.Signer,
+    paymentId: string,
+    amount: string
+  ): Promise<AIServiceResponse> {
+    try {
+      const { contributeToGroupPayment } = await import('@/utils/contract')
+      const result = await contributeToGroupPayment(signer, paymentId, amount)
+      
+      return {
+        success: true,
+        txHash: result.hash,
+        data: { paymentId, amount }
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to contribute to group payment'
+      }
+    }
+  }
+
+  async getGroupPayments(
+    signer: ethers.Signer,
+    address: string
+  ): Promise<AIServiceResponse> {
+    try {
+      const { getUserProfile, getGroupPaymentDetails } = await import('@/utils/contract')
+      const profile = await getUserProfile(signer, address)
+      
+      // Get details for each group payment
+      const payments = await Promise.all(
+        profile.groupPaymentIds.map(async (id: string) => {
+          try {
+            return await getGroupPaymentDetails(signer, id)
+          } catch (err) {
+            console.error(`Error fetching group payment ${id}:`, err)
+            return null
+          }
+        })
+      )
+      
+      return {
+        success: true,
+        data: { payments: payments.filter(p => p !== null) }
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch group payments'
+      }
+    }
+  }
+
+  // Savings Pot Methods
+  async createSavingsPot(
+    signer: ethers.Signer,
+    name: string,
+    targetAmount: string,
+    remarks: string
+  ): Promise<AIServiceResponse> {
+    try {
+      const { createSavingsPot } = await import('@/utils/contract')
+      const result = await createSavingsPot(signer, name, targetAmount, remarks)
+      
+      return {
+        success: true,
+        txHash: result.hash,
+        data: { name, targetAmount, remarks }
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to create savings pot'
+      }
+    }
+  }
+
+  async contributeToSavingsPot(
+    signer: ethers.Signer,
+    potId: string,
+    amount: string
+  ): Promise<AIServiceResponse> {
+    try {
+      const { contributeToSavingsPot } = await import('@/utils/contract')
+      const result = await contributeToSavingsPot(signer, potId, amount)
+      
+      return {
+        success: true,
+        txHash: result.hash,
+        data: { potId, amount }
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to contribute to savings pot'
+      }
+    }
+  }
+
+  async breakSavingsPot(
+    signer: ethers.Signer,
+    potId: string
+  ): Promise<AIServiceResponse> {
+    try {
+      const { breakPot } = await import('@/utils/contract')
+      const result = await breakPot(signer, potId)
+      
+      return {
+        success: true,
+        txHash: result.hash,
+        data: { potId }
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to break savings pot'
+      }
+    }
+  }
+
+  async getSavingsPots(
+    signer: ethers.Signer,
+    address: string
+  ): Promise<AIServiceResponse> {
+    try {
+      const { getUserProfile, getSavingsPotDetails } = await import('@/utils/contract')
+      const profile = await getUserProfile(signer, address)
+      
+      // Get details for each savings pot
+      const pots = await Promise.all(
+        profile.savingsPotIds.map(async (id: string) => {
+          try {
+            return await getSavingsPotDetails(signer, id)
+          } catch (err) {
+            console.error(`Error fetching savings pot ${id}:`, err)
+            return null
+          }
+        })
+      )
+      
+      return {
+        success: true,
+        data: { pots: pots.filter(p => p !== null) }
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch savings pots'
+      }
+    }
+  }
+
+  // Transaction History Methods
+  async getTransactionHistory(
+    signer: ethers.Signer,
+    address: string,
+    chainId: number,
+    filters?: {
+      type?: 'all' | 'transfers' | 'group_payments' | 'savings_pots'
+      status?: 'all' | 'pending' | 'completed' | 'refunded'
+      direction?: 'all' | 'sent' | 'received'
+      token?: string
+    }
+  ): Promise<AIServiceResponse> {
+    try {
+      // Get all types of transactions
+      const [transfers, groupPayments, savingsPots] = await Promise.all([
+        this.getCompleteTransferHistory(signer, address, chainId),
+        this.getGroupPayments(signer, address),
+        this.getSavingsPots(signer, address)
+      ])
+
+      let filteredData = {
+        transfers: transfers.data || { received: [], sent: [] },
+        groupPayments: groupPayments.data?.payments || [],
+        savingsPots: savingsPots.data?.pots || []
+      }
+
+      // Apply filters if provided
+      if (filters) {
+        filteredData = this.applyFilters(filteredData, filters)
+      }
+
+      return {
+        success: true,
+        data: filteredData
+      }
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to fetch transaction history'
+      }
+    }
+  }
+
+  private applyFilters(data: any, filters: any): any {
+    let filtered = { ...data }
+
+    // Filter by type
+    if (filters.type && filters.type !== 'all') {
+      if (filters.type === 'transfers') {
+        filtered.groupPayments = []
+        filtered.savingsPots = []
+      } else if (filters.type === 'group_payments') {
+        filtered.transfers = { received: [], sent: [] }
+        filtered.savingsPots = []
+      } else if (filters.type === 'savings_pots') {
+        filtered.transfers = { received: [], sent: [] }
+        filtered.groupPayments = []
+      }
+    }
+
+    // Filter transfers by status
+    if (filters.status && filters.status !== 'all') {
+      if (filtered.transfers.received) {
+        filtered.transfers.received = filtered.transfers.received.filter((transfer: any) => {
+          if (filters.status === 'pending') return transfer.status === 0 || transfer.status === 1
+          if (filters.status === 'completed') return transfer.status === 2
+          if (filters.status === 'refunded') return transfer.status === 3
+          return true
+        })
+      }
+      if (filtered.transfers.sent) {
+        filtered.transfers.sent = filtered.transfers.sent.filter((transfer: any) => {
+          if (filters.status === 'pending') return transfer.status === 0 || transfer.status === 1
+          if (filters.status === 'completed') return transfer.status === 2
+          if (filters.status === 'refunded') return transfer.status === 3
+          return true
+        })
+      }
+    }
+
+    // Filter by direction
+    if (filters.direction && filters.direction !== 'all') {
+      if (filters.direction === 'sent') {
+        filtered.transfers.received = []
+      } else if (filters.direction === 'received') {
+        filtered.transfers.sent = []
+      }
+    }
+
+    // Filter by token
+    if (filters.token) {
+      const tokenLower = filters.token.toLowerCase()
+      if (filtered.transfers.received) {
+        filtered.transfers.received = filtered.transfers.received.filter((transfer: any) => 
+          transfer.token?.symbol?.toLowerCase() === tokenLower
+        )
+      }
+      if (filtered.transfers.sent) {
+        filtered.transfers.sent = filtered.transfers.sent.filter((transfer: any) => 
+          transfer.token?.symbol?.toLowerCase() === tokenLower
+        )
+      }
+    }
+
+    return filtered
+  }
+
+  async getFilteredTransactions(
+    signer: ethers.Signer,
+    address: string,
+    chainId: number,
+    filterQuery: string
+  ): Promise<AIServiceResponse> {
+    try {
+      // Parse natural language filter query
+      const filters = this.parseFilterQuery(filterQuery)
+      return await this.getTransactionHistory(signer, address, chainId, filters)
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to apply filters'
+      }
+    }
+  }
+
+  private parseFilterQuery(query: string): any {
+    const queryLower = query.toLowerCase()
+    const filters: any = {}
+
+    // Parse status filters
+    if (queryLower.includes('refunded') || queryLower.includes('refund')) {
+      filters.status = 'refunded'
+    } else if (queryLower.includes('completed') || queryLower.includes('complete') || queryLower.includes('claimed')) {
+      filters.status = 'completed'
+    } else if (queryLower.includes('pending') || queryLower.includes('unclaimed')) {
+      filters.status = 'pending'
+    }
+
+    // Parse direction filters
+    if (queryLower.includes('sent') || queryLower.includes('outgoing') || queryLower.includes('i sent')) {
+      filters.direction = 'sent'
+    } else if (queryLower.includes('received') || queryLower.includes('incoming') || queryLower.includes('i received')) {
+      filters.direction = 'received'
+    }
+
+    // Parse type filters
+    if (queryLower.includes('group payment') || queryLower.includes('group')) {
+      filters.type = 'group_payments'
+    } else if (queryLower.includes('savings') || queryLower.includes('pot')) {
+      filters.type = 'savings_pots'
+    } else if (queryLower.includes('transfer') && !queryLower.includes('group') && !queryLower.includes('savings')) {
+      filters.type = 'transfers'
+    }
+
+    // Parse token filters
+    const tokenPatterns = [
+      { pattern: /\b(flow|flowtoken)\b/i, token: 'FLOW' },
+      { pattern: /\b(usdc|usd-c)\b/i, token: 'USDC' },
+      { pattern: /\b(usdt|usd-t)\b/i, token: 'USDT' },
+      { pattern: /\b(tusdfc|t-usdfc)\b/i, token: 'tUSDFC' },
+      { pattern: /\b(tfil|t-fil)\b/i, token: 'tFIL' }
+    ]
+
+    for (const { pattern, token } of tokenPatterns) {
+      if (pattern.test(queryLower)) {
+        filters.token = token
+        break
+      }
+    }
+
+    return filters
+  }
+
+  // Keep this method for backward compatibility
+  async getPendingTransfers(
+    signer: ethers.Signer,
+    address: string,
+    chainId: number
+  ): Promise<AIServiceResponse> {
+    // For backward compatibility, filter only pending transfers
+    const result = await this.getCompleteTransferHistory(signer, address, chainId)
+    if (result.success && result.data) {
+      // Filter only pending transfers (status 0 or 1)
+      const pendingReceived = result.data.received.filter((t: any) => t.status === 0 || t.status === 1)
+      const pendingSent = result.data.sent.filter((t: any) => t.status === 0 || t.status === 1)
+      
+      return {
+        success: true,
+        data: {
+          received: pendingReceived,
+          sent: pendingSent
+        }
+      }
+    }
+    return result
   }
 }
