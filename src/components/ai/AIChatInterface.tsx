@@ -22,11 +22,13 @@ import {
   InformationCircleIcon,
   ExclamationTriangleIcon,
   MicrophoneIcon,
+  ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline'
 import { useWallet } from '@/context/WalletContext'
 import { useChain } from '@/hooks/useChain'
 import { getSupportedTokensForChain } from '@/utils/constants'
 import { formatAmount, truncateAddress } from '@/utils/helpers'
+import { getTransactionUrl } from '@/utils/explorer'
 import { ProtectedPayAIService } from '@/services/aiService'
 import { GeminiProtectedPayService } from '@/services/geminiAIService'
 
@@ -65,13 +67,19 @@ const AIChatInterface: React.FC = () => {
       content: `👋 **Welcome to ProtectedPay AI Assistant!**
 
 I can help you with:
-• 💸 Send protected transfers - "Send 10 FLOW to 0x1234..."
-• 📥 Claim transfers - "Claim transfer from Alice"
-• 🔄 Refund transfers - "Refund transfer ID 0xabc..."
-• 💰 Check balances - "What's my USDC balance?"
-• 📋 View transfers - "Show my pending transfers"
-• 👤 Register username - "Register username alice"
-• ⛓️ Chain info** - "What tokens are supported on Flow?"
+• 💸 **Send transfers** - "Send 10 FLOW to 0x1234..."
+• 📥 **Claim transfers** - "Claim transfer from Alice"
+• 🔄 **Refund transfers** - "Refund transfer ID 0xabc..."
+• 💰 **Check balances** - "What's my USDC balance?"
+• 📋 **View transfers** - "Show my pending transfers"
+• 👥 **Group payments** - "Create group payment for Alice with 5 people"
+• 🏦 **Savings pots** - "Create savings pot 'Vacation' with target 500 FLOW"
+• 📊 **Transaction history** - "Show my complete transaction history"
+• � **Filter transactions** - "Show my refunded transactions", "Find my FLOW transfers"
+• �👤 **Register username** - "Register username alice"
+• ⛓️ **Chain info** - "What tokens are supported on Flow?"
+
+🎤 **Voice commands supported!** Use the microphone button or just start talking!
 
 Just tell me what you'd like to do! Make sure your wallet is connected and you're on the right network.`,
       timestamp: new Date(),
@@ -104,6 +112,52 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
   // Focus input on mount
   useEffect(() => {
     inputRef.current?.focus()
+  }, [])
+
+  // Listen for postMessage events from card action buttons
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      // Only handle messages from our own origin for security
+      if (event.origin !== window.location.origin) return
+      
+      if (event.data?.type === 'action') {
+        const { action, id } = event.data
+        
+        // Handle different action types
+        switch (action) {
+          case 'claim':
+            handleSendMessage(`claim transfer ${id}`)
+            break
+          case 'refund':
+            handleSendMessage(`refund transfer ${id}`)
+            break
+          case 'contribute':
+            handleSendMessage(`contribute to group payment ${id}`)
+            break
+          case 'deposit':
+            handleSendMessage(`contribute to savings pot ${id}`)
+            break
+          case 'withdraw':
+            handleSendMessage(`break savings pot ${id}`)
+            break
+          case 'details':
+            handleSendMessage(`show details for ${id}`)
+            break
+          case 'explorer':
+            // Open transaction in explorer
+            if (typeof window !== 'undefined') {
+              const explorerUrl = `https://evm-testnet.flowscan.io/tx/${id}`
+              window.open(explorerUrl, '_blank')
+            }
+            break
+          default:
+            console.log('Unknown action:', action)
+        }
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
   }, [])
 
   // Initialize speech recognition
@@ -311,13 +365,15 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       }
     }
     
-    // View transfers
-    if (lowerInput.includes('pending') || lowerInput.includes('transfers') || lowerInput.includes('history')) {
+    // Route ALL transaction, history, savings, group payment queries to Gemini
+    if (lowerInput.includes('pending') || lowerInput.includes('transfers') || lowerInput.includes('history') || 
+        lowerInput.includes('transactions') || lowerInput.includes('txn') || lowerInput.includes('savings') || 
+        lowerInput.includes('pot') || lowerInput.includes('group') || lowerInput.includes('refund') ||
+        lowerInput.includes('completed') || lowerInput.includes('sent') || lowerInput.includes('received') ||
+        lowerInput.includes('show') && (lowerInput.includes('my') || lowerInput.includes('all'))) {
+      // Route to Gemini for enhanced processing with filtering
       return {
-        message: "I'll show your pending transfers...",
-        action: {
-          type: 'transfers'
-        }
+        message: "Let me process that request...",
       }
     }
     
@@ -360,11 +416,17 @@ Make sure your wallet is connected!`
     }
   }
 
-  const handleSendMessage = async () => {
-    if (!input.trim() || isLoading) return
+  const handleSendClick = () => {
+    handleSendMessage()
+  }
+
+  const handleSendMessage = async (messageContent?: string) => {
+    const userInput = messageContent || input.trim()
+    if (!userInput || isLoading) return
     
-    const userInput = input.trim()
-    setInput('')
+    if (!messageContent) {
+      setInput('')
+    }
     
     // Add user message
     addMessage({
@@ -388,12 +450,12 @@ Make sure your wallet is connected!`
           type: 'assistant',
           content: response.message,
         })
-      } else if (response.action) {
+      } else if (response.action || response.data) {
         // Show the AI response and any action results
         addMessage({
           type: 'assistant',
           content: response.message,
-          metadata: response.action.data
+          metadata: response.data || response.action?.data
         })
       } else {
         // Simple response from Gemini
@@ -429,12 +491,10 @@ Make sure your wallet is connected!`
         case 'balance':
           await handleBalanceCheck(messageId, action.data?.token)
           break
-        case 'transfers':
-          await handleTransfersView(messageId)
-          break
         default:
+          // All other actions should go through Gemini, not this old system
           updateMessage(messageId, {
-            content: '❌ Action not implemented yet',
+            content: '❌ Action should be handled by Gemini AI service',
             status: 'error',
           })
       }
@@ -516,50 +576,68 @@ Need to send or receive funds? Just ask me!`,
     }
     
     try {
-      const result = await aiService.getPendingTransfers(signer, address, chainId || 545)
+      const result = await aiService.getTransactionHistory(signer, address, chainId || 545)
       
       if (result.success && result.data) {
-        const { received, sent } = result.data
-        let text = '📋 **Your Pending Transfers**\n\n'
+        const { transfers, groupPayments, savingsPots } = result.data
+        let text = '� **Your Complete Transaction History**\n\n'
         
-        if (received.length === 0 && sent.length === 0) {
-          text += 'No pending transfers found.'
+        // Show transfers
+        const totalTransfers = (transfers.received?.length || 0) + (transfers.sent?.length || 0)
+        if (totalTransfers === 0) {
+          text += '💸 **Transfers**: No transfers found\n\n'
         } else {
-          if (received.length > 0) {
-            text += `**📥 Transfers to Claim (${received.length}):**\n`
-            received.forEach((transfer: any, index: number) => {
-              text += `${index + 1}. ${formatAmount(transfer.amount)} ${transfer.token?.symbol || 'FLOW'} from ${truncateAddress(transfer.sender)}\n`
-              text += `   • Transfer ID: ${truncateAddress(transfer.id)}\n`
-              text += `   • Message: ${transfer.remarks || "No message"}\n`
-              text += `   • Date: ${new Date(transfer.timestamp * 1000).toLocaleDateString()}\n\n`
-            })
-          }
-
-          if (sent.length > 0) {
-            text += `**📤 Transfers You Can Refund (${sent.length}):**\n`
-            sent.forEach((transfer: any, index: number) => {
-              text += `${index + 1}. ${formatAmount(transfer.amount)} ${transfer.token?.symbol || 'FLOW'} to ${truncateAddress(transfer.recipient)}\n`
-              text += `   • Transfer ID: ${truncateAddress(transfer.id)}\n`
-              text += `   • Message: ${transfer.remarks || "No message"}\n`
-              text += `   • Date: ${new Date(transfer.timestamp * 1000).toLocaleDateString()}\n\n`
-            })
-          }
+          text += `💸 **Transfers**: ${totalTransfers} total\n`
+          text += `📥 **Received**: ${transfers.received?.length || 0}\n`
+          text += `📤 **Sent**: ${transfers.sent?.length || 0}\n\n`
           
-          text += '💡 Say "Claim from 0x1234..." or "Refund transfer 0x5678..." to take action!'
+          // Show recent transfers
+          if (totalTransfers > 0) {
+            text += `**Recent Transfers:**\n`
+            const allTransfers = [...(transfers.received || []), ...(transfers.sent || [])]
+              .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0))
+              .slice(0, 5)
+            
+            for (const transfer of allTransfers) {
+              const direction = transfer.sender?.toLowerCase() === address.toLowerCase() ? '📤' : '📥'
+              const status = getTransferStatus(transfer.status || 0)
+              const amount = transfer.amount ? parseFloat(transfer.amount) / 1e18 : 0
+              text += `${direction} ${amount.toFixed(4)} ${transfer.token?.symbol || 'Unknown'} - ${status}\n`
+            }
+            text += `\n`
+          }
         }
+        
+        // Show group payments
+        text += `👥 **Group Payments**: ${groupPayments?.length || 0} created\n\n`
+        
+        // Show savings pots  
+        text += `🏦 **Savings Pots**: ${savingsPots?.length || 0} created\n\n`
+        
+        text += `💡 Try: "show refunded transactions", "show my sent transfers", or "find FLOW payments" for filtered results.`
         
         updateMessage(messageId, {
           content: text,
           status: 'sent',
         })
       } else {
-        throw new Error(result.error || 'Failed to fetch transfers')
+        throw new Error(result.error || 'Failed to fetch transaction history')
       }
     } catch (error) {
       updateMessage(messageId, {
-        content: `❌ **Error**: ${error instanceof Error ? error.message : 'Failed to fetch transfers'}`,
+        content: `❌ **Error**: ${error instanceof Error ? error.message : 'Failed to fetch transaction history'}`,
         status: 'error',
       })
+    }
+  }
+
+  const getTransferStatus = (status: number): string => {
+    switch (status) {
+      case 0: return '⏳ Pending'
+      case 1: return '🔄 Processing'  
+      case 2: return '✅ Completed'
+      case 3: return '↩️ Refunded'
+      default: return '❓ Unknown'
     }
   }
 
@@ -671,7 +749,7 @@ Need to send or receive funds? Just ask me!`,
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      handleSendMessage()
+      handleSendClick()
     }
   }
 
@@ -775,6 +853,13 @@ Need to send or receive funds? Just ask me!`,
                         >
                           <ClipboardDocumentIcon className="w-3 h-3" />
                           <span>Copy TX</span>
+                        </button>
+                        <button
+                          onClick={() => window.open(getTransactionUrl(message.metadata?.txHash || '', chainId || 545), '_blank')}
+                          className="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded flex items-center space-x-1 hover:bg-purple-500/30"
+                        >
+                          <ArrowTopRightOnSquareIcon className="w-3 h-3" />
+                          <span>Explorer</span>
                         </button>
                         {message.metadata?.transferId && (
                           <button
@@ -891,7 +976,7 @@ Need to send or receive funds? Just ask me!`,
           </div>
           
           <motion.button
-            onClick={handleSendMessage}
+            onClick={handleSendClick}
             disabled={!input.trim() || !address || isLoading}
             className="bg-gradient-to-r from-green-500 to-emerald-500 text-black p-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
             whileHover={{ scale: 1.05 }}
