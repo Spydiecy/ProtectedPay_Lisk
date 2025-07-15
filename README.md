@@ -23,7 +23,7 @@
 
 ### 🤖 AI-Powered Assistant
 
-<img align="right" src="https://github.com/user-attachments/assets/a59d35bc-e1f0-4b5f-86d5-d2acded44b95" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/98acf121-8438-49b5-9b20-6a4e0c6d08aa" width="350px">
 
 - **Natural Language Commands**: Send transfers using plain English - "Send 10 FLOW to alice"
 - **Voice Input Support**: Use your microphone for hands-free interaction
@@ -37,7 +37,7 @@
 
 ### 🛡️ Protected Transfers on Multi-Chain Networks
 
-<img align="right" src="https://github.com/user-attachments/assets/a59d35bc-e1f0-4b5f-86d5-d2acded44b95" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/7b5f8042-dc4c-4a09-a831-c9819804bb05" width="350px">
 
 - **Escrow-Like Protection**: Funds remain secure until claimed by recipient
 - **Refundable Transfers**: Easily recover funds if sent to the wrong address
@@ -47,6 +47,8 @@
 - **Transaction Privacy**: Keep your transfer details confidential
 - **Multi-Chain Speed**: Benefit from Flow Network and Filecoin's fast transaction finality
 - **tUSDFC Support**: Native support for Filecoin's featured tUSDFC token
+
+<img align="right" src="https://github.com/user-attachments/assets/19e3d90b-8d4f-4abd-bfdf-4e163bd98320" width="350px">
 
 <br clear="right"/>
 
@@ -102,13 +104,13 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, w
   <table>
     <tr>
       <td align="center"><img src="/public/chains/flow.svg" width="70px"><br><b>Flow EVM Testnet</b></td>
-      <td align="center"><img src="/public/chains/usdfc.png" width="70px"><br><b>Filecoin Calibration</b></td>
+      <td align="center"><img src="/public/chains/filecoin.png" width="70px"><br><b>Filecoin Calibration</b></td>
     </tr>
   </table>
 </div>
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/6d5703bf-85b4-40d5-9fe8-535e15c74974" width="700px">
+  <img src="https://github.com/user-attachments/assets/bbe86ad9-c5df-4ecf-addf-5e9ddc56a9c5" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
@@ -142,7 +144,7 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, w
 ## 💻 User Interface
 
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/f6482374-01d1-460f-a1f1-9c757106fead" width="700px">
+  <img src="https://github.com/user-attachments/assets/9bd2c5bb-56af-4baf-9be4-c1f6884cbc03" width="700px">
   <p><i>Modern, intuitive interface with glassmorphism design</i></p>
 </div>
 
@@ -157,7 +159,7 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, w
 ### Dashboard Experience
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/56f1ea29-9304-44d7-b8cf-463bdb90c25b" width="700px">
+  <img src="https://github.com/user-attachments/assets/cec1db8c-44ed-46e4-9e2f-b5877f280503" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
