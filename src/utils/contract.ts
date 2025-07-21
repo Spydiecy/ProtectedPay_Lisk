@@ -1,15 +1,14 @@
 import { ethers } from 'ethers';
 
+const MAIN_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BDAG_MAIN_CONTRACT || '';
+const TOKEN_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BDAG_TOKEN_CONTRACT || '';
+
 const CONTRACT_ADDRESSES = {
-	545: '0xa1eF679Ab1a6C41B4Ec7d9aB8Fc3293CE02592FA', // Flow EVM Testnet
-	314159: '0x74689f77e03D8213DF5037b681F05b80bAAe3504', // Filecoin Calibration testnet
-	314: '0x0987654321098765432109876543210987654321', // Filecoin Mainnet (placeholder)
+  1043: MAIN_CONTRACT_ADDRESS, // BlockDAG Testnet
 } as const;
 
 const TOKEN_CONTRACT_ADDRESSES = {
-	545: '0x16f16b1742ECA434faf9442a9f9d933A766acfCA', // Flow EVM Testnet
-	314159: '0x151D3c8E531d9726148FF64D5e8426C03D0e91eF', // Filecoin Calibration testnet
-	314: '0x1098765432109876543210987654321098765432', // Filecoin Mainnet (placeholder)
+  1043: TOKEN_CONTRACT_ADDRESS, // BlockDAG Testnet
 } as const;
 
 const TOKEN_CONTRACT_ABI =  [
@@ -1853,8 +1852,7 @@ interface TransferEvent {
   // Gets the appropriate contract address based on chainId
   const getContractAddress = async (signer: ethers.Signer) => {
 	const chainId = await signer.getChainId();
-	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] 
-	  || CONTRACT_ADDRESSES[545]; // Default to Flow EVM Testnet if chain not found
+	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] || CONTRACT_ADDRESSES[1043]; // Default to BlockDAG Testnet
   };
   
   // Contract instance getter with chain awareness
@@ -2321,8 +2319,7 @@ interface TransferEvent {
 // Token Contract Functions
 const getTokenContractAddress = async (signer: ethers.Signer) => {
   const chainId = await signer.getChainId();
-  return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] 
-    || TOKEN_CONTRACT_ADDRESSES[545]; // Default to Flow EVM Testnet if chain not found
+  return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] || TOKEN_CONTRACT_ADDRESSES[1043]; // Default to BlockDAG Testnet
 };
 
 // Token contract instance getter with chain awareness
@@ -2333,7 +2330,7 @@ export const getTokenContract = async (signer: ethers.Signer) => {
 
 // Helper function to parse token amount with correct decimals
 const parseTokenAmount = (amount: string, tokenAddress: string): ethers.BigNumber => {
-  // Check if it's a specific token (removed ROOT token specific logic for Flow network)
+  // Check if it's a specific token (custom logic for BlockDAG only)
   // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
   //   return ethers.utils.parseUnits(amount, 6);
   // }
@@ -2351,10 +2348,10 @@ export const sendTokenToAddress = async (
 ) => {
   const contract = await getTokenContract(signer);
   const tx = await contract.sendTokenToAddress(
-    recipient, 
-    tokenAddress, 
-    parseTokenAmount(amount, tokenAddress), 
-    remarks
+	recipient, 
+	tokenAddress, 
+	parseTokenAmount(amount, tokenAddress), 
+	remarks
   );
   const receipt = await tx.wait();
   return { hash: tx.hash, receipt };
@@ -2369,10 +2366,10 @@ export const sendTokenToUsername = async (
 ) => {
   const contract = await getTokenContract(signer);
   const tx = await contract.sendTokenToUsername(
-    username, 
-    tokenAddress, 
-    parseTokenAmount(amount, tokenAddress), 
-    remarks
+	username, 
+	tokenAddress, 
+	parseTokenAmount(amount, tokenAddress), 
+	remarks
   );
   const receipt = await tx.wait();
   return { hash: tx.hash, receipt };
@@ -2425,14 +2422,14 @@ export const getTokenTransferDetails = async (signer: ethers.Signer, transferId:
   const contract = await getTokenContract(signer);
   const details = await contract.getTokenTransferDetails(transferId);
   return {
-    sender: details.sender,
-    recipient: details.recipient,
-    token: details.token,
-    amount: formatTokenAmount(details.amount, details.token),
-    timestamp: details.timestamp.toNumber(),
-    status: details.status,
-    remarks: details.remarks,
-    isNativeToken: details.isNativeToken
+	sender: details.sender,
+	recipient: details.recipient,
+	token: details.token,
+	amount: formatTokenAmount(details.amount, details.token),
+	timestamp: details.timestamp.toNumber(),
+	status: details.status,
+	remarks: details.remarks,
+	isNativeToken: details.isNativeToken
   };
 };
 
@@ -2442,10 +2439,10 @@ export const getTokenBalance = async (signer: ethers.Signer, tokenAddress: strin
   
   // For native token, get ETH balance
   if (tokenAddress === 'NATIVE') {
-    const balance = await signer.provider?.getBalance(userAddress);
-    const formattedBalance = balance ? ethers.utils.formatEther(balance) : '0';
-    console.log(`Native token balance: ${formattedBalance}`);
-    return formattedBalance;
+	const balance = await signer.provider?.getBalance(userAddress);
+	const formattedBalance = balance ? ethers.utils.formatEther(balance) : '0';
+	console.log(`Native token balance: ${formattedBalance}`);
+	return formattedBalance;
   }
   
   // For ERC20 tokens, use the contract's balance function
@@ -2467,16 +2464,16 @@ export const getTokenBalance = async (signer: ethers.Signer, tokenAddress: strin
   
   // For other ERC20 tokens, use standard ERC20 interface
   try {
-    const erc20Contract = new ethers.Contract(tokenAddress, [
-      'function balanceOf(address) view returns (uint256)'
-    ], signer);
-    const balance = await erc20Contract.balanceOf(userAddress);
-    const formattedBalance = ethers.utils.formatEther(balance);
-    console.log(`ERC20 token balance for ${tokenAddress}: ${formattedBalance}`);
-    return formattedBalance;
+	const erc20Contract = new ethers.Contract(tokenAddress, [
+	  'function balanceOf(address) view returns (uint256)'
+	], signer);
+	const balance = await erc20Contract.balanceOf(userAddress);
+	const formattedBalance = ethers.utils.formatEther(balance);
+	console.log(`ERC20 token balance for ${tokenAddress}: ${formattedBalance}`);
+	return formattedBalance;
   } catch (error) {
-    console.error(`Error fetching ERC20 balance for ${tokenAddress}:`, error);
-    return '0';
+	console.error(`Error fetching ERC20 balance for ${tokenAddress}:`, error);
+	return '0';
   }
 };
 
@@ -2488,11 +2485,11 @@ export const approveToken = async (
 ) => {
   // For native tokens, no approval needed
   if (tokenAddress === 'NATIVE') {
-    return;
+	return;
   }
   
   const erc20Contract = new ethers.Contract(tokenAddress, [
-    'function approve(address spender, uint256 amount) returns (bool)'
+	'function approve(address spender, uint256 amount) returns (bool)'
   ], signer);
   
   const tx = await erc20Contract.approve(spenderAddress, parseTokenAmount(amount, tokenAddress));
@@ -2507,19 +2504,14 @@ export const getTokenAllowance = async (
 ) => {
   // For native tokens, return max allowance
   if (tokenAddress === 'NATIVE') {
-    return ethers.constants.MaxUint256.toString();
+	return ethers.constants.MaxUint256.toString();
   }
   
-  // Check if it's a specific token (removed ROOT token specific logic for Flow network)
-  // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
-  //   const contract = await getTokenContract(signer);
-  //   const allowance = await contract.getSpecificTokenAllowance(ownerAddress);
-  //   return ethers.utils.formatUnits(allowance, 6);
-  // }
+  // BlockDAG: All tokens use standard ERC20 allowance logic
   
   // For other ERC20 tokens, use standard ERC20 interface
   const erc20Contract = new ethers.Contract(tokenAddress, [
-    'function allowance(address owner, address spender) view returns (uint256)'
+	'function allowance(address owner, address spender) view returns (uint256)'
   ], signer);
   
   const allowance = await erc20Contract.allowance(ownerAddress, spenderAddress);
@@ -2532,14 +2524,14 @@ export const getUserTokenTransfers = async (signer: ethers.Signer, userAddress: 
   const transfers = await contract.getUserTokenTransfers(userAddress);
   
   return transfers.map((transfer: any) => ({
-    sender: transfer.sender,
-    recipient: transfer.recipient,
-    token: transfer.token,
-    amount: formatTokenAmount(transfer.amount, transfer.token),
-    timestamp: transfer.timestamp.toNumber(),
-    status: transfer.status,
-    remarks: transfer.remarks,
-    isNativeToken: transfer.isNativeToken
+	sender: transfer.sender,
+	recipient: transfer.recipient,
+	token: transfer.token,
+	amount: formatTokenAmount(transfer.amount, transfer.token),
+	timestamp: transfer.timestamp.toNumber(),
+	status: transfer.status,
+	remarks: transfer.remarks,
+	isNativeToken: transfer.isNativeToken
   }));
 };
 
@@ -2552,12 +2544,12 @@ export const canTransferToken = async (
 ) => {
   const contract = await getTokenContract(signer);
   const result = await contract.canTransferToken(
-    senderAddress, 
-    tokenAddress, 
-    parseTokenAmount(amount, tokenAddress)
+	senderAddress, 
+	tokenAddress, 
+	parseTokenAmount(amount, tokenAddress)
   );
   return {
-    canTransfer: result[0],
-    reason: result[1]
+	canTransfer: result[0],
+	reason: result[1]
   };
 };

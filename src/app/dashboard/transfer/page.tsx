@@ -184,7 +184,7 @@ export default function TransferPage() {
             console.log(`Token transfer details for ${id}:`, details)
             
             // Determine if this is actually a native token transfer
-            // Check for native token transfers on Flow or Filecoin networks
+                                   // Check for native token transfers on BlockDAG only
             const isActuallyNative = (details.token === 'NATIVE' || 
                                    details.token === '0x0000000000000000000000000000000000000000' ||
                                    !details.token)
@@ -785,7 +785,7 @@ export default function TransferPage() {
                               symbol: 'UNKNOWN',
                               name: 'Unknown Token',
                               decimals: 18,
-                              logo: '/chains/flow.svg',
+                              logo: '/chains/bdag.png',
                               isNative: false
                             } as unknown as Token
                           }
@@ -869,7 +869,7 @@ export default function TransferPage() {
                         <ShieldCheckIcon className="w-12 h-12 text-[rgb(var(--primary))]" />
                         <p className="text-[rgb(var(--foreground))] font-medium mt-4">No Pending Transfers</p>
                         <p className="text-sm text-[rgb(var(--muted-foreground))] mt-2">
-                          You don't have any pending transfers to claim or refund
+                          You don't have any pending transfers to claim or refund on BlockDAG Testnet
                         </p>
                         <button
                           onClick={() => fetchRecentActivity()}

@@ -23,9 +23,9 @@ type ExtendedProvider = ethers.providers.ExternalProvider & {
 
 // Define chains
 const blockdagNetwork = {
-  id: 9999, // Placeholder chain ID - update with actual BlockDAG chain ID
-  name: 'BlockDAG Network',
-  network: 'blockdag',
+  id: 1043,
+  name: 'BlockDAG Testnet',
+  network: 'blockdag-testnet',
   nativeCurrency: {
     decimals: 18,
     name: 'BDAG',
@@ -33,19 +33,19 @@ const blockdagNetwork = {
   },
   rpcUrls: {
     public: {
-      http: ['https://rpc.blockdag.network'] // Placeholder URL - update with actual RPC
+      http: ['https://rpc.primordial.bdagscan.com', 'https://test-rpc.primordial.bdagscan.com']
     },
     default: {
-      http: ['https://rpc.blockdag.network'] // Placeholder URL - update with actual RPC
+      http: ['https://rpc.primordial.bdagscan.com', 'https://test-rpc.primordial.bdagscan.com']
     },
   },
   blockExplorers: {
     default: {
       name: 'BlockDAG Explorer',
-      url: 'https://explorer.blockdag.network' // Placeholder URL - update with actual explorer
+      url: 'https://primordial.bdagscan.com'
     },
   },
-  testnet: false,
+  testnet: true,
 } as const;
 
 const chains = [blockdagNetwork] as const;

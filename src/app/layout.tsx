@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'ProtectedPay | Secure Crypto Transfers on BlockDAG Network',
-  description: 'Secure crypto transfers, group payments, and smart savings on BlockDAG Network with native BDAG support',
-  keywords: 'crypto, payments, blockchain, BlockDAG, BDAG, EVM, DeFi, secure transfers, group payments, decentralized',
+  title: 'ProtectedPay | Secure Crypto Transfers on BlockDAG Testnet',
+  description: 'Secure crypto transfers, group payments, and smart savings on BlockDAG Testnet with native BDAG support',
+  keywords: 'crypto, payments, blockchain, BlockDAG, BDAG, testnet, EVM, DeFi, secure transfers, group payments, decentralized',
   authors: [{ name: 'ProtectedPay' }],
 };
 

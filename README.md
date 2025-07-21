@@ -3,9 +3,9 @@
 <div align="center">
   <img src="https://github.com/user-attachments/assets/eb3dbd55-6522-4d3b-b6f9-6ec63157e565" alt="ProtectedPay Logo" width="650px">
   
-  <h3>Smart. Secure Crypto Transfers on Multi-Chain Networks</h3>
+  <h3>Smart. Secure Crypto Transfers on BlockDAG Network</h3>
   
-  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built for BlockDAG Network with native BDAG support.</p>
+  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built for BlockDAG Testnet with native BDAG support.</p>
 </div>
 
 ## 📋 Contents
@@ -31,7 +31,7 @@
 - **Transaction Management**: Claim, refund, and view transfers through AI chat
 - **Real-time Assistance**: Get instant help with wallet operations and blockchain interactions
 - **Context-Aware**: AI remembers your conversation for better assistance
-- **BlockDAG Network**: Works seamlessly on the high-performance BlockDAG network
+- **BlockDAG Testnet**: Works seamlessly on the high-performance BlockDAG testnet
 
 <br clear="right"/>
 
@@ -45,7 +45,7 @@
 - **Customizable Remarks**: Add notes to help identify your transfers
 - **QR Integration**: Scan to pay functionality for quick transfers
 - **Transaction Privacy**: Keep your transfer details confidential
-- **BlockDAG Speed**: Benefit from BlockDAG Network's fast transaction finality and low fees
+- **BlockDAG Speed**: Benefit from BlockDAG Testnet's fast transaction finality and low fees
 - **Native BDAG Support**: Full support for BlockDAG's native token
 
 <img align="right" src="https://github.com/user-attachments/assets/19e3d90b-8d4f-4abd-bfdf-4e163bd98320" width="350px">
@@ -70,7 +70,7 @@
 <img align="right" src="https://github.com/user-attachments/assets/644e5621-61c2-4e9c-b999-4d2d81ccde1e" width="350px">
 
 - **Goal-Based Savings**: Set targets and track progress visually
-- **BlockDAG Optimized**: Create dedicated savings on BlockDAG Network
+- **BlockDAG Optimized**: Create dedicated savings on BlockDAG Testnet
 - **Flexible Contributions**: Add funds on your own schedule
 - **Emergency Access**: Withdraw when needed without penalties
 - **Purpose Tracking**: Organize savings by specific goals or needs
@@ -98,12 +98,12 @@
 
 ## 🔗 Supported Networks
 
-ProtectedPay is built for the BlockDAG Network, with AI-powered assistance for seamless interactions. Currently optimized for testnet environments with plans for mainnet deployment.
+ProtectedPay is built for the BlockDAG Testnet, with AI-powered assistance for seamless interactions. Currently optimized for testnet environments with plans for mainnet deployment.
 
 <div align="left">
   <table>
     <tr>
-      <td align="center"><img src="/public/chains/blockdag.png" width="70px"><br><b>BlockDAG Network</b></td>
+      <td align="center"><img src="/public/chains/blockdag.png" width="70px"><br><b>BlockDAG Testnet</b><br><small>Chain ID: 1043</small></td>
     </tr>
   </table>
 </div>
@@ -135,7 +135,7 @@ ProtectedPay is built for the BlockDAG Network, with AI-powered assistance for s
 
 ### Smart Savings Pots
 
-1. **Set Goals**: Set your savings target on BlockDAG Network
+1. **Set Goals**: Set your savings target on BlockDAG Testnet
 2. **Contribute**: Add funds at your own pace with real-time progress tracking
 3. **Yield Option**: Opt to earn yield on your savings, helping grow both your funds and network TVL
 4. **Flexible Access**: Withdraw partially or completely whenever needed
@@ -150,7 +150,7 @@ ProtectedPay is built for the BlockDAG Network, with AI-powered assistance for s
 ### Design Philosophy
 
 - **AI-First Approach**: Natural language and voice interactions for blockchain operations
-- **BlockDAG Inspired**: UI themes designed to match BlockDAG Network branding
+- **BlockDAG Inspired**: UI themes designed to match BlockDAG Testnet branding
 - **Glassmorphism**: Modern, clean aesthetics with depth and transparency
 - **Responsive Layout**: Perfect experience on any device
 - **Intuitive Navigation**: Easily access all features with minimal learning curve
@@ -163,17 +163,17 @@ ProtectedPay is built for the BlockDAG Network, with AI-powered assistance for s
 </div>
 
 - **Activity Feed**: Real-time updates of your transactions and AI interactions
-- **Asset Overview**: Quick view of your token balances on BlockDAG Network
+- **Asset Overview**: Quick view of your token balances on BlockDAG Testnet
 - **AI Chat Interface**: Integrated assistant for voice and text-based blockchain operations
 - **Status Indicators**: Clear visual cues for transaction states
-- **Network Selection**: Seamlessly interact with BlockDAG Network
+- **Network Selection**: Seamlessly interact with BlockDAG Testnet
 
 ## 🔒 Security
 
 ProtectedPay prioritizes security at every level:
 
 - **AI Safety**: Secure integration with Gemini AI that never accesses your private keys
-- **Smart Contract Safety**: BlockDAG optimized contracts with rigorous security measures
+- **Smart Contract Safety**: BlockDAG Testnet optimized contracts with rigorous security measures
 - **Non-Custodial Architecture**: Users always maintain control of their funds
 - **Protected Transfers**: Built-in escrow functionality keeps funds secure
 - **Voice Privacy**: Speech recognition happens locally in your browser
@@ -193,13 +193,13 @@ ProtectedPay prioritizes security at every level:
     </tr>
     <tr>
       <td>Native Transfers</td>
-      <td><img src="/public/chains/blockdag.png" width="20"> BlockDAG Network</td>
+      <td><img src="/public/chains/blockdag.png" width="20"> BlockDAG Testnet</td>
       <td><code>TBD - Coming Soon</code></td>
       <td>🔄 Pending</td>
     </tr>
     <tr>
       <td>Token Transfers</td>
-      <td><img src="/public/chains/blockdag.png" width="20"> BlockDAG Network</td>
+      <td><img src="/public/chains/blockdag.png" width="20"> BlockDAG Testnet</td>
       <td><code>TBD - Coming Soon</code></td>
       <td>🔄 Pending</td>
     </tr>
@@ -228,5 +228,5 @@ Need assistance or have questions? We're here to help:
 
 <div align="center">
   <p>© 2025 ProtectedPay</p>
-  <h3>Revolutionizing secure payments with AI on BlockDAG Network</h3>
+  <h3>Revolutionizing secure payments with AI on BlockDAG Testnet</h3>
 </div>

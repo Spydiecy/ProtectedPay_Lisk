@@ -9,12 +9,12 @@ export interface ChainInfo {
 
 // Map of chain IDs to their native tokens
 const TOKEN_MAP: Record<number, string> = {
-  9999: "BDAG", // BlockDAG Network
+  1043: "BDAG", // BlockDAG Testnet
 };
 
 // Map of chain IDs to their names
 const CHAIN_NAME_MAP: Record<number, string> = {
-  9999: "BlockDAG Network",
+  1043: "BlockDAG Testnet",
 };
 
 /**
@@ -25,7 +25,7 @@ export function useChain(): ChainInfo {
   const wallet = useWallet();  const [chainInfo, setChainInfo] = useState<ChainInfo>({
     chainId: undefined,
     nativeToken: "BDAG",
-    chainName: "BlockDAG Network"
+    chainName: "BlockDAG Testnet"
   });
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function useChain(): ChainInfo {
             const chainId = parseInt(ethereum.chainId, 16);            setChainInfo({
               chainId,
               nativeToken: TOKEN_MAP[chainId] || "BDAG",
-              chainName: CHAIN_NAME_MAP[chainId] || "BlockDAG Network"
+              chainName: CHAIN_NAME_MAP[chainId] || "BlockDAG Testnet"
             });
           }
         } catch (error) {
@@ -58,7 +58,7 @@ export function useChain(): ChainInfo {
         const id = parseInt(chainId, 16);        setChainInfo({
           chainId: id,
           nativeToken: TOKEN_MAP[id] || "BDAG",
-          chainName: CHAIN_NAME_MAP[id] || "BlockDAG Network"
+          chainName: CHAIN_NAME_MAP[id] || "BlockDAG Testnet"
         });
       };
 

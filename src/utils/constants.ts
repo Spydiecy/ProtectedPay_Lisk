@@ -35,8 +35,8 @@ export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
   logo: string;
   isNative: boolean;
 }>> = {
-  // BlockDAG Network
-  9999: [ // Placeholder chain ID - update with actual BlockDAG chain ID
+  // BlockDAG Testnet
+  1043: [
     {
       address: 'NATIVE',
       symbol: 'BDAG',
@@ -65,11 +65,11 @@ export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
 } as const;
 
 // Legacy support - defaults to BlockDAG tokens
-export const SUPPORTED_TOKENS = SUPPORTED_TOKENS_BY_CHAIN[9999];
+export const SUPPORTED_TOKENS = SUPPORTED_TOKENS_BY_CHAIN[1043];
 
 // Helper function to get supported tokens for a specific chain
 export const getSupportedTokensForChain = (chainId: number) => {
-  return SUPPORTED_TOKENS_BY_CHAIN[chainId] || SUPPORTED_TOKENS_BY_CHAIN[9999]; // Default to BlockDAG
+  return SUPPORTED_TOKENS_BY_CHAIN[chainId] || SUPPORTED_TOKENS_BY_CHAIN[1043]; // Default to BlockDAG Testnet
 };
 
 export type Token = typeof SUPPORTED_TOKENS[number];

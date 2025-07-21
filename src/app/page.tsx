@@ -347,14 +347,14 @@ const NetworkShowcase = () => {
                 />
               </div>
               <div className="space-y-3">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">BlockDAG Network</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">BlockDAG Testnet</h3>
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
                   High-Performance Blockchain
                 </div>
                 <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
                   <div className="text-gray-500 dark:text-gray-400 mb-1">Chain ID</div>
-                  <div className="font-mono font-semibold text-green-600 dark:text-green-400">9999</div>
+                  <div className="font-mono font-semibold text-green-600 dark:text-green-400">1043</div>
                 </div>
                 <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
                   <div className="text-gray-500 dark:text-gray-400 mb-1">Native Currency</div>

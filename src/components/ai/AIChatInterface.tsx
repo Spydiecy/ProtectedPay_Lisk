@@ -67,21 +67,21 @@ const AIChatInterface: React.FC = () => {
       content: `👋 **Welcome to ProtectedPay AI Assistant!**
 
 I can help you with:
-• 💸 **Send transfers** - "Send 10 FLOW to 0x1234..."
+• 💸 **Send transfers** - "Send 10 BDAG to 0x1234..."
 • 📥 **Claim transfers** - "Claim transfer from Alice"
 • 🔄 **Refund transfers** - "Refund transfer ID 0xabc..."
 • 💰 **Check balances** - "What's my USDC balance?"
 • 📋 **View transfers** - "Show my pending transfers"
 • 👥 **Group payments** - "Create group payment for Alice with 5 people"
-• 🏦 **Savings pots** - "Create savings pot 'Vacation' with target 500 FLOW"
+• 🏦 **Savings pots** - "Create savings pot 'Vacation' with target 500 BDAG"
 • 📊 **Transaction history** - "Show my complete transaction history"
-• � **Filter transactions** - "Show my refunded transactions", "Find my FLOW transfers"
-• �👤 **Register username** - "Register username alice"
-• ⛓️ **Chain info** - "What tokens are supported on Flow?"
+• 🧮 **Filter transactions** - "Show my refunded transactions", "Find my BDAG transfers"
+• 👤 **Register username** - "Register username alice"
+• ⛓️ **Chain info** - "What tokens are supported on BlockDAG?"
 
 🎤 **Voice commands supported!** Use the microphone button or just start talking!
 
-Just tell me what you'd like to do! Make sure your wallet is connected and you're on the right network.`,
+Just tell me what you'd like to do! Make sure your wallet is connected and you're on the BlockDAG Testnet network.`,
       timestamp: new Date(),
     },
   ])
@@ -144,9 +144,9 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
             handleSendMessage(`show details for ${id}`)
             break
           case 'explorer':
-            // Open transaction in explorer
+            // Open transaction in BlockDAG explorer
             if (typeof window !== 'undefined') {
-              const explorerUrl = `https://evm-testnet.flowscan.io/tx/${id}`
+              const explorerUrl = `https://primordial.bdagscan.com/tx/${id}`
               window.open(explorerUrl, '_blank')
             }
             break
@@ -319,7 +319,7 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       }
       
       return {
-        message: 'Please specify the amount, token, and recipient. For example: "Send 10 FLOW to 0x1234..." or "Send 100 USDC to alice"'
+        message: 'Please specify the amount, token, and recipient. For example: "Send 10 BDAG to 0x1234..." or "Send 100 USDC to alice"'
       }
     }
     
@@ -393,7 +393,7 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       return {
         message: `**Here's what I can help you with:**
 
-🔗 Sending: "Send 10 FLOW to 0x1234..." or "Send 100 USDC to alice"
+🔗 Sending: "Send 10 BDAG to 0x1234..." or "Send 100 USDC to alice"
 📥 Claiming: "Claim from alice" or "Claim transfer 0x1234..."
 🔄 **Refunding: "Refund transfer 0x1234..."
 💰 **Balances: "What's my USDC balance?" or "Show my balance"
@@ -407,8 +407,8 @@ All transfers are protected - recipients must claim them, and you can refund unc
     // Default response
     return {
       message: `I'm not sure how to help with that. Try asking me to:
-• Send a transfer: "Send 10 FLOW to 0x1234..."
-• Check balance: "What's my FLOW balance?"
+• Send a transfer: "Send 10 BDAG to 0x1234..."
+• Check balance: "What's my BDAG balance?"
 • View transfers: "Show my pending transfers"
 • Get help: "What can you do?"
 
@@ -522,13 +522,7 @@ Make sure your wallet is connected!`
         
         if (result.success && result.data) {
           updateMessage(messageId, {
-            content: `💰 **Your ${token.symbol} Balance**
-
-• **${token.symbol}**: ${formatAmount(result.data.balance)}
-• **Address**: ${truncateAddress(address)}
-• **Chain**: ${chainId === 545 ? 'Flow Testnet' : 'Filecoin Calibration'}
-
-Need to send or receive funds? Just ask me!`,
+            content: `💰 **Your ${token.symbol} Balance**\n\n• **${token.symbol}**: ${formatAmount(result.data.balance)}\n• **Address**: ${truncateAddress(address)}\n• **Chain**: BlockDAG Testnet\n\nNeed to send or receive funds? Just ask me!`,
             status: 'sent',
           })
         } else {
@@ -536,7 +530,7 @@ Need to send or receive funds? Just ask me!`,
         }
       } else {
         // Check all balances
-        const result = await aiService.getAllBalances(signer, address, chainId || 545)
+        const result = await aiService.getAllBalances(signer, address, chainId || 1043)
         
         if (result.success && result.data) {
           const balances = result.data.balances
@@ -547,7 +541,7 @@ Need to send or receive funds? Just ask me!`,
           }
           
           balanceText += `\n• **Address**: ${truncateAddress(address)}\n`
-          balanceText += `• **Chain**: ${chainId === 545 ? 'Flow Testnet' : 'Filecoin Calibration'}\n\n`
+          balanceText += `• **Chain**: BlockDAG Testnet\n\n`
           balanceText += `Need to send or receive funds? Just ask me!`
           
           updateMessage(messageId, {
@@ -576,7 +570,7 @@ Need to send or receive funds? Just ask me!`,
     }
     
     try {
-      const result = await aiService.getTransactionHistory(signer, address, chainId || 545)
+      const result = await aiService.getTransactionHistory(signer, address, chainId || 1043)
       
       if (result.success && result.data) {
         const { transfers, groupPayments, savingsPots } = result.data
@@ -614,7 +608,7 @@ Need to send or receive funds? Just ask me!`,
         // Show savings pots  
         text += `🏦 **Savings Pots**: ${savingsPots?.length || 0} created\n\n`
         
-        text += `💡 Try: "show refunded transactions", "show my sent transfers", or "find FLOW payments" for filtered results.`
+        text += `💡 Try: "show refunded transactions", "show my sent transfers", or "find BDAG payments" for filtered results.`
         
         updateMessage(messageId, {
           content: text,

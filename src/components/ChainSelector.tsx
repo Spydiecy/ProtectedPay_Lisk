@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import { useWallet } from '@/context/WalletContext'
@@ -14,26 +14,29 @@ export interface ChainInfo {
   blockExplorerUrl: string
 }
 
+const SUPPORTED_CHAINS = [
+  {
+    id: 1043,
+    hexId: '0x413',
+    name: 'BlockDAG Testnet',
+    icon: '/chains/blockdag.png',
+    symbol: 'BDAG',
+    rpcUrl: 'https://rpc.primordial.bdagscan.com',
+    blockExplorerUrl: 'https://primordial.bdagscan.com'
+  }
+] as const;
+
 export const supportedChains: ChainInfo[] = [
   {
-    id: 545,
-    hexId: '0x221',
-    name: 'Flow EVM Testnet',
-    icon: '/chains/flow.svg',
-    symbol: 'FLOW',
-    rpcUrl: 'https://testnet.evm.nodes.onflow.org',
-    blockExplorerUrl: 'https://evm-testnet.flowscan.io'
-  },
-  {
-    id: 314159,
-    hexId: '0x4CB2F',
-    name: 'Filecoin - Calibration testnet',
-    icon: '/chains/usdfc.png',
-    symbol: 'tFIL',
-    rpcUrl: 'https://api.calibration.node.glif.io/rpc/v1',
-    blockExplorerUrl: 'https://calibration.filscan.io'
+    id: 1043,
+    hexId: '0x413',
+    name: 'BlockDAG Testnet',
+    icon: '/chains/blockdag.png',
+    symbol: 'BDAG',
+    rpcUrl: 'https://rpc.primordial.bdagscan.com',
+    blockExplorerUrl: 'https://primordial.bdagscan.com'
   }
-] as const
+]
 
 const ChainSelector = () => {
   const { isConnected } = useWallet()
