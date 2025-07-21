@@ -103,17 +103,15 @@ export class GeminiProtectedPayService {
       const recentTokenMention = this.conversationContext.messageHistory
         .slice(-3) // Look at last 3 messages
         .find(msg => msg.role === 'user' && 
-          msg.content.toLowerCase().match(/\b(tusdfc|usdc|usdt|flow|tfil)\b/i))
+          msg.content.toLowerCase().match(/\b(bdag|usdc|usdt|blockdag)\b/i))
       
       let contextualPrompt = ''
       if (lastResponse && lastResponse.content.includes('Balance:')) {
         // Previous message was a balance response, check if this is asking for different token or all tokens
         const tokenPatterns = [
-          /\b(tusdfc|t-usdfc|tUSDFC|in\s+tusdfc)\b/i,
+          /\b(bdag|block-dag|BDAG|in\s+bdag)\b/i,
           /\b(usdc|usd-c|USDC|in\s+usdc)\b/i,
-          /\b(usdt|usd-t|USDT|in\s+usdt)\b/i,
-          /\b(flow|FLOW|in\s+flow)\b/i,
-          /\b(tfil|t-fil|tFIL|in\s+tfil)\b/i
+          /\b(usdt|usd-t|USDT|in\s+usdt)\b/i
         ]
         
         const allTokenPatterns = [
@@ -166,12 +164,11 @@ AVAILABLE ACTIONS:
 TRANSACTION FILTERING OPTIONS:
 - By Status: "show refunded transactions", "pending transfers", "completed payments"
 - By Direction: "sent transactions", "received transfers", "outgoing payments"  
-- By Token: "FLOW transactions", "USDC transfers", "tUSDFC payments"
-- Combined: "show my refunded FLOW transfers", "pending USDC transactions"
+- By Token: "BDAG transactions", "USDC transfers", "USDT payments"
+- Combined: "show my refunded BDAG transfers", "pending USDC transactions"
 
 SUPPORTED CHAINS:
-- Flow EVM Testnet (Chain ID: 545)
-- Filecoin Calibration Testnet (Chain ID: 314159)
+- BlockDAG Network (Chain ID: 9999)
 
 CURRENT CONTEXT:
 - User Address: ${address || 'Not connected'}
@@ -202,7 +199,7 @@ Provide a helpful response and if action is needed, specify the action type and 
 
 Examples:
 - "Check my balance" → ACTION: balance check (execute immediately)
-- "Send 100 FLOW to 0x123..." → ACTION: send transfer (ask for confirmation)
+- "Send 100 BDAG to 0x123..." → ACTION: send transfer (ask for confirmation)
 - "Register username alice" → ACTION: register username (ask for confirmation)
 - "What chains are supported?" → ACTION: chain info (execute immediately)
 - "Show pending transfers" → ACTION: view transfers (execute immediately)`
@@ -294,37 +291,35 @@ Examples:
     const isFollowUpBalanceQuery = lastResponse && lastResponse.content.includes('Balance:') && 
       (userLower.includes('for all') || userLower.includes('all tokens') || 
        userLower.includes('all balances') || userLower.includes('show all') ||
-       userLower.match(/^\s*(tusdfc|usdc|usdt|flow|tfil)\s*$/i) ||
-       userLower.match(/\b(in|for)\s+(tusdfc|usdc|usdt|flow|tfil)\b/i) ||
-       userLower.match(/^(for|in)\s+(tusdfc|usdc|usdt|flow|tfil)$/i))
+       userLower.match(/^\s*(bdag|usdc|usdt|blockdag)\s*$/i) ||
+       userLower.match(/\b(in|for)\s+(bdag|usdc|usdt|blockdag)\b/i) ||
+       userLower.match(/^(for|in)\s+(bdag|usdc|usdt|blockdag)$/i))
     
     // Also check if user mentioned a token and then said "balance"
     const recentTokenMention = this.conversationContext.messageHistory
       .slice(-3) // Look at last 3 messages
       .find(msg => msg.role === 'user' && 
-        msg.content.toLowerCase().match(/\b(tusdfc|usdc|usdt|flow|tfil)\b/i))
+        msg.content.toLowerCase().match(/\b(bdag|usdc|usdt|blockdag)\b/i))
     
     const isTokenBalanceFollowUp = recentTokenMention && userLower.includes('balance') && 
-      !userLower.match(/\b(tusdfc|usdc|usdt|flow|tfil)\b/i)
+      !userLower.match(/\b(bdag|usdc|usdt|blockdag)\b/i)
     
     // Balance check patterns - improved to detect specific tokens and follow-up queries
     if (userLower.includes('balance') || userLower.includes('how much') || 
-        userLower.match(/\b(in|my)\s+(tusdfc|usdc|usdt|flow|tfil)\b/i) ||
-        userLower.match(/^\s*(tusdfc|usdc|usdt|flow|tfil)\s*$/i) ||
+        userLower.match(/\b(in|my)\s+(bdag|usdc|usdt|blockdag)\b/i) ||
+        userLower.match(/^\s*(bdag|usdc|usdt|blockdag)\s*$/i) ||
         userLower.includes('for all') || userLower.includes('all tokens') || 
         userLower.includes('all balances') || userLower.includes('show all') ||
         isFollowUpBalanceQuery || isTokenBalanceFollowUp) {
       
       const addressMatch = userMessage.match(/0x[a-fA-F0-9]{40}/)
-      const chainMatch = userMessage.match(/chain\s+(\d+)|on\s+(\d+)|testnet|mainnet|flow|filecoin/)
+      const chainMatch = userMessage.match(/chain\s+(\d+)|on\s+(\d+)|testnet|mainnet|blockdag/)
       
       // Extract specific token mentions - improved pattern matching including follow-up queries
       const tokenPatterns = [
-        /\b(tusdfc|t-usdfc|tUSDFC|in\s+tusdfc|^\s*tusdfc\s*$)\b/i,  // tUSDFC variations
+        /\b(bdag|block-dag|BDAG|in\s+bdag|^\s*bdag\s*$)\b/i,        // BDAG variations
         /\b(usdc|usd-c|USDC|in\s+usdc|^\s*usdc\s*$)\b/i,            // USDC variations  
-        /\b(usdt|usd-t|USDT|in\s+usdt|^\s*usdt\s*$)\b/i,            // USDT variations
-        /\b(flow|FLOW|in\s+flow|^\s*flow\s*$)\b/i,                   // FLOW
-        /\b(tfil|t-fil|tFIL|in\s+tfil|^\s*tfil\s*$)\b/i             // tFIL variations
+        /\b(usdt|usd-t|USDT|in\s+usdt|^\s*usdt\s*$)\b/i             // USDT variations
       ]
       
       let detectedToken = null

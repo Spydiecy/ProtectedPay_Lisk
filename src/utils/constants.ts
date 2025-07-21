@@ -35,18 +35,18 @@ export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
   logo: string;
   isNative: boolean;
 }>> = {
-  // Flow EVM Testnet
-  545: [
+  // BlockDAG Network
+  9999: [ // Placeholder chain ID - update with actual BlockDAG chain ID
     {
       address: 'NATIVE',
-      symbol: 'FLOW',
-      name: 'FLOW (Native)',
+      symbol: 'BDAG',
+      name: 'BDAG (Native)',
       decimals: 18,
-      logo: '/chains/flow.svg',
+      logo: '/chains/blockdag.png',
       isNative: true
     },
     {
-      address: '0x0000000000000000000000000000000000000000',
+      address: '0x0000000000000000000000000000000000000000', // Placeholder - update with actual contract address
       symbol: 'USDC',
       name: 'USD Coin',
       decimals: 6,
@@ -54,60 +54,22 @@ export const SUPPORTED_TOKENS_BY_CHAIN: Record<number, Array<{
       isNative: false
     },
     {
-      address: '0x0000000000000000000000000000000000000000',
+      address: '0x0000000000000000000000000000000000000000', // Placeholder - update with actual contract address
       symbol: 'USDT',
       name: 'Tether USD',
       decimals: 6,
       logo: '/chains/usdt.png',
       isNative: false
     }
-  ],
-  // Filecoin Calibration Testnet
-  314159: [
-    {
-      address: 'NATIVE',
-      symbol: 'tFIL',
-      name: 'tFIL (Native)',
-      decimals: 18,
-      logo: '/chains/filecoin.png',
-      isNative: true
-    },
-    {
-      address: '0xb3042734b608a1B16e9e86B374A3f3e389B4cDf0',
-      symbol: 'tUSDFC',
-      name: 'tUSDFC (Filecoin)',
-      decimals: 6,
-      logo: '/chains/usdfc.png',
-      isNative: false
-    }
-  ],
-  // Filecoin Mainnet
-  314: [
-    {
-      address: 'NATIVE',
-      symbol: 'FIL',
-      name: 'FIL (Native)',
-      decimals: 18,
-      logo: '/chains/filecoin.png',
-      isNative: true
-    },
-    {
-      address: '0x0000000000000000000000000000000000000000', // Placeholder address
-      symbol: 'USDFC',
-      name: 'USDFC (Filecoin)',
-      decimals: 6,
-      logo: '/chains/usdfc.png',
-      isNative: false
-    }
   ]
 } as const;
 
-// Legacy support - defaults to Flow Testnet tokens
-export const SUPPORTED_TOKENS = SUPPORTED_TOKENS_BY_CHAIN[545];
+// Legacy support - defaults to BlockDAG tokens
+export const SUPPORTED_TOKENS = SUPPORTED_TOKENS_BY_CHAIN[9999];
 
 // Helper function to get supported tokens for a specific chain
 export const getSupportedTokensForChain = (chainId: number) => {
-  return SUPPORTED_TOKENS_BY_CHAIN[chainId] || SUPPORTED_TOKENS_BY_CHAIN[545]; // Default to Flow Testnet
+  return SUPPORTED_TOKENS_BY_CHAIN[chainId] || SUPPORTED_TOKENS_BY_CHAIN[9999]; // Default to BlockDAG
 };
 
 export type Token = typeof SUPPORTED_TOKENS[number];

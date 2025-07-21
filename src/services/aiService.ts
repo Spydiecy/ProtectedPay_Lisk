@@ -24,7 +24,7 @@ import {
 } from '@/utils/contract'
 import { getSupportedTokensForChain, type Token } from '@/utils/constants'
 
-export interface AIServiceResponse {
+interface AIServiceResponse {
   success: boolean
   data?: any
   error?: string
@@ -623,11 +623,9 @@ export class ProtectedPayAIService {
 
     // Parse token filters
     const tokenPatterns = [
-      { pattern: /\b(flow|flowtoken)\b/i, token: 'FLOW' },
+      { pattern: /\b(bdag|block-dag)\b/i, token: 'BDAG' },
       { pattern: /\b(usdc|usd-c)\b/i, token: 'USDC' },
-      { pattern: /\b(usdt|usd-t)\b/i, token: 'USDT' },
-      { pattern: /\b(tusdfc|t-usdfc)\b/i, token: 'tUSDFC' },
-      { pattern: /\b(tfil|t-fil)\b/i, token: 'tFIL' }
+      { pattern: /\b(usdt|tether)\b/i, token: 'USDT' }
     ]
 
     for (const { pattern, token } of tokenPatterns) {

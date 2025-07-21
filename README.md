@@ -5,7 +5,7 @@
   
   <h3>Smart. Secure Crypto Transfers on Multi-Chain Networks</h3>
   
-  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built for Flow EVM Network and Filecoin with native tUSDFC support.</p>
+  <p>A revolutionary DeFi platform for secure transfers, group payments, and smart savings, built for BlockDAG Network with native BDAG support.</p>
 </div>
 
 ## 📋 Contents
@@ -25,13 +25,13 @@
 
 <img align="right" src="https://github.com/user-attachments/assets/98acf121-8438-49b5-9b20-6a4e0c6d08aa" width="350px">
 
-- **Natural Language Commands**: Send transfers using plain English - "Send 10 FLOW to alice"
+- **Natural Language Commands**: Send transfers using plain English - "Send 10 BDAG to alice"
 - **Voice Input Support**: Use your microphone for hands-free interaction
-- **Smart Balance Queries**: Check balances with simple commands like "What's my USDC balance?"
+- **Smart Balance Queries**: Check balances with simple commands like "What's my BDAG balance?"
 - **Transaction Management**: Claim, refund, and view transfers through AI chat
 - **Real-time Assistance**: Get instant help with wallet operations and blockchain interactions
 - **Context-Aware**: AI remembers your conversation for better assistance
-- **Multi-Chain Support**: Works seamlessly across Flow Testnet and Filecoin Calibration networks
+- **BlockDAG Network**: Works seamlessly on the high-performance BlockDAG network
 
 <br clear="right"/>
 
@@ -45,8 +45,8 @@
 - **Customizable Remarks**: Add notes to help identify your transfers
 - **QR Integration**: Scan to pay functionality for quick transfers
 - **Transaction Privacy**: Keep your transfer details confidential
-- **Multi-Chain Speed**: Benefit from Flow Network and Filecoin's fast transaction finality
-- **tUSDFC Support**: Native support for Filecoin's featured tUSDFC token
+- **BlockDAG Speed**: Benefit from BlockDAG Network's fast transaction finality and low fees
+- **Native BDAG Support**: Full support for BlockDAG's native token
 
 <img align="right" src="https://github.com/user-attachments/assets/19e3d90b-8d4f-4abd-bfdf-4e163bd98320" width="350px">
 
@@ -57,7 +57,7 @@
 <img align="right" src="https://github.com/user-attachments/assets/e5939f0e-4b84-483a-b981-81a24459053b" width="350px">
 
 - **Split Expenses Easily**: Divide costs among friends or colleagues
-- **Simple Contributors**: Accept payments from any Flow user
+- **Simple Contributors**: Accept payments from any BlockDAG user
 - **Automatic Distribution**: Funds released when target amount is reached
 - **Real-Time Tracking**: Monitor contributions as they happen
 - **Transparent History**: View all group payment activity
@@ -70,11 +70,11 @@
 <img align="right" src="https://github.com/user-attachments/assets/644e5621-61c2-4e9c-b999-4d2d81ccde1e" width="350px">
 
 - **Goal-Based Savings**: Set targets and track progress visually
-- **Multi-Chain Optimized**: Create dedicated savings on Flow Network and Filecoin
+- **BlockDAG Optimized**: Create dedicated savings on BlockDAG Network
 - **Flexible Contributions**: Add funds on your own schedule
 - **Emergency Access**: Withdraw when needed without penalties
 - **Purpose Tracking**: Organize savings by specific goals or needs
-- **Yield Earning**: Option to earn yield on your savings, increasing Flow and Filecoin TVL
+- **Yield Earning**: Option to earn yield on your savings, increasing BlockDAG TVL
 - **Progress Visualization**: Watch your savings grow in real-time
 
 <br clear="right"/>
@@ -98,13 +98,12 @@
 
 ## 🔗 Supported Networks
 
-ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, with AI-powered assistance for seamless interactions. Currently optimized for testnet environments with plans for mainnet deployment.
+ProtectedPay is built for the BlockDAG Network, with AI-powered assistance for seamless interactions. Currently optimized for testnet environments with plans for mainnet deployment.
 
 <div align="left">
   <table>
     <tr>
-      <td align="center"><img src="/public/chains/flow.svg" width="70px"><br><b>Flow EVM Testnet</b></td>
-      <td align="center"><img src="/public/chains/filecoin.png" width="70px"><br><b>Filecoin Calibration</b></td>
+      <td align="center"><img src="/public/chains/blockdag.png" width="70px"><br><b>BlockDAG Network</b></td>
     </tr>
   </table>
 </div>
@@ -118,13 +117,13 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, w
 
 ### AI-Powered Interactions
 
-1. **Connect Your Wallet**: Connect your Flow or Filecoin compatible wallet to ProtectedPay
+1. **Connect Your Wallet**: Connect your BlockDAG compatible wallet to ProtectedPay
 2. **Chat with AI**: Use natural language or voice commands to manage your crypto
 3. **Smart Execution**: AI understands your intent and executes blockchain transactions safely
 
 ### Protected Transfers in 3 Simple Steps
 
-1. **Use AI or Manual Entry**: Say "Send 10 FLOW to alice" or use the traditional interface
+1. **Use AI or Manual Entry**: Say "Send 10 BDAG to alice" or use the traditional interface
 2. **Confirm Transaction**: Review details before the AI executes the transfer
 3. **Secure Delivery**: Recipient claims funds when ready, or you can refund if needed
 
@@ -136,7 +135,7 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, w
 
 ### Smart Savings Pots
 
-1. **Set Goals**: Set your savings target on Flow Network or Filecoin
+1. **Set Goals**: Set your savings target on BlockDAG Network
 2. **Contribute**: Add funds at your own pace with real-time progress tracking
 3. **Yield Option**: Opt to earn yield on your savings, helping grow both your funds and network TVL
 4. **Flexible Access**: Withdraw partially or completely whenever needed
@@ -151,7 +150,7 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, w
 ### Design Philosophy
 
 - **AI-First Approach**: Natural language and voice interactions for blockchain operations
-- **Multi-Chain Inspired**: UI themes designed to match Flow Network and Filecoin branding
+- **BlockDAG Inspired**: UI themes designed to match BlockDAG Network branding
 - **Glassmorphism**: Modern, clean aesthetics with depth and transparency
 - **Responsive Layout**: Perfect experience on any device
 - **Intuitive Navigation**: Easily access all features with minimal learning curve
@@ -164,17 +163,17 @@ ProtectedPay is built for the Flow Network and Filecoin blockchain ecosystems, w
 </div>
 
 - **Activity Feed**: Real-time updates of your transactions and AI interactions
-- **Asset Overview**: Quick view of your token balances across supported networks
+- **Asset Overview**: Quick view of your token balances on BlockDAG Network
 - **AI Chat Interface**: Integrated assistant for voice and text-based blockchain operations
 - **Status Indicators**: Clear visual cues for transaction states
-- **Network Selection**: Seamlessly switch between Flow Testnet and Filecoin Calibration
+- **Network Selection**: Seamlessly interact with BlockDAG Network
 
 ## 🔒 Security
 
 ProtectedPay prioritizes security at every level:
 
 - **AI Safety**: Secure integration with Gemini AI that never accesses your private keys
-- **Smart Contract Safety**: Multi-chain optimized contracts with rigorous security measures
+- **Smart Contract Safety**: BlockDAG optimized contracts with rigorous security measures
 - **Non-Custodial Architecture**: Users always maintain control of their funds
 - **Protected Transfers**: Built-in escrow functionality keeps funds secure
 - **Voice Privacy**: Speech recognition happens locally in your browser
@@ -194,33 +193,15 @@ ProtectedPay prioritizes security at every level:
     </tr>
     <tr>
       <td>Native Transfers</td>
-      <td><img src="/public/chains/flow.svg" width="20"> Flow EVM Testnet</td>
-      <td><code>0xa1eF679Ab1a6C41B4Ec7d9aB8Fc3293CE02592FA</code></td>
-      <td>✅ Active</td>
+      <td><img src="/public/chains/blockdag.png" width="20"> BlockDAG Network</td>
+      <td><code>TBD - Coming Soon</code></td>
+      <td>🔄 Pending</td>
     </tr>
     <tr>
       <td>Token Transfers</td>
-      <td><img src="/public/chains/flow.svg" width="20"> Flow EVM Testnet</td>
-      <td><code>0x16f16b1742ECA434faf9442a9f9d933A766acfCA</code></td>
-      <td>✅ Active</td>
-    </tr>
-    <tr>
-      <td>Native Transfers</td>
-      <td><img src="/public/chains/usdfc.png" width="20"> Filecoin Calibration</td>
-      <td><code>0x74689f77e03D8213DF5037b681F05b80bAAe3504</code></td>
-      <td>✅ Active</td>
-    </tr>
-    <tr>
-      <td>Token Transfers</td>
-      <td><img src="/public/chains/usdfc.png" width="20"> Filecoin Calibration</td>
-      <td><code>0x151D3c8E531d9726148FF64D5e8426C03D0e91eF</code></td>
-      <td>✅ Active</td>
-    </tr>
-    <tr>
-      <td>tUSDFC Token</td>
-      <td><img src="/public/chains/usdfc.png" width="20"> Filecoin Calibration</td>
-      <td><code>0xb3042734b608a1B16e9e86B374A3f3e389B4cDf0</code></td>
-      <td>✅ Active</td>
+      <td><img src="/public/chains/blockdag.png" width="20"> BlockDAG Network</td>
+      <td><code>TBD - Coming Soon</code></td>
+      <td>🔄 Pending</td>
     </tr>
   </table>
 </div>
@@ -247,5 +228,5 @@ Need assistance or have questions? We're here to help:
 
 <div align="center">
   <p>© 2025 ProtectedPay</p>
-  <h3>Revolutionizing secure payments with AI on Flow Network & Filecoin</h3>
+  <h3>Revolutionizing secure payments with AI on BlockDAG Network</h3>
 </div>

@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'ProtectedPay | Secure Crypto Transfers on Flow & Filecoin Networks',
-  description: 'Secure crypto transfers, group payments, and smart savings on Flow EVM and Filecoin networks with tUSDFC support',
-  keywords: 'crypto, payments, blockchain, Flow, FLOW, Filecoin, tFIL, tUSDFC, EVM, DeFi, secure transfers, group payments, multi-chain',
+  title: 'ProtectedPay | Secure Crypto Transfers on BlockDAG Network',
+  description: 'Secure crypto transfers, group payments, and smart savings on BlockDAG Network with native BDAG support',
+  keywords: 'crypto, payments, blockchain, BlockDAG, BDAG, EVM, DeFi, secure transfers, group payments, decentralized',
   authors: [{ name: 'ProtectedPay' }],
 };
 

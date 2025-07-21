@@ -9,14 +9,12 @@ export interface ChainInfo {
 
 // Map of chain IDs to their native tokens
 const TOKEN_MAP: Record<number, string> = {
-  545: "FLOW", // Flow EVM Testnet
-  314159: "tFIL", // Filecoin Calibration testnet
+  9999: "BDAG", // BlockDAG Network
 };
 
 // Map of chain IDs to their names
 const CHAIN_NAME_MAP: Record<number, string> = {
-  545: "Flow EVM Testnet",
-  314159: "Filecoin - Calibration testnet",
+  9999: "BlockDAG Network",
 };
 
 /**
@@ -26,8 +24,8 @@ export function useChain(): ChainInfo {
   // Use the wallet context directly
   const wallet = useWallet();  const [chainInfo, setChainInfo] = useState<ChainInfo>({
     chainId: undefined,
-    nativeToken: "FLOW",
-    chainName: "Flow EVM Testnet"
+    nativeToken: "BDAG",
+    chainName: "BlockDAG Network"
   });
 
   useEffect(() => {
@@ -40,8 +38,8 @@ export function useChain(): ChainInfo {
           if (ethereum && ethereum.chainId) {
             const chainId = parseInt(ethereum.chainId, 16);            setChainInfo({
               chainId,
-              nativeToken: TOKEN_MAP[chainId] || "FLOW",
-              chainName: CHAIN_NAME_MAP[chainId] || "Flow EVM Testnet"
+              nativeToken: TOKEN_MAP[chainId] || "BDAG",
+              chainName: CHAIN_NAME_MAP[chainId] || "BlockDAG Network"
             });
           }
         } catch (error) {
@@ -59,8 +57,8 @@ export function useChain(): ChainInfo {
       const handleChainChanged = (chainId: string) => {
         const id = parseInt(chainId, 16);        setChainInfo({
           chainId: id,
-          nativeToken: TOKEN_MAP[id] || "FLOW",
-          chainName: CHAIN_NAME_MAP[id] || "Flow EVM Testnet"
+          nativeToken: TOKEN_MAP[id] || "BDAG",
+          chainName: CHAIN_NAME_MAP[id] || "BlockDAG Network"
         });
       };
 

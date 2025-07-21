@@ -22,59 +22,33 @@ type ExtendedProvider = ethers.providers.ExternalProvider & {
 };
 
 // Define chains
-const flowTestnet = {
-  id: 545,
-  name: 'Flow EVM Testnet',
-  network: 'flowtestnet',
+const blockdagNetwork = {
+  id: 9999, // Placeholder chain ID - update with actual BlockDAG chain ID
+  name: 'BlockDAG Network',
+  network: 'blockdag',
   nativeCurrency: {
     decimals: 18,
-    name: 'FLOW',
-    symbol: 'FLOW',
+    name: 'BDAG',
+    symbol: 'BDAG',
   },
   rpcUrls: {
-    default: {
-      http: ['https://testnet.evm.nodes.onflow.org']
-    },
     public: {
-      http: ['https://testnet.evm.nodes.onflow.org']
-    }
+      http: ['https://rpc.blockdag.network'] // Placeholder URL - update with actual RPC
+    },
+    default: {
+      http: ['https://rpc.blockdag.network'] // Placeholder URL - update with actual RPC
+    },
   },
   blockExplorers: {
     default: {
-      name: 'Flow EVM Testnet Explorer',
-      url: 'https://evm-testnet.flowscan.io'
-    }
-  },
-  testnet: true,
-} as const;
-
-const filecoinCalibration = {
-  id: 314159,
-  name: 'Filecoin - Calibration testnet',
-  network: 'filecalib',
-  nativeCurrency: {
-    decimals: 18,
-    name: 'tFIL',
-    symbol: 'tFIL',
-  },
-  rpcUrls: {
-    default: {
-      http: ['https://api.calibration.node.glif.io/rpc/v1']
+      name: 'BlockDAG Explorer',
+      url: 'https://explorer.blockdag.network' // Placeholder URL - update with actual explorer
     },
-    public: {
-      http: ['https://api.calibration.node.glif.io/rpc/v1']
-    }
   },
-  blockExplorers: {
-    default: {
-      name: 'Filecoin Calibration Explorer',
-      url: 'https://calibration.filscan.io'
-    }
-  },
-  testnet: true,
+  testnet: false,
 } as const;
 
-const chains = [flowTestnet, filecoinCalibration] as const; 
+const chains = [blockdagNetwork] as const;
 
 const projectId = 'b8ad206ba9492e6096fa0aa0f868586c';
 
@@ -94,8 +68,7 @@ const wagmiConfig = createConfig({
   connectors,
   chains,
   transports: {
-    [flowTestnet.id]: http(),
-    [filecoinCalibration.id]: http(),
+    [blockdagNetwork.id]: http(),
   },
 });
 

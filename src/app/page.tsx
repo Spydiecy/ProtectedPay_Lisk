@@ -320,12 +320,12 @@ const NetworkShowcase = () => {
             whileInView="animate"
             viewport={{ once: true }}
           >
-            Experience the future of DeFi with lightning-fast transactions, minimal fees, and EVM compatibility across Flow Network and Filecoin ecosystems
+            Experience the future of DeFi with lightning-fast transactions, minimal fees, and EVM compatibility on the BlockDAG Network ecosystem
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          {/* Flow Network Card */}
+        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          {/* BlockDAG Network Card */}
           <motion.div 
             className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 dark:from-green-400/10 dark:to-emerald-400/10 border border-green-500/20 dark:border-green-400/20 rounded-3xl p-6 backdrop-blur-sm shadow-xl"
             variants={fadeIn}
@@ -339,75 +339,26 @@ const NetworkShowcase = () => {
               <div className="w-20 h-20 relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-xl"></div>
                 <Image
-                  src="/chains/flow.svg"
-                  alt="Flow Network"
+                  src="/chains/blockdag.png"
+                  alt="BlockDAG Network"
                   width={80}
                   height={80}
                   className="relative z-10 transition-all duration-300 hover:scale-110 drop-shadow-lg"
                 />
               </div>
               <div className="space-y-3">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Flow Network</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">BlockDAG Network</h3>
                 <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
                   <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                  EVM Compatible
-                </div>
-                <div className="grid grid-cols-2 gap-3 text-sm">
-                  <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
-                    <div className="text-gray-500 dark:text-gray-400 mb-1">Mainnet</div>
-                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">545</div>
-                  </div>
-                  <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
-                    <div className="text-gray-500 dark:text-gray-400 mb-1">Testnet</div>
-                    <div className="font-mono font-semibold text-green-600 dark:text-green-400">545</div>
-                  </div>
-                </div>
-                <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
-                  <div className="text-gray-500 dark:text-gray-400 mb-1">Currency</div>
-                  <div className="font-semibold text-green-600 dark:text-green-400">FLOW</div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Filecoin Network Card */}
-          <motion.div 
-            className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 dark:from-green-400/10 dark:to-emerald-400/10 border border-green-500/20 dark:border-green-400/20 rounded-3xl p-6 backdrop-blur-sm shadow-xl"
-            variants={fadeIn}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 300 }}
-          >
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="w-20 h-20 relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-full blur-xl"></div>
-                <Image
-                  src="/chains/usdfc.png"
-                  alt="Filecoin Network"
-                  width={80}
-                  height={80}
-                  className="relative z-10 transition-all duration-300 hover:scale-110 drop-shadow-lg"
-                />
-              </div>
-              <div className="space-y-3">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white">Filecoin Network</h3>
-                <div className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></div>
-                  Calibration Testnet
+                  High-Performance Blockchain
                 </div>
                 <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
                   <div className="text-gray-500 dark:text-gray-400 mb-1">Chain ID</div>
-                  <div className="font-mono font-semibold text-green-600 dark:text-green-400">314159</div>
+                  <div className="font-mono font-semibold text-green-600 dark:text-green-400">9999</div>
                 </div>
                 <div className="bg-black/5 dark:bg-white/5 rounded-lg p-2">
                   <div className="text-gray-500 dark:text-gray-400 mb-1">Native Currency</div>
-                  <div className="font-semibold text-green-600 dark:text-green-400">tFIL</div>
-                </div>
-                <div className="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 rounded-lg p-2 border border-green-300 dark:border-green-700">
-                  <div className="text-green-700 dark:text-green-300 mb-1 font-medium">Featured Token</div>
-                  <div className="font-bold text-green-800 dark:text-green-200">tUSDFC</div>
+                  <div className="font-semibold text-green-600 dark:text-green-400">BDAG</div>
                 </div>
               </div>
             </div>
@@ -424,20 +375,20 @@ const NetworkShowcase = () => {
             transition={{ type: "spring", stiffness: 300 }}
           >
             <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-center mb-6">Why Multi-Chain?</h3>
+              <h3 className="text-2xl font-bold text-center mb-6">Why BlockDAG?</h3>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
                     <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Lightning Fast</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Sub-second transaction finality across networks</p>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Ultra-fast transaction processing with DAG architecture</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">tUSDFC Support</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Native support for Filecoin's tUSDFC token</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Low Fees</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Minimal transaction costs for all users</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
@@ -450,8 +401,8 @@ const NetworkShowcase = () => {
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                   <div>
-                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Multi-Network</h4>
-                    <p className="text-gray-600 dark:text-gray-300 text-sm">Seamlessly switch between Flow & Filecoin</p>
+                    <h4 className="font-semibold text-green-600 dark:text-green-400 mb-1">Scalable</h4>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">Designed for high-throughput applications</p>
                   </div>
                 </div>
               </div>
@@ -460,11 +411,11 @@ const NetworkShowcase = () => {
                   <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">Network Statistics</div>
                   <div className="grid grid-cols-2 gap-4 text-xs">
                     <div>
-                      <div className="text-green-600 dark:text-green-400 font-semibold">~1s</div>
+                      <div className="text-green-600 dark:text-green-400 font-semibold">~0.1s</div>
                       <div className="text-gray-600 dark:text-gray-400">Block Time</div>
                     </div>
                     <div>
-                      <div className="text-green-600 dark:text-green-400 font-semibold">~$0.001</div>
+                      <div className="text-green-600 dark:text-green-400 font-semibold">~$0.0001</div>
                       <div className="text-gray-600 dark:text-gray-400">Avg. Fee</div>
                     </div>
                   </div>
