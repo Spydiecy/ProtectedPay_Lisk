@@ -436,12 +436,12 @@ const NetworkShowcase = () => {
           <div className="inline-flex items-center space-x-6 bg-white/50 dark:bg-gray-900/50 rounded-full px-8 py-4 backdrop-blur-sm border border-green-500/20">
             <div className="text-sm">
               <span className="text-gray-600 dark:text-gray-400">RPC:</span>
-              <span className="ml-2 font-mono text-green-600 dark:text-green-400">devnet.moved.network</span>
+              <span className="ml-2 font-mono text-green-600 dark:text-green-400">rpc.primordial.bdagscan.com</span>
             </div>
             <div className="w-px h-6 bg-gray-300 dark:bg-gray-600"></div>
             <div className="text-sm">
               <span className="text-gray-600 dark:text-gray-400">Explorer:</span>
-              <span className="ml-2 font-mono text-green-600 dark:text-green-400">devnet.explorer.moved.network</span>
+              <span className="ml-2 font-mono text-green-600 dark:text-green-400">primordial.bdagscan.com</span>
             </div>
           </div>
         </motion.div>
