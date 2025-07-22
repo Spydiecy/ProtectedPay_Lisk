@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { isValidAddress } from './address';
 
 const MAIN_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BDAG_MAIN_CONTRACT || '';
 const TOKEN_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BDAG_TOKEN_CONTRACT || '';
@@ -1886,17 +1887,29 @@ interface TransferEvent {
   };
   
   export const getUserByAddress = async (signer: ethers.Signer, address: string) => {
+	if (!address || !isValidAddress(address)) {
+	  console.error('Invalid or empty address provided to getUserByAddress');
+	  return null;
+	}
 	const contract = await getContract(signer);
 	return await contract.getUserByAddress(address);
   };
   
   export const getUserProfile = async (signer: ethers.Signer, userAddress: string): Promise<UserProfile> => {
+	if (!userAddress || !isValidAddress(userAddress)) {
+	  console.error('Invalid or empty address provided to getUserProfile');
+	  throw new Error('Invalid address provided');
+	}
 	const contract = await getContract(signer);
 	return await contract.getUserProfile(userAddress);
   };
   
   // Transfer Functions
   export const sendToAddress = async (signer: ethers.Signer, recipient: string, amount: string, remarks: string) => {
+	if (!recipient || !isValidAddress(recipient)) {
+	  console.error('Invalid or empty recipient address provided to sendToAddress');
+	  throw new Error('Invalid recipient address');
+	}
 	const contract = await getContract(signer);
 	const tx = await contract.sendToAddress(recipient, remarks, { value: ethers.utils.parseEther(amount) });
 	const receipt = await tx.wait();
@@ -1911,6 +1924,10 @@ interface TransferEvent {
   };
   
   export const claimTransferByAddress = async (signer: ethers.Signer, senderAddress: string) => {
+	if (!senderAddress || !isValidAddress(senderAddress)) {
+	  console.error('Invalid or empty sender address provided to claimTransferByAddress');
+	  throw new Error('Invalid sender address');
+	}
 	const contract = await getContract(signer);
 	const tx = await contract.claimTransferByAddress(senderAddress);
 	const receipt = await tx.wait();
@@ -1925,15 +1942,23 @@ interface TransferEvent {
   };
   
   export const claimTransferById = async (signer: ethers.Signer, transferId: string) => {
-	const contract = await getContract(signer);
-	const tx = await contract.claimTransferById(transferId);
+  if (!transferId || transferId.trim() === '') {
+    console.error('Invalid or empty transferId provided to claimTransferById');
+    throw new Error('Invalid transferId provided');
+  }
+  const contract = await getContract(signer);
+  const tx = await contract.claimTransferById(transferId);
 	const receipt = await tx.wait();
 	return { hash: tx.hash, receipt };
   };
   
   export const refundTransfer = async (signer: ethers.Signer, transferId: string) => {
-	const contract = await getContract(signer);
-	const tx = await contract.refundTransfer(transferId);
+  if (!transferId || transferId.trim() === '') {
+    console.error('Invalid or empty transferId provided to refundTransfer');
+    throw new Error('Invalid transferId provided');
+  }
+  const contract = await getContract(signer);
+  const tx = await contract.refundTransfer(transferId);
 	const receipt = await tx.wait();
 	return { hash: tx.hash, receipt };
   };
@@ -1946,6 +1971,10 @@ interface TransferEvent {
 	amount: string,
 	remarks: string
   ) => {
+	if (!recipient || !isValidAddress(recipient)) {
+	  console.error('Invalid or empty recipient address provided to createGroupPayment');
+	  throw new Error('Invalid recipient address');
+	}
 	const contract = await getContract(signer);
 	const tx = await contract.createGroupPayment(
 	  recipient,
@@ -1971,8 +2000,12 @@ interface TransferEvent {
   };
   
   export const getGroupPaymentDetails = async (signer: ethers.Signer, paymentId: string) => {
-	const contract = await getContract(signer);
-	const details = await contract.getGroupPaymentDetails(paymentId);
+  if (!paymentId || paymentId.trim() === '') {
+    console.error('Invalid or empty paymentId provided to getGroupPaymentDetails');
+    throw new Error('Invalid paymentId provided');
+  }
+  const contract = await getContract(signer);
+  const details = await contract.getGroupPaymentDetails(paymentId);
 	return {
 	  id: paymentId,
 	  paymentId,
@@ -1993,6 +2026,10 @@ interface TransferEvent {
 	paymentId: string,
 	userAddress: string
   ) => {
+	if (!userAddress || !isValidAddress(userAddress)) {
+	  console.error('Invalid or empty user address provided to hasContributedToGroupPayment');
+	  throw new Error('Invalid user address');
+	}
 	const contract = await getContract(signer);
 	const contribution = await contract.getGroupPaymentContribution(paymentId, userAddress);
 	// If contribution is greater than 0, user has contributed
@@ -2004,6 +2041,10 @@ interface TransferEvent {
 	paymentId: string,
 	userAddress: string
   ) => {
+	if (!userAddress || !isValidAddress(userAddress)) {
+	  console.error('Invalid or empty user address provided to getGroupPaymentContribution');
+	  throw new Error('Invalid user address');
+	}
 	const contract = await getContract(signer);
 	const contribution = await contract.getGroupPaymentContribution(paymentId, userAddress);
 	return ethers.utils.formatEther(contribution);
@@ -2047,8 +2088,12 @@ interface TransferEvent {
   };
   
   export const getSavingsPotDetails = async (signer: ethers.Signer, potId: string) => {
-	const contract = await getContract(signer);
-	const details = await contract.getSavingsPotDetails(potId);
+  if (!potId || potId.trim() === '') {
+    console.error('Invalid or empty potId provided to getSavingsPotDetails');
+    throw new Error('Invalid potId provided');
+  }
+  const contract = await getContract(signer);
+  const details = await contract.getSavingsPotDetails(potId);
 	return {
 	  id: potId,
 	  potId,
@@ -2064,25 +2109,29 @@ interface TransferEvent {
   
   // Transaction History Functions
   export const getUserTransfers = async (
-	signer: ethers.Signer,
-	userAddress: string
-  ): Promise<Transfer[]> => {
-	const contract = await getContract(signer);
-	const transfers: RawContractTransfer[] = await contract.getUserTransfers(userAddress);
-  
-	return transfers.map((transfer: RawContractTransfer) => ({
-	  sender: transfer.sender,
-	  recipient: transfer.recipient,
-	  amount: ethers.utils.formatEther(transfer.amount),
-	  timestamp: transfer.timestamp.toNumber(),
-	  status: transfer.status,
-	  remarks: transfer.remarks,
-	}));
+signer: ethers.Signer,
+userAddress: string
+): Promise<Transfer[]> => {
+  if (!isValidAddress(userAddress)) return [];
+  const contract = await getContract(signer);
+  const transfers: RawContractTransfer[] = await contract.getUserTransfers(userAddress);
+  return transfers.map((transfer: RawContractTransfer) => ({
+	sender: transfer.sender,
+	recipient: transfer.recipient,
+	amount: ethers.utils.formatEther(transfer.amount),
+	timestamp: transfer.timestamp.toNumber(),
+	status: transfer.status,
+	remarks: transfer.remarks,
+  }));
   };
   
   export const getTransferDetails = async (signer: ethers.Signer, transferId: string) => {
-	const contract = await getContract(signer);
-	const transfer = await contract.getTransferDetails(transferId);
+  if (!transferId || transferId.trim() === '') {
+    console.error('Invalid or empty transferId provided to getTransferDetails');
+    throw new Error('Invalid transferId provided');
+  }
+  const contract = await getContract(signer);
+  const transfer = await contract.getTransferDetails(transferId);
 	return {
 	  sender: transfer.sender,
 	  recipient: transfer.recipient,
@@ -2094,9 +2143,13 @@ interface TransferEvent {
   };
   
   export const getPendingTransfers = async (signer: ethers.Signer, userAddress: string) => {
-	const contract = await getContract(signer);
-	return await contract.getPendingTransfers(userAddress);
-  };
+  if (!userAddress || !isValidAddress(userAddress)) {
+    console.error('Invalid or empty address provided to getPendingTransfers');
+    return [];
+  }
+  const contract = await getContract(signer);
+  return await contract.getPendingTransfers(userAddress);
+};
   
   // Event Listeners
   export const listenForAllEvents = async (
@@ -2346,6 +2399,10 @@ export const sendTokenToAddress = async (
   amount: string, 
   remarks: string
 ) => {
+  if (!recipient || !isValidAddress(recipient)) {
+    console.error('Invalid or empty recipient address provided to sendTokenToAddress');
+    throw new Error('Invalid recipient address');
+  }
   const contract = await getTokenContract(signer);
   const tx = await contract.sendTokenToAddress(
 	recipient, 
@@ -2376,6 +2433,10 @@ export const sendTokenToUsername = async (
 };
 
 export const claimTokenTransfer = async (signer: ethers.Signer, transferId: string) => {
+  if (!transferId || transferId.trim() === '') {
+    console.error('Invalid or empty transferId provided to claimTokenTransfer');
+    throw new Error('Invalid transferId provided');
+  }
   const contract = await getTokenContract(signer);
   const tx = await contract.claimTokenTransfer(transferId);
   const receipt = await tx.wait();
@@ -2383,6 +2444,10 @@ export const claimTokenTransfer = async (signer: ethers.Signer, transferId: stri
 };
 
 export const claimTokenTransferByAddress = async (signer: ethers.Signer, senderAddress: string) => {
+  if (!senderAddress || !isValidAddress(senderAddress)) {
+    console.error('Invalid or empty senderAddress provided to claimTokenTransferByAddress');
+    throw new Error('Invalid senderAddress provided');
+  }
   const contract = await getTokenContract(signer);
   const tx = await contract.claimTokenTransferByAddress(senderAddress);
   const receipt = await tx.wait();
@@ -2397,6 +2462,10 @@ export const claimTokenTransferByUsername = async (signer: ethers.Signer, sender
 };
 
 export const refundTokenTransfer = async (signer: ethers.Signer, transferId: string) => {
+  if (!transferId || transferId.trim() === '') {
+    console.error('Invalid or empty transferId provided to refundTokenTransfer');
+    throw new Error('Invalid transferId provided');
+  }
   const contract = await getTokenContract(signer);
   const tx = await contract.refundTokenTransfer(transferId);
   const receipt = await tx.wait();
@@ -2404,6 +2473,10 @@ export const refundTokenTransfer = async (signer: ethers.Signer, transferId: str
 };
 
 export const getPendingTokenTransfers = async (signer: ethers.Signer, userAddress: string) => {
+  if (!userAddress || !isValidAddress(userAddress)) {
+    console.error('Invalid or empty address provided to getPendingTokenTransfers');
+    return [];
+  }
   const contract = await getTokenContract(signer);
   return await contract.getPendingTokenTransfers(userAddress);
 };
@@ -2419,6 +2492,10 @@ const formatTokenAmount = (amount: ethers.BigNumber, tokenAddress: string): stri
 };
 
 export const getTokenTransferDetails = async (signer: ethers.Signer, transferId: string) => {
+  if (!transferId || transferId.trim() === '') {
+    console.error('Invalid or empty transferId provided to getTokenTransferDetails');
+    throw new Error('Invalid transferId provided');
+  }
   const contract = await getTokenContract(signer);
   const details = await contract.getTokenTransferDetails(transferId);
   return {
@@ -2436,6 +2513,12 @@ export const getTokenTransferDetails = async (signer: ethers.Signer, transferId:
 // Token balance and allowance functions
 export const getTokenBalance = async (signer: ethers.Signer, tokenAddress: string, userAddress: string) => {
   console.log(`getTokenBalance called for token: ${tokenAddress}, user: ${userAddress}`);
+  
+  // Validate userAddress to prevent ENS resolution errors
+  if (!userAddress || !isValidAddress(userAddress)) {
+    console.error('Invalid or empty userAddress provided to getTokenBalance');
+    return '0';
+  }
   
   // For native token, get ETH balance
   if (tokenAddress === 'NATIVE') {
@@ -2483,6 +2566,12 @@ export const approveToken = async (
   spenderAddress: string, 
   amount: string
 ) => {
+  // Validate spenderAddress to prevent ENS resolution errors
+  if (!spenderAddress || !isValidAddress(spenderAddress)) {
+    console.error('Invalid or empty spenderAddress provided to approveToken');
+    throw new Error('Invalid spenderAddress provided');
+  }
+  
   // For native tokens, no approval needed
   if (tokenAddress === 'NATIVE') {
 	return;
@@ -2502,6 +2591,16 @@ export const getTokenAllowance = async (
   ownerAddress: string, 
   spenderAddress: string
 ) => {
+  // Validate addresses to prevent ENS resolution errors
+  if (!ownerAddress || !isValidAddress(ownerAddress)) {
+    console.error('Invalid or empty ownerAddress provided to getTokenAllowance');
+    return '0';
+  }
+  if (!spenderAddress || !isValidAddress(spenderAddress)) {
+    console.error('Invalid or empty spenderAddress provided to getTokenAllowance');
+    return '0';
+  }
+  
   // For native tokens, return max allowance
   if (tokenAddress === 'NATIVE') {
 	return ethers.constants.MaxUint256.toString();
@@ -2520,9 +2619,9 @@ export const getTokenAllowance = async (
 
 // Get user's token transfer history
 export const getUserTokenTransfers = async (signer: ethers.Signer, userAddress: string) => {
+  if (!isValidAddress(userAddress)) return [];
   const contract = await getTokenContract(signer);
   const transfers = await contract.getUserTokenTransfers(userAddress);
-  
   return transfers.map((transfer: any) => ({
 	sender: transfer.sender,
 	recipient: transfer.recipient,

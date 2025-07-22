@@ -283,7 +283,8 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
         lowerInput.includes(token.symbol.toLowerCase())
       )
       return {
-        message: `I'll check your ${tokenMatch?.symbol || 'native'} balance...`,
+        message: `🧮 Checking your ${tokenMatch?.symbol || 'BDAG'} balance on BlockDAG Testnet...\n\n` +
+          `• **Tip:** You can also ask "Show all my balances" or "What's my USDC balance?"`,
         action: {
           type: 'balance',
           data: { token: tokenMatch }
@@ -294,7 +295,7 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
     // Send transfer
     if (lowerInput.includes('send') || lowerInput.includes('transfer')) {
       // Extract amount
-      const amountMatch = input.match(/(\d+\.?\d*)\s*(flow|usdc|usdt|tfil|tusdfc|fil)/i)
+      const amountMatch = input.match(/(\d+\.?\d*)\s*(bdag|usdc|usdt)/i)
       // Extract address or username
       const addressMatch = input.match(/(0x[a-fA-F0-9]{40})|(@?\w+)/g)
       
@@ -309,7 +310,9 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
         
         if (token) {
           return {
-            message: `I'll help you send ${amount} ${tokenSymbol} to ${recipient}`,
+            message: `💸 Ready to send!\n\n• **Amount:** ${amount} ${tokenSymbol}\n• **Recipient:** ${recipient}\n\n` +
+              `**Please confirm below.**\n\n` +
+              `• **Tip:** You can add a message or use a username instead of an address.`,
             confirmation: {
               message: `Please confirm: Send ${amount} ${tokenSymbol} to ${recipient}?`,
               data: { amount, token, recipient, message: 'Sent via AI Assistant' }
@@ -319,7 +322,7 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       }
       
       return {
-        message: 'Please specify the amount, token, and recipient. For example: "Send 10 BDAG to 0x1234..." or "Send 100 USDC to alice"'
+        message: '❓ Please specify the amount, token, and recipient.\n\n**Example:** "Send 10 BDAG to 0x1234..." or "Send 100 USDC to alice"'
       }
     }
     
@@ -333,7 +336,9 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       
       if (identifier) {
         return {
-          message: `I'll help you claim the transfer from ${identifier}`,
+          message: `📥 Ready to claim your transfer from ${identifier}!\n\n` +
+            `**Please confirm below.**\n\n` +
+            `• **Tip:** You can claim by address, username, or transfer ID.`,
           confirmation: {
             message: `Confirm claiming transfer from ${identifier}?`,
             data: { identifier }
@@ -342,7 +347,7 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       }
       
       return {
-        message: 'Please specify who to claim from. For example: "Claim from alice" or "Claim transfer 0x1234..."'
+        message: '❓ Please specify who to claim from.\n\n**Example:** "Claim from alice" or "Claim transfer 0x1234..."'
       }
     }
     
@@ -352,7 +357,9 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       
       if (idMatch) {
         return {
-          message: `I'll help you refund transfer ${truncateAddress(idMatch[0])}`,
+          message: `🔄 Ready to refund transfer ${truncateAddress(idMatch[0])}!\n\n` +
+            `**Please confirm below.**\n\n` +
+            `• **Tip:** You can refund any unclaimed transfer.`,
           confirmation: {
             message: `Confirm refunding transfer ${truncateAddress(idMatch[0])}?`,
             data: { transferId: idMatch[0] }
@@ -361,7 +368,7 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       }
       
       return {
-        message: 'Please provide the transfer ID to refund. For example: "Refund transfer 0x1234..."'
+        message: '❓ Please provide the transfer ID to refund.\n\n**Example:** "Refund transfer 0x1234..."'
       }
     }
     
@@ -384,35 +391,29 @@ Just tell me what you'd like to do! Make sure your wallet is connected and you'r
       ).join('\n')
       
       return {
-        message: `**Supported tokens on this chain:**\n\n${tokensText}\n\nYou can send any of these tokens using protected transfers!`
+        message: `⛓️ **BlockDAG Testnet Supported Tokens:**\n\n${tokensText}\n\n` +
+          `• **Tip:** You can send, claim, or refund any of these tokens using protected transfers!`,
       }
     }
     
     // Help
     if (lowerInput.includes('help') || lowerInput.includes('what') || lowerInput.includes('how')) {
       return {
-        message: `**Here's what I can help you with:**
-
-🔗 Sending: "Send 10 BDAG to 0x1234..." or "Send 100 USDC to alice"
-📥 Claiming: "Claim from alice" or "Claim transfer 0x1234..."
-🔄 **Refunding: "Refund transfer 0x1234..."
-💰 **Balances: "What's my USDC balance?" or "Show my balance"
-📋 **Transfers**: "Show my pending transfers"
-⛓️ **Tokens**: "What tokens are supported?"
-
-All transfers are protected - recipients must claim them, and you can refund unclaimed transfers anytime!`
+        message: `🤖 **ProtectedPay AI Help**\n\n` +
+          `• **Send:** "Send 10 BDAG to 0x1234..." or "Send 100 USDC to alice"\n` +
+          `• **Claim:** "Claim from alice" or "Claim transfer 0x1234..."\n` +
+          `• **Refund:** "Refund transfer 0x1234..."\n` +
+          `• **Balances:** "What's my USDC balance?" or "Show my balance"\n` +
+          `• **Transfers:** "Show my pending transfers"\n` +
+          `• **Tokens:** "What tokens are supported?"\n\n` +
+          `All transfers are protected. Recipients must claim them, and you can refund unclaimed transfers anytime!\n\n` +
+          `**Quick Actions:**\n• "Show my recent transfers"\n• "Create group payment for Alice"\n• "Create savings pot 'Vacation' with target 500 BDAG"`,
       }
     }
     
     // Default response
     return {
-      message: `I'm not sure how to help with that. Try asking me to:
-• Send a transfer: "Send 10 BDAG to 0x1234..."
-• Check balance: "What's my BDAG balance?"
-• View transfers: "Show my pending transfers"
-• Get help: "What can you do?"
-
-Make sure your wallet is connected!`
+      message: `🤔 I'm not sure how to help with that.\n\n**Try one of these:**\n• "Send 10 BDAG to 0x1234..."\n• "What's my BDAG balance?"\n• "Show my pending transfers"\n• "Create group payment for Alice"\n• "Create savings pot 'Vacation' with target 500 BDAG"\n\nMake sure your wallet is connected!`,
     }
   }
 

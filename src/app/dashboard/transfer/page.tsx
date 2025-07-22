@@ -117,13 +117,25 @@ export default function TransferPage() {
   const fetchTokenBalances = useCallback(async () => {
     if (!signer || !wagmiAddress) return
 
+    // SAFE LOADING: Validate address to prevent ENS resolution errors
+    if (typeof wagmiAddress !== 'string' || wagmiAddress.trim() === '' || !wagmiAddress.startsWith('0x') || wagmiAddress.length !== 42) {
+      console.error('Invalid address in fetchTokenBalances:', wagmiAddress);
+      return;
+    }
+
+    const validatedAddress = wagmiAddress.trim();
+    console.log('Transfer page: Fetching token balances for validated address:', validatedAddress);
+
     try {
       const balances: Record<string, string> = {}
       
       for (const token of supportedTokens) {
         try {
           console.log(`Fetching balance for ${token.symbol} (${token.address})`)
-          const balance = await getTokenBalance(signer, token.address, wagmiAddress)
+          const balance = await getTokenBalance(signer, token.address, validatedAddress).catch(err => {
+            console.error(`Error fetching balance for ${token.symbol}:`, err);
+            return '0';
+          });
           console.log(`Balance for ${token.symbol}: ${balance}`)
           balances[token.address] = balance
         } catch (err) {
@@ -141,16 +153,31 @@ export default function TransferPage() {
   const fetchRecentActivity = useCallback(async () => {
     if (!signer || !wagmiAddress) return
 
+    // SAFE LOADING: Validate address to prevent ENS resolution errors
+    if (typeof wagmiAddress !== 'string' || wagmiAddress.trim() === '' || !wagmiAddress.startsWith('0x') || wagmiAddress.length !== 42) {
+      console.error('Invalid address in transfer page:', wagmiAddress);
+      setIsLoading(false);
+      return;
+    }
+
+    const validatedAddress = wagmiAddress.trim();
+    console.log('Transfer page: Loading pending transfers for validated address:', validatedAddress);
+
     try {
       setIsLoading(true)
-      console.log('Fetching pending transfers for address:', wagmiAddress)
 
-      // Get native transfers
-      const nativeTransferIds = await getPendingTransfers(signer, wagmiAddress)
+      // SAFE LOADING: Get native transfers with error handling
+      const nativeTransferIds = await getPendingTransfers(signer, validatedAddress).catch(err => {
+        console.error('Error fetching pending transfers:', err);
+        return [];
+      });
       console.log('Native Transfer IDs:', nativeTransferIds)
       
-      // Get token transfers
-      const tokenTransferIds = await getPendingTokenTransfers(signer, wagmiAddress)
+      // SAFE LOADING: Get token transfers with error handling
+      const tokenTransferIds = await getPendingTokenTransfers(signer, validatedAddress).catch(err => {
+        console.error('Error fetching pending token transfers:', err);
+        return [];
+      });
       console.log('Token Transfer IDs:', tokenTransferIds)
       
       // Process native transfers

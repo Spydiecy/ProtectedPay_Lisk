@@ -16,7 +16,7 @@ import {
 } from '@heroicons/react/24/outline'
 import { useAccount } from 'wagmi'
 import { ethers } from 'ethers'
-import { shortenAddress } from '../../../utils/address'
+import { shortenAddress, isValidAddress } from '../../../utils/address'
 import { 
   getUserProfile, 
   getUserByAddress,
@@ -74,24 +74,42 @@ export default function HistoryPage() {
 
   // Fetch user data and transaction history
   const fetchTransactionData = useCallback(async () => {
-    if (!signer || !address) return
+    if (!signer || !address || typeof address !== 'string' || address.trim() === '' || !isValidAddress(address)) {
+      setError('Invalid wallet address. Please connect a valid BlockDAG wallet.');
+      setIsLoading(false);
+      setTransactions([]);
+      return;
+    }
     
-    setIsLoading(true)
-    setError(null)
+    // AGGRESSIVE ENS ERROR PREVENTION: Triple check address validity
+    const validatedAddress = address.trim();
+    if (!validatedAddress || validatedAddress === '' || !validatedAddress.startsWith('0x') || validatedAddress.length !== 42) {
+      console.error('Address validation failed in fetchTransactionData:', validatedAddress);
+      setError('Invalid wallet address format.');
+      setIsLoading(false);
+      setTransactions([]);
+      return;
+    }
     
+    setIsLoading(true);
+    setError(null);
     try {
-      // Get both native and token transfer history
+      // AGGRESSIVE VALIDATION: Only proceed with validated address
       const [transfersData, tokenTransfersData] = await Promise.all([
-        getUserTransfers(signer, address),
-        getUserTokenTransfers(signer, address)
-      ])
-      
-      let allTransactions: TransactionItem[] = []
-      
-      // Process native transfer transactions
+        getUserTransfers(signer, validatedAddress).catch(err => {
+          console.error('Error in getUserTransfers:', err);
+          return [];
+        }),
+        getUserTokenTransfers(signer, validatedAddress).catch(err => {
+          console.error('Error in getUserTokenTransfers:', err);
+          return [];
+        })
+      ]);
+      let allTransactions: TransactionItem[] = [];
+      // ...existing code...
       if (transfersData && transfersData.length > 0) {
         const transferTransactions = transfersData.map((transfer: any) => {
-          const isSender = transfer.sender.toLowerCase() === address.toLowerCase()
+          const isSender = transfer.sender && isValidAddress(transfer.sender) && transfer.sender.toLowerCase() === validatedAddress.toLowerCase();
           return {
             id: transfer.id || `transfer-${Date.now()}-${Math.random()}`,
             type: 'transfer',
@@ -103,15 +121,14 @@ export default function HistoryPage() {
             description: transfer.remarks,
             isNativeToken: true,
             token: 'NATIVE'
-          } as TransactionItem
-        })
-        allTransactions = [...allTransactions, ...transferTransactions]
+          } as TransactionItem;
+        });
+        allTransactions = [...allTransactions, ...transferTransactions];
       }
-
-      // Process token transfer transactions
+      // ...existing code...
       if (tokenTransfersData && tokenTransfersData.length > 0) {
         const tokenTransferTransactions = tokenTransfersData.map((transfer: any) => {
-          const isSender = transfer.sender.toLowerCase() === address.toLowerCase()
+          const isSender = transfer.sender && isValidAddress(transfer.sender) && transfer.sender.toLowerCase() === validatedAddress.toLowerCase();
           return {
             id: transfer.id || `token-transfer-${Date.now()}-${Math.random()}`,
             type: 'transfer',
@@ -123,80 +140,91 @@ export default function HistoryPage() {
             description: transfer.remarks,
             isNativeToken: false,
             token: transfer.token // Token contract address
-          } as TransactionItem
-        })
-        allTransactions = [...allTransactions, ...tokenTransferTransactions]
+          } as TransactionItem;
+        });
+        allTransactions = [...allTransactions, ...tokenTransferTransactions];
       }
-      
-      // Get group payment data
+      // ...existing code...
       try {
-        const profile = await getUserProfile(signer, address)
-        if (profile && profile.groupPaymentIds && profile.groupPaymentIds.length > 0) {
-          const groupPaymentPromises = profile.groupPaymentIds.map((paymentId: string) => 
-            getGroupPaymentDetails(signer, paymentId)
-          )
-          
-          const groupPaymentDetails = await Promise.all(groupPaymentPromises)
-          const groupPaymentTransactions = groupPaymentDetails.map((payment: any) => {
-            const isCreator = payment.creator && payment.creator.toLowerCase() === address.toLowerCase()
-            const isRecipient = payment.recipient && payment.recipient.toLowerCase() === address.toLowerCase()
-            
-            return {
-              id: payment.id || `group-${Date.now()}-${Math.random()}`,
-              type: 'group_payment',
-              subtype: isCreator ? 'created' : isRecipient ? 'received' : 'contributed',
-              timestamp: payment.timestamp,
-              amount: payment.totalAmount || payment.amountCollected || '0',
-              status: payment.status,
-              otherParty: isCreator ? payment.recipient : payment.creator,
-              description: payment.remarks
-            } as TransactionItem
-          })
-          
-          allTransactions = [...allTransactions, ...groupPaymentTransactions]
+        if (isValidAddress(address)) {
+          let profile = null;
+          try {
+            profile = await getUserProfile(signer, address);
+          } catch (err) {
+            console.error('Error fetching user profile:', err);
+            // Optionally set a user-friendly error message
+          }
+          if (profile && profile.groupPaymentIds && profile.groupPaymentIds.length > 0) {
+            // Filter out empty or invalid payment IDs to prevent ENS resolution errors
+            const validPaymentIds = profile.groupPaymentIds.filter((paymentId: string) => paymentId && paymentId.trim() !== '');
+            if (validPaymentIds.length > 0) {
+              const groupPaymentPromises = validPaymentIds.map((paymentId: string) => getGroupPaymentDetails(signer, paymentId));
+              const groupPaymentDetails = await Promise.all(groupPaymentPromises);
+            const groupPaymentTransactions = groupPaymentDetails.map((payment: any) => {
+              const isCreator = payment.creator && isValidAddress(payment.creator) && payment.creator.toLowerCase() === validatedAddress.toLowerCase();
+              const isRecipient = payment.recipient && isValidAddress(payment.recipient) && payment.recipient.toLowerCase() === validatedAddress.toLowerCase();
+              return {
+                id: payment.id || `group-${Date.now()}-${Math.random()}`,
+                type: 'group_payment',
+                subtype: isCreator ? 'created' : isRecipient ? 'received' : 'contributed',
+                timestamp: payment.timestamp,
+                amount: payment.totalAmount || payment.amountCollected || '0',
+                status: payment.status,
+                otherParty: isCreator ? payment.recipient : payment.creator,
+                description: payment.remarks
+              } as TransactionItem;
+            });
+            allTransactions = [...allTransactions, ...groupPaymentTransactions];
+            }
+          }
         }
       } catch (err) {
-        console.error('Error fetching group payments:', err)
+        console.error('Error fetching group payments:', err);
       }
-      
-      // Get savings pot data
+      // ...existing code...
       try {
-        const profile = await getUserProfile(signer, address)
-        if (profile && profile.savingsPotIds && profile.savingsPotIds.length > 0) {
-          const savingsPotPromises = profile.savingsPotIds.map((potId: string) => 
-            getSavingsPotDetails(signer, potId)
-          )
-          
-          const savingsPotsDetails = await Promise.all(savingsPotPromises)
-          const savingsPotTransactions = savingsPotsDetails.map((pot: any) => {
-            return {
-              id: pot.id || `pot-${Date.now()}-${Math.random()}`,
-              type: 'savings_pot',
-              subtype: pot.status === 0 ? 'active' : pot.status === 1 ? 'completed' : 'broken',
-              timestamp: pot.timestamp,
-              amount: pot.currentAmount || '0',
-              status: pot.status,
-              description: pot.name
-            } as TransactionItem
-          })
-          
-          allTransactions = [...allTransactions, ...savingsPotTransactions]
+        if (isValidAddress(address)) {
+          let profile = null;
+          try {
+            profile = await getUserProfile(signer, address);
+          } catch (err) {
+            console.error('Error fetching user profile:', err);
+            // Optionally set a user-friendly error message
+          }
+          if (profile && profile.savingsPotIds && profile.savingsPotIds.length > 0) {
+            // Filter out empty or invalid pot IDs to prevent ENS resolution errors
+            const validPotIds = profile.savingsPotIds.filter((potId: string) => potId && potId.trim() !== '');
+            if (validPotIds.length > 0) {
+              const savingsPotPromises = validPotIds.map((potId: string) => getSavingsPotDetails(signer, potId));
+              const savingsPotsDetails = await Promise.all(savingsPotPromises);
+            const savingsPotTransactions = savingsPotsDetails.map((pot: any) => {
+              return {
+                id: pot.id || `pot-${Date.now()}-${Math.random()}`,
+                type: 'savings_pot',
+                subtype: pot.status === 0 ? 'active' : pot.status === 1 ? 'completed' : 'broken',
+                timestamp: pot.timestamp,
+                amount: pot.currentAmount || '0',
+                status: pot.status,
+                description: pot.name
+              } as TransactionItem;
+            });
+            allTransactions = [...allTransactions, ...savingsPotTransactions];
+            }
+          }
         }
       } catch (err) {
-        console.error('Error fetching savings pots:', err)
+        console.error('Error fetching savings pots:', err);
       }
-      
-      // Sort by timestamp (newest first)
-      allTransactions.sort((a, b) => b.timestamp - a.timestamp)
-      setTransactions(allTransactions)
-      
+      // ...existing code...
+      allTransactions.sort((a, b) => b.timestamp - a.timestamp);
+      setTransactions(allTransactions);
     } catch (err) {
-      console.error('Error fetching transaction data:', err)
-      setError(handleContractError(err))
+      console.error('Error fetching transaction data:', err);
+      setError(handleContractError(err));
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [signer, address])
+  }, [signer, address]);
   
   // Fetch data when signer/address changes
   useEffect(() => {
@@ -349,23 +377,46 @@ export default function HistoryPage() {
   const getTransactionTitle = (transaction: TransactionItem) => {
     if (transaction.type === 'transfer') {
       if (transaction.subtype === 'sent') {
-        return `Sent to ${transaction.otherParty ? shortenAddress(transaction.otherParty) : 'Unknown'}`
+        if (transaction.otherParty && isValidAddress(transaction.otherParty)) {
+          return `Sent to ${shortenAddress(transaction.otherParty)}`;
+        } else if (transaction.otherParty) {
+          return `Sent to ${transaction.otherParty}`;
+        } else {
+          return 'Sent to Unknown';
+        }
       } else {
-        return `Received from ${transaction.otherParty ? shortenAddress(transaction.otherParty) : 'Unknown'}`
+        if (transaction.otherParty && isValidAddress(transaction.otherParty)) {
+          return `Received from ${shortenAddress(transaction.otherParty)}`;
+        } else if (transaction.otherParty) {
+          return `Received from ${transaction.otherParty}`;
+        } else {
+          return 'Received from Unknown';
+        }
       }
     } else if (transaction.type === 'group_payment') {
       if (transaction.subtype === 'created') {
-        return `Created Group Payment (${transaction.otherParty ? 'for ' + shortenAddress(transaction.otherParty) : ''})`
+        if (transaction.otherParty && isValidAddress(transaction.otherParty)) {
+          return `Created Group Payment (for ${shortenAddress(transaction.otherParty)})`;
+        } else if (transaction.otherParty) {
+          return `Created Group Payment (for ${transaction.otherParty})`;
+        } else {
+          return 'Created Group Payment';
+        }
       } else if (transaction.subtype === 'received') {
-        return `Received Group Payment (from ${transaction.otherParty ? shortenAddress(transaction.otherParty) : 'Group'})`
+        if (transaction.otherParty && isValidAddress(transaction.otherParty)) {
+          return `Received Group Payment (from ${shortenAddress(transaction.otherParty)})`;
+        } else if (transaction.otherParty) {
+          return `Received Group Payment (from ${transaction.otherParty})`;
+        } else {
+          return 'Received Group Payment';
+        }
       } else {
-        return `Contributed to Group Payment`
+        return `Contributed to Group Payment`;
       }
     } else if (transaction.type === 'savings_pot') {
-      return `Savings Pot: ${transaction.description || 'Unnamed Pot'}`
+      return `Savings Pot: ${transaction.description || 'Unnamed Pot'}`;
     }
-    
-    return 'Unknown Transaction'
+    return 'Unknown Transaction';
   }
   
   return (

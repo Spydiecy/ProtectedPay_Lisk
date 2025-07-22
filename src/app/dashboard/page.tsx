@@ -93,14 +93,28 @@ export default function DashboardPage() {
     const fetchBalanceAndActivity = async () => {
       if (!signer || !address) return
 
-      try {
-        // Get wallet balance
-        const balanceWei = await signer.getBalance()
-        setBalance(parseFloat(ethers.utils.formatEther(balanceWei)).toFixed(4))
+      // SAFE LOADING: Validate address to prevent ENS resolution errors
+      if (typeof address !== 'string' || address.trim() === '' || !address.startsWith('0x') || address.length !== 42) {
+        console.error('Invalid address in dashboard:', address);
+        setIsLoading(false);
+        return;
+      }
 
-        // Get username if available
+      const validatedAddress = address.trim();
+      console.log('Dashboard: Loading data for validated address:', validatedAddress);
+
+      try {
+        // Get wallet balance safely
+        const provider = signer.provider;
+        if (provider) {
+          const balanceInWei = await provider.getBalance(validatedAddress);
+          const balanceInEth = ethers.utils.formatEther(balanceInWei);
+          setBalance(parseFloat(balanceInEth).toFixed(4));
+        }
+
+        // Get username if available (with safe error handling)
         try {
-          const userInfo = await getUserByAddress(signer, address);
+          const userInfo = await getUserByAddress(signer, validatedAddress);
           if (userInfo && userInfo !== "0x0000000000000000000000000000000000000000") {
             setUsername(userInfo);
           }
@@ -108,43 +122,42 @@ export default function DashboardPage() {
           console.error('Error fetching username:', err);
         }
 
-        // Get user balance
-        const provider = await signer.provider;
-        if (provider) {
-          const balanceInWei = await provider.getBalance(address);
-          const balanceInEth = ethers.utils.formatEther(balanceInWei);
-          setBalance(parseFloat(balanceInEth).toFixed(4));
-        }
-
         // Get all transfers for this address (includes both pending and completed transfers)
+        // SAFE LOADING: Add error handling for each contract call
         const [allTransfers, allTokenTransfers] = await Promise.all([
-          getUserTransfers(signer, address),
-          getUserTokenTransfers(signer, address)
+          getUserTransfers(signer, validatedAddress).catch(err => {
+            console.error('Error fetching user transfers:', err);
+            return [];
+          }),
+          getUserTokenTransfers(signer, validatedAddress).catch(err => {
+            console.error('Error fetching token transfers:', err);
+            return [];
+          })
         ])
         
         let activities: Activity[] = []
         
-        // Process native transfers
+        // Process native transfers (including pending ones)
         if (allTransfers && allTransfers.length > 0) {
           const nativeActivities = allTransfers.map(transfer => {
-            const isSender = transfer.sender.toLowerCase() === address.toLowerCase()
+            const isSender = transfer.sender.toLowerCase() === validatedAddress.toLowerCase()
             return {
               id: `native-${transfer.sender}-${transfer.recipient}-${transfer.timestamp}`,
               type: isSender ? 'sent' : 'received',
               amount: `${parseFloat(transfer.amount).toFixed(4)} ${nativeToken}`,
               timestamp: transfer.timestamp,
               otherParty: isSender ? transfer.recipient : transfer.sender,
-              status: transfer.status
+              status: transfer.status // 0 = pending, 1 = completed, 2 = refunded
             } as Activity
           })
           activities = [...activities, ...nativeActivities]
         }
         
-        // Process token transfers
+        // Process token transfers (including pending ones)
         if (allTokenTransfers && allTokenTransfers.length > 0) {
           const supportedTokens = getSupportedTokensForChain(chainId || 747);
           const tokenActivities = allTokenTransfers.map((transfer: any) => {
-            const isSender = transfer.sender.toLowerCase() === address.toLowerCase()
+            const isSender = transfer.sender.toLowerCase() === validatedAddress.toLowerCase()
             
             // Find token info from supported tokens for current chain
             const token = supportedTokens.find(t => 
@@ -157,7 +170,7 @@ export default function DashboardPage() {
               amount: `${parseFloat(transfer.amount).toFixed(4)} ${token.symbol}`,
               timestamp: transfer.timestamp,
               otherParty: isSender ? transfer.recipient : transfer.sender,
-              status: transfer.status
+              status: transfer.status // 0 = pending, 1 = completed, 2 = refunded
             } as Activity
           })
           activities = [...activities, ...tokenActivities]
