@@ -23,7 +23,7 @@
 
 ### 🤖 AI-Powered Assistant
 
-<img align="right" src="https://github.com/user-attachments/assets/98acf121-8438-49b5-9b20-6a4e0c6d08aa" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/176690f6-2121-410d-901d-86083291e101" width="350px">
 
 - **Natural Language Commands**: Send transfers using plain English - "Send 10 BDAG to alice"
 - **Voice Input Support**: Use your microphone for hands-free interaction
@@ -37,7 +37,7 @@
 
 ### 🛡️ Protected Transfers on Multi-Chain Networks
 
-<img align="right" src="https://github.com/user-attachments/assets/7b5f8042-dc4c-4a09-a831-c9819804bb05" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/e821b4df-b4e4-46f0-883d-24cb395449c3" width="350px">
 
 - **Escrow-Like Protection**: Funds remain secure until claimed by recipient
 - **Refundable Transfers**: Easily recover funds if sent to the wrong address
@@ -48,13 +48,11 @@
 - **BlockDAG Speed**: Benefit from BlockDAG Testnet's fast transaction finality and low fees
 - **Native BDAG Support**: Full support for BlockDAG's native token
 
-<img align="right" src="https://github.com/user-attachments/assets/19e3d90b-8d4f-4abd-bfdf-4e163bd98320" width="350px">
-
 <br clear="right"/>
 
 ### 👥 Group Payments
 
-<img align="right" src="https://github.com/user-attachments/assets/e5939f0e-4b84-483a-b981-81a24459053b" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/ab062089-53a0-4cc2-82db-f41661497baf" width="350px">
 
 - **Split Expenses Easily**: Divide costs among friends or colleagues
 - **Simple Contributors**: Accept payments from any BlockDAG user
@@ -67,7 +65,7 @@
 
 ### 💰 Savings Pots
 
-<img align="right" src="https://github.com/user-attachments/assets/644e5621-61c2-4e9c-b999-4d2d81ccde1e" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/0bb82ec0-1b6d-4417-b8f1-4d9a2f8a353c" width="350px">
 
 - **Goal-Based Savings**: Set targets and track progress visually
 - **BlockDAG Optimized**: Create dedicated savings on BlockDAG Testnet
@@ -109,7 +107,7 @@ ProtectedPay is built for the BlockDAG Testnet, with AI-powered assistance for s
 </div>
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/bbe86ad9-c5df-4ecf-addf-5e9ddc56a9c5" width="700px">
+  <img src="https://github.com/user-attachments/assets/95778d7f-7dff-402b-9d14-c010dab81ce3" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
@@ -143,7 +141,7 @@ ProtectedPay is built for the BlockDAG Testnet, with AI-powered assistance for s
 ## 💻 User Interface
 
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/9bd2c5bb-56af-4baf-9be4-c1f6884cbc03" width="700px">
+  <img src="https://github.com/user-attachments/assets/3fc6b767-f131-4cac-804e-addf7c401c96" width="700px">
   <p><i>Modern, intuitive interface with glassmorphism design</i></p>
 </div>
 
@@ -158,7 +156,7 @@ ProtectedPay is built for the BlockDAG Testnet, with AI-powered assistance for s
 ### Dashboard Experience
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/cec1db8c-44ed-46e4-9e2f-b5877f280503" width="700px">
+  <img src="https://github.com/user-attachments/assets/61677ea8-4c6e-4d42-b7e9-b777e52b2c84" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
@@ -194,7 +192,7 @@ ProtectedPay prioritizes security at every level:
     <tr>
       <td>Native Transfers</td>
       <td><img src="/public/chains/blockdag.png" width="20"> BlockDAG Testnet</td>
-      <td><code>TBD - Coming Soon</code></td>
+      <td><code>0xCa36dD890F987EDcE1D6D7C74Fb9df627c216BF6</code></td>
       <td>🔄 Pending</td>
     </tr>
     <tr>
