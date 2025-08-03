@@ -9,12 +9,12 @@ export interface ChainInfo {
 
 // Map of chain IDs to their native tokens
 const TOKEN_MAP: Record<number, string> = {
-  1043: "BDAG", // BlockDAG Testnet
+  4202: "ETH", // Lisk Sepolia
 };
 
 // Map of chain IDs to their names
 const CHAIN_NAME_MAP: Record<number, string> = {
-  1043: "BlockDAG Testnet",
+  4202: "Lisk Sepolia",
 };
 
 /**
@@ -24,8 +24,8 @@ export function useChain(): ChainInfo {
   // Use the wallet context directly
   const wallet = useWallet();  const [chainInfo, setChainInfo] = useState<ChainInfo>({
     chainId: undefined,
-    nativeToken: "BDAG",
-    chainName: "BlockDAG Testnet"
+    nativeToken: "ETH",
+    chainName: "Lisk Sepolia"
   });
 
   useEffect(() => {
@@ -38,8 +38,8 @@ export function useChain(): ChainInfo {
           if (ethereum && ethereum.chainId) {
             const chainId = parseInt(ethereum.chainId, 16);            setChainInfo({
               chainId,
-              nativeToken: TOKEN_MAP[chainId] || "BDAG",
-              chainName: CHAIN_NAME_MAP[chainId] || "BlockDAG Testnet"
+              nativeToken: TOKEN_MAP[chainId] || "ETH",
+              chainName: CHAIN_NAME_MAP[chainId] || "Lisk Sepolia"
             });
           }
         } catch (error) {
@@ -57,8 +57,8 @@ export function useChain(): ChainInfo {
       const handleChainChanged = (chainId: string) => {
         const id = parseInt(chainId, 16);        setChainInfo({
           chainId: id,
-          nativeToken: TOKEN_MAP[id] || "BDAG",
-          chainName: CHAIN_NAME_MAP[id] || "BlockDAG Testnet"
+          nativeToken: TOKEN_MAP[id] || "ETH",
+          chainName: CHAIN_NAME_MAP[id] || "Lisk Sepolia"
         });
       };
 

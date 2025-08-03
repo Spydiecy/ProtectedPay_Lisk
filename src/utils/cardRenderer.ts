@@ -25,7 +25,7 @@ const formatAmount = (amount: string | number): string => {
 }
 
 const getTokenSymbol = (token: { symbol: string } | string | undefined): string => {
-  if (!token) return 'BDAG'
+  if (!token) return 'ETH'
   return typeof token === 'string' ? token : token.symbol
 }
 
@@ -436,19 +436,19 @@ const getStarterTips = (type: string): string => {
   switch (type) {
     case 'group_payments':
       return `
-        • Say "Create group payment for Alice with 5 people for 100 BDAG"<br>
-        • Or try "Make a group payment for dinner - 50 BDAG for 4 friends"<br>
-        • Split costs easily and track contributions in real-time on BlockDAG Testnet
+        • Say "Create group payment for Alice with 5 people for 100 ETH"<br>
+        • Or try "Make a group payment for dinner - 50 ETH for 4 friends"<br>
+        • Split costs easily and track contributions in real-time on Lisk Sepolia
       `
     case 'savings_pots':
       return `
-        • Say "Create savings pot 'Vacation' with target 1000 BDAG"<br>
-        • Or try "Make a savings goal for new laptop - 500 BDAG"<br>
-        • Set goals and track your progress automatically on BlockDAG Testnet
+        • Say "Create savings pot 'Vacation' with target 1000 ETH"<br>
+        • Or try "Make a savings goal for new laptop - 500 ETH"<br>
+        • Set goals and track your progress automatically on Lisk Sepolia
       `
     default:
       return `
-        • Say "Send 10 BDAG to Alice" to start transferring<br>
+        • Say "Send 10 ETH to Alice" to start transferring<br>
         • Try "Show my balance" to check your funds<br>
         • Use "Show my pending transfers" to see what's incoming
       `

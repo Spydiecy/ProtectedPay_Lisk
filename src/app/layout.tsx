@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'ProtectedPay | Secure Crypto Transfers on BlockDAG Testnet',
-  description: 'Secure crypto transfers, group payments, and smart savings on BlockDAG Testnet with native BDAG support',
-  keywords: 'crypto, payments, blockchain, BlockDAG, BDAG, testnet, EVM, DeFi, secure transfers, group payments, decentralized',
+  title: 'ProtectedPay | Secure Crypto Transfers on Lisk Network',
+  description: 'Secure crypto transfers, group payments, and smart savings on Lisk Sepolia with native ETH and LSK support',
+  keywords: 'crypto, payments, blockchain, Lisk, ETH, LSK, testnet, EVM, DeFi, secure transfers, group payments, decentralized',
   authors: [{ name: 'ProtectedPay' }],
 };
 

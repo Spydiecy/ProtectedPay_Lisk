@@ -16,25 +16,25 @@ export interface ChainInfo {
 
 const SUPPORTED_CHAINS = [
   {
-    id: 1043,
-    hexId: '0x413',
-    name: 'BlockDAG Testnet',
-    icon: '/chains/blockdag.png',
-    symbol: 'BDAG',
-    rpcUrl: 'https://rpc.primordial.bdagscan.com',
-    blockExplorerUrl: 'https://primordial.bdagscan.com'
+    id: 4202,
+    hexId: '0x106a',
+    name: 'Lisk Sepolia',
+    icon: '/chains/lisk.svg',
+    symbol: 'ETH',
+    rpcUrl: 'https://rpc.sepolia-api.lisk.com',
+    blockExplorerUrl: 'https://sepolia-blockscout.lisk.com'
   }
 ] as const;
 
 export const supportedChains: ChainInfo[] = [
   {
-    id: 1043,
-    hexId: '0x413',
-    name: 'BlockDAG Testnet',
-    icon: '/chains/blockdag.png',
-    symbol: 'BDAG',
-    rpcUrl: 'https://rpc.primordial.bdagscan.com',
-    blockExplorerUrl: 'https://primordial.bdagscan.com'
+    id: 4202,
+    hexId: '0x106a',
+    name: 'Lisk Sepolia',
+    icon: '/chains/lisk.svg',
+    symbol: 'ETH',
+    rpcUrl: 'https://rpc.sepolia-api.lisk.com',
+    blockExplorerUrl: 'https://sepolia-blockscout.lisk.com'
   }
 ]
 

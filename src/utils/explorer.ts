@@ -2,10 +2,10 @@
 
 export const getExplorerUrl = (chainId: number): string => {
   switch (chainId) {
-    case 1043: // BlockDAG Testnet
-      return 'https://primordial.bdagscan.com'
+    case 4202: // Lisk Sepolia Testnet
+      return 'https://sepolia-blockscout.lisk.com'
     default:
-      return 'https://primordial.bdagscan.com' // BlockDAG Testnet
+      return 'https://sepolia-blockscout.lisk.com' // Lisk Sepolia Testnet
   }
 }
 
@@ -21,7 +21,7 @@ export const getAddressUrl = (address: string, chainId: number): string => {
 
 export const getChainName = (chainId: number): string => {
   switch (chainId) {
-    case 1043: return 'BlockDAG Testnet'
+    case 4202: return 'Lisk Sepolia'
     default: return `Chain ${chainId}`
   }
 }

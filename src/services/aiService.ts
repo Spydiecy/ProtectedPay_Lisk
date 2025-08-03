@@ -623,9 +623,8 @@ export class ProtectedPayAIService {
 
     // Parse token filters
     const tokenPatterns = [
-      { pattern: /\b(bdag|block-dag)\b/i, token: 'BDAG' },
-      { pattern: /\b(usdc|usd-c)\b/i, token: 'USDC' },
-      { pattern: /\b(usdt|tether)\b/i, token: 'USDT' }
+      { pattern: /\b(eth|ethereum)\b/i, token: 'ETH' },
+      { pattern: /\b(lsk|lisk)\b/i, token: 'LSK' }
     ]
 
     for (const { pattern, token } of tokenPatterns) {

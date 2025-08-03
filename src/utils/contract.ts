@@ -1,15 +1,15 @@
 import { ethers } from 'ethers';
 import { isValidAddress } from './address';
 
-const MAIN_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BDAG_MAIN_CONTRACT || '';
-const TOKEN_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BDAG_TOKEN_CONTRACT || '';
+const MAIN_CONTRACT_ADDRESS = '0xF93132d75c20EfeD556EC2Bc5aC777750665D3a9';
+const TOKEN_CONTRACT_ADDRESS = '0x201Ff12E93216f4E55c5C57C588bA773B6273d9F';
 
 const CONTRACT_ADDRESSES = {
-  1043: MAIN_CONTRACT_ADDRESS, // BlockDAG Testnet
+  4202: MAIN_CONTRACT_ADDRESS, // Lisk Sepolia Testnet
 } as const;
 
 const TOKEN_CONTRACT_ADDRESSES = {
-  1043: TOKEN_CONTRACT_ADDRESS, // BlockDAG Testnet
+  4202: TOKEN_CONTRACT_ADDRESS, // Lisk Sepolia Testnet
 } as const;
 
 const TOKEN_CONTRACT_ABI =  [
@@ -1853,7 +1853,7 @@ interface TransferEvent {
   // Gets the appropriate contract address based on chainId
   const getContractAddress = async (signer: ethers.Signer) => {
 	const chainId = await signer.getChainId();
-	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] || CONTRACT_ADDRESSES[1043]; // Default to BlockDAG Testnet
+	return CONTRACT_ADDRESSES[chainId as keyof typeof CONTRACT_ADDRESSES] || CONTRACT_ADDRESSES[4202]; // Default to Lisk Sepolia
   };
   
   // Contract instance getter with chain awareness
@@ -2301,7 +2301,7 @@ userAddress: string
   
   export const getChainNativeCurrency = (chainId: number) => {
 	switch (chainId) {
-	  case 42069:
+	  case 4202:
 		return {
 		  name: 'ETH',
 		  symbol: 'ETH',
@@ -2318,10 +2318,10 @@ userAddress: string
   
   export const getExplorerUrl = (chainId: number) => {
 	switch (chainId) {
-	  case 42069:
-		return 'https://devnet.explorer.moved.network';
+	  case 4202:
+		return 'https://sepolia-blockscout.lisk.com';
 	  default:
-		return 'https://devnet.explorer.moved.network';
+		return 'https://sepolia-blockscout.lisk.com';
 	}
   };
   
@@ -2361,7 +2361,7 @@ userAddress: string
 		return 'Transaction was rejected by user';
 	  }
 	  if (error.message.includes('insufficient funds')) {
-		return `Insufficient ${getChainNativeCurrency(chainId || 12227332).symbol} for transaction`;
+		return `Insufficient ${getChainNativeCurrency(chainId || 4202).symbol} for transaction`;
 	  }
 	  return error.message;
 	}
@@ -2372,7 +2372,7 @@ userAddress: string
 // Token Contract Functions
 const getTokenContractAddress = async (signer: ethers.Signer) => {
   const chainId = await signer.getChainId();
-  return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] || TOKEN_CONTRACT_ADDRESSES[1043]; // Default to BlockDAG Testnet
+  return TOKEN_CONTRACT_ADDRESSES[chainId as keyof typeof TOKEN_CONTRACT_ADDRESSES] || TOKEN_CONTRACT_ADDRESSES[4202]; // Default to Lisk Sepolia
 };
 
 // Token contract instance getter with chain awareness
@@ -2383,7 +2383,7 @@ export const getTokenContract = async (signer: ethers.Signer) => {
 
 // Helper function to parse token amount with correct decimals
 const parseTokenAmount = (amount: string, tokenAddress: string): ethers.BigNumber => {
-  // Check if it's a specific token (custom logic for BlockDAG only)
+  // Check if it's a specific token (custom logic for specific tokens)
   // if (tokenAddress.toLowerCase() === 'SPECIFIC_TOKEN_ADDRESS'.toLowerCase()) {
   //   return ethers.utils.parseUnits(amount, 6);
   // }
@@ -2606,7 +2606,7 @@ export const getTokenAllowance = async (
 	return ethers.constants.MaxUint256.toString();
   }
   
-  // BlockDAG: All tokens use standard ERC20 allowance logic
+  // Lisk Sepolia: All tokens use standard ERC20 allowance logic
   
   // For other ERC20 tokens, use standard ERC20 interface
   const erc20Contract = new ethers.Contract(tokenAddress, [
