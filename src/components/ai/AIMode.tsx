@@ -112,24 +112,6 @@ const AIMode: React.FC<AIModeProps> = ({ isOpen, onToggle }) => {
               <div className="flex-1 min-h-0">
                 <AIChatInterface />
               </div>
-
-              {/* Footer with tips */}
-              <div className="mt-4 bg-black/30 backdrop-blur-xl rounded-xl border border-green-500/20 p-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                  <div className="flex items-center space-x-2 text-green-400">
-                    <div className="w-2 h-2 bg-green-400 rounded-full" />
-                    <span>**Send**: "Send 10 FLOW to 0x1234..."</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-blue-400">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full" />
-                    <span>**Claim**: "Claim from alice"</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-yellow-400">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full" />
-                    <span>**Balance**: "What's my balance?"</span>
-                  </div>
-                </div>
-              </div>
             </motion.div>
           </motion.div>
         )}
