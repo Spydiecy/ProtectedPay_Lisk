@@ -16,14 +16,13 @@
 - [User Interface](#-user-interface)
 - [Security](#-security)
 - [Deployed Contracts](#-deployed-contracts)
-- [Demo](#-demo)
 - [Support](#-support)
 
 ## ✨ Features
 
 ### 🤖 AI-Powered Assistant
 
-<img align="right" src="https://github.com/user-attachments/assets/176690f6-2121-410d-901d-86083291e101" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/f8adce7e-5826-47a4-b36d-78ed4e359895" width="350px">
 
 - **Natural Language Commands**: Send transfers using plain English - "Send 10 ETH to alice"
 - **Voice Input Support**: Use your microphone for hands-free interaction
@@ -37,7 +36,7 @@
 
 ### 🛡️ Protected Transfers on Multi-Chain Networks
 
-<img align="right" src="https://github.com/user-attachments/assets/e821b4df-b4e4-46f0-883d-24cb395449c3" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/b439b2e8-4635-4e94-b669-7fb377eaa4df" width="350px">
 
 - **Escrow-Like Protection**: Funds remain secure until claimed by recipient
 - **Refundable Transfers**: Easily recover funds if sent to the wrong address
@@ -52,7 +51,7 @@
 
 ### 👥 Group Payments
 
-<img align="right" src="https://github.com/user-attachments/assets/ab062089-53a0-4cc2-82db-f41661497baf" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/d1c36a64-6d05-4598-a754-f45dc2c482b3" width="350px">
 
 - **Split Expenses Easily**: Divide costs among friends or colleagues
 - **Simple Contributors**: Accept payments from any Lisk user
@@ -65,7 +64,7 @@
 
 ### 💰 Savings Pots
 
-<img align="right" src="https://github.com/user-attachments/assets/0bb82ec0-1b6d-4417-b8f1-4d9a2f8a353c" width="350px">
+<img align="right" src="https://github.com/user-attachments/assets/49c1972c-f9e8-4dac-8cd6-d2f65c1a6bae" width="350px">
 
 - **Goal-Based Savings**: Set targets and track progress visually
 - **Lisk Optimized**: Create dedicated savings on Lisk Sepolia
@@ -107,7 +106,7 @@ ProtectedPay is built for the Lisk Sepolia testnet, with AI-powered assistance f
 </div>
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/95778d7f-7dff-402b-9d14-c010dab81ce3" width="700px">
+  <img src="https://github.com/user-attachments/assets/0ed2ca34-7a8e-4266-88ce-e1efbff9c328" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
@@ -156,7 +155,7 @@ ProtectedPay is built for the Lisk Sepolia testnet, with AI-powered assistance f
 ### Dashboard Experience
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/61677ea8-4c6e-4d42-b7e9-b777e52b2c84" width="700px">
+  <img src="https://github.com/user-attachments/assets/b668faf1-c7ae-4697-9ebf-837ae4650bfe" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
@@ -202,17 +201,6 @@ ProtectedPay prioritizes security at every level:
       <td>✅ Active</td>
     </tr>
   </table>
-</div>
-
-## 🎬 Demo
-
-See ProtectedPay in action:
-
-<div align="left">
-  <a href="https://youtu.be/TJgnpVpa51c?si=ojjzXsVgQBj_BSGN">
-    <img src="https://img.youtube.com/vi/TJgnpVpa51c/0.jpg" alt="ProtectedPay Demo Video" width="500px">
-  </a>
-  <p><b>Click to watch the demo video</b></p>
 </div>
 
 ## 📞 Support
