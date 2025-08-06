@@ -140,7 +140,7 @@ ProtectedPay is built for the Lisk Sepolia testnet, with AI-powered assistance f
 ## 💻 User Interface
 
 <div align="left">
-  <img src="https://github.com/user-attachments/assets/3fc6b767-f131-4cac-804e-addf7c401c96" width="700px">
+  <img src="https://github.com/user-attachments/assets/b668faf1-c7ae-4697-9ebf-837ae4650bfe" width="700px">
   <p><i>Modern, intuitive interface with glassmorphism design</i></p>
 </div>
 
@@ -155,7 +155,7 @@ ProtectedPay is built for the Lisk Sepolia testnet, with AI-powered assistance f
 ### Dashboard Experience
 
 <div align="ledt">
-  <img src="https://github.com/user-attachments/assets/b668faf1-c7ae-4697-9ebf-837ae4650bfe" width="700px">
+  <img src="https://github.com/user-attachments/assets/30159675-a412-44e9-b19c-4f0f71daaf74" width="700px">
   <p><i>Comprehensive dashboard with activity tracking</i></p>
 </div>
 
@@ -208,7 +208,6 @@ ProtectedPay prioritizes security at every level:
 Need assistance or have questions? We're here to help:
 
 - **Email**: [protectedpay.business@gmail.com](mailto:protectedpay.business@gmail.com)
-- **Report Issues**: [GitHub Issues](https://github.com/username/protectedpay/issues)
 
 ---
 
